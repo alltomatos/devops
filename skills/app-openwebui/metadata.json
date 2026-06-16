@@ -1,0 +1,13 @@
+{
+  "name": "app-openwebui",
+  "description": "Instala o Open WebUI (frontend para Ollama) como uma stack Docker Swarm.",
+  "depends_on": ["infra-bootstrap", "app-traefik", "app-ollama"],
+  "required_inputs": [
+    {
+      "name": "DOMAIN_OPENWEBUI",
+      "description": "Domínio para o Open WebUI (ex: chat.exemplo.com)",
+      "type": "text"
+    }
+  ],
+  "persistence_path": "/root/dados_vps/app-openwebui.md"
+}
