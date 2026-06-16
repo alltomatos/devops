@@ -1,0 +1,23 @@
+{
+  "name": "app-woofed",
+  "description": "Instala o WoofedCRM (CRM focado em WhatsApp) como uma stack Docker Swarm.",
+  "depends_on": ["infra-bootstrap", "app-traefik", "infra-pgvector", "infra-redis"],
+  "required_inputs": [
+    {
+      "name": "DOMAIN_WOOFED",
+      "description": "Domínio para o WoofedCRM",
+      "type": "text"
+    },
+    {
+      "name": "MOTOR_USER",
+      "description": "Usuário para o motor interno",
+      "type": "text"
+    },
+    {
+      "name": "MOTOR_PASS",
+      "description": "Senha para o motor interno",
+      "type": "password"
+    }
+  ],
+  "persistence_path": "/root/dados_vps/app-woofed.md"
+}
