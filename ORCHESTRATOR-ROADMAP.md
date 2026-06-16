@@ -14,7 +14,7 @@ Fonte de verdade: `docs/SetupOrion.md` (v2.8.0 — 45.909 linhas, ~110 ferrament
 - [x] **E5: Skills de Infraestrutura de Dados** — Bancos, filas, busca vetorial
 - [x] **E6: Skills de Aplicação — AI/LLM** — Agentes, modelos, plataformas de IA
 - [x] **E7: Skills de Aplicação — WhatsApp/Messaging** — Gateways e bots
-- [ ] **E8: Skills de Aplicação — CRM/Atendimento** — CRMs e plataformas de marketing
+- [x] **E8: Skills de Aplicação — CRM/Atendimento** — CRMs e plataformas de marketing
 - [ ] **E9: Skills de Aplicação — Low-code/CMS** — Construtores e gerenciadores de conteúdo
 - [ ] **E10: Skills de Aplicação — Produtividade/Collab** — Docs, chat, videoconf
 - [ ] **E11: Skills de Aplicação — Docs/PDF/Assinatura** — Geração e assinatura digital
@@ -35,7 +35,7 @@ Fonte de verdade: `docs/SetupOrion.md` (v2.8.0 — 45.909 linhas, ~110 ferrament
 
 ## Status
 
-- **Fase Atual**: E8 (Skills de Aplicação — CRM/Atendimento)
+- **Fase Atual**: E9 (Skills de Aplicação — Low-code/CMS)
 - **Estado**: Em Execução
 
 ---
@@ -121,11 +121,11 @@ Fonte de verdade: `docs/SetupOrion.md` (v2.8.0 — 45.909 linhas, ~110 ferrament
 
 > Deps: E5 (postgres/redis).
 
-- [ ] T40: Skill `app-woofed`          — WoofedCRM (CRM para WhatsApp)
-- [ ] T41: Skill `app-krayincrm`       — Krayin CRM (CRM open-source)
-- [ ] T42: Skill `app-twentycrm`       — Twenty CRM (CRM moderno)
-- [ ] T43: Skill `app-evocrm`          — EvoCRM (CRM integrado Evolution)
-- [ ] T44: Skill `app-mautic`          — Mautic (automação de marketing)
+- [x] T40: Skill `app-woofed`          — WoofedCRM (CRM para WhatsApp)
+- [x] T41: Skill `app-krayincrm`       — Krayin CRM (CRM open-source)
+- [x] T42: Skill `app-twentycrm`       — Twenty CRM (CRM moderno)
+- [x] T43: Skill `app-evocrm`          — EvoCRM (CRM integrado Evolution)
+- [x] T44: Skill `app-mautic`          — Mautic (automação de marketing)
 
 ---
 
@@ -133,7 +133,7 @@ Fonte de verdade: `docs/SetupOrion.md` (v2.8.0 — 45.909 linhas, ~110 ferrament
 
 > Deps: E5 (postgres ou mysql).
 
-- [ ] T45: Skill `app-strapi`          — Strapi (headless CMS)
+- [x] T45: Skill `app-strapi`          — Strapi (headless CMS)
 - [ ] T46: Skill `app-directus`        — Directus (headless CMS + BaaS)
 - [ ] T47: Skill `app-nocobase`        — NocoBase (no-code BaaS)
 - [ ] T48: Skill `app-nocodb`          — NocoDB (Airtable open-source)
