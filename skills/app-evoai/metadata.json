@@ -1,0 +1,53 @@
+{
+  "name": "app-evoai",
+  "description": "Instala a EvoAI (Plataforma de Agentes AI) como uma stack Docker Swarm.",
+  "depends_on": ["infra-bootstrap", "app-traefik", "infra-postgres"],
+  "required_inputs": [
+    {
+      "name": "DOMAIN_EVOAI_FRONT",
+      "description": "Domínio para o painel (Frontend) da EvoAI",
+      "type": "text"
+    },
+    {
+      "name": "DOMAIN_EVOAI_API",
+      "description": "Domínio para a API da EvoAI",
+      "type": "text"
+    },
+    {
+      "name": "ADMIN_EMAIL",
+      "description": "Email do administrador inicial",
+      "type": "text"
+    },
+    {
+      "name": "ADMIN_PASSWORD",
+      "description": "Senha do administrador inicial",
+      "type": "password"
+    },
+    {
+      "name": "SMTP_HOST",
+      "description": "Host SMTP para envio de e-mails",
+      "type": "text"
+    },
+    {
+      "name": "SMTP_PORT",
+      "description": "Porta SMTP (ex: 465 ou 587)",
+      "type": "text"
+    },
+    {
+      "name": "SMTP_USER",
+      "description": "Usuário SMTP",
+      "type": "text"
+    },
+    {
+      "name": "SMTP_PASS",
+      "description": "Senha SMTP",
+      "type": "password"
+    },
+    {
+      "name": "SMTP_FROM",
+      "description": "Email de remetente SMTP",
+      "type": "text"
+    }
+  ],
+  "persistence_path": "/root/dados_vps/app-evoai.md"
+}
