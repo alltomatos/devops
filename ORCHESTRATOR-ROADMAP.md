@@ -76,8 +76,8 @@ Fonte de verdade: `docs/SetupOrion.md` (v2.8.0 — 45.909 linhas, ~110 ferrament
 > Pré-requisito de quase todas as apps. Deps: infra-bootstrap + app-traefik.
 
 - [x] T15: Skill `infra-postgres`      — PostgreSQL standalone via Docker Swarm
-- [ ] T16: Skill `infra-pgvector`      — PostgreSQL + pgvector (extensão vetorial)
-- [ ] T17: Skill `infra-redis`         — Redis cache/pub-sub
+- [x] T16: Skill `infra-pgvector`      — PostgreSQL + pgvector (extensão vetorial)
+- [x] T17: Skill `infra-redis`         — Redis cache/pub-sub
 - [ ] T18: Skill `infra-mysql`         — MySQL 8
 - [ ] T19: Skill `infra-mongodb`       — MongoDB
 - [ ] T20: Skill `infra-rabbitmq`      — RabbitMQ (fila de mensagens)
