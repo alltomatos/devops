@@ -1,0 +1,7 @@
+{
+  "name": "infra-bootstrap",
+  "description": "Verifica e prepara o ambiente Debian 11 para rodar as skills Orion.",
+  "required_inputs": [],
+  "security_warning": "Esta skill exige acesso root para instalar pacotes. Todo comando será logado.",
+  "persistence_path": "/root/dados_vps/bootstrap.md"
+}
