@@ -1,0 +1,14 @@
+{
+  "name": "infra-postgres",
+  "description": "Instala o PostgreSQL 14 como uma stack Docker Swarm otimizada para o ecossistema Orion.",
+  "depends_on": ["infra-bootstrap", "app-traefik"],
+  "required_inputs": [
+    {
+      "name": "POSTGRES_PASSWORD",
+      "description": "Senha mestre para o usuário postgres (deixe vazio para gerar uma aleatória)",
+      "type": "password"
+    }
+  ],
+  "security_warning": "A senha do banco de dados será usada apenas em tempo de execução e não será persistida em logs ou no git.",
+  "persistence_path": "/root/dados_vps/infra-postgres.md"
+}
