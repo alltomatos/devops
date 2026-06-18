@@ -38,8 +38,8 @@ services:
         - "traefik.http.services.openwebui.loadbalancer.server.port=8080"
       resources:
         limits:
-          cpus: "1"
-          memory: 1024M
+          cpus: "2"
+          memory: 4096M
 
 volumes:
   openwebui_data:
