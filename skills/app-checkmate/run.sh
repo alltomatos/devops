@@ -12,7 +12,7 @@ verde="\e[32m"
 reset="\e[0m"
 
 STACK_NAME="checkmate"
-NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")
+NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")}"
 
 # Persistência de Segredos (ADR-001)
 if service_exists "app-checkmate"; then
@@ -22,12 +22,15 @@ fi
 # Geração de chaves se não existirem (ADR-002: runtime fallback)
 JWT_SECRET=${JWT_SECRET:-$(openssl rand -hex 16)}
 
-# Carregar credenciais do MongoDB (ADR-001)
-if [ -f "/root/dados_vps/infra-mongodb.md" ]; then
-    MONGO_USER=$(grep "Usuário:" /root/dados_vps/infra-mongodb.md | awk '{print $2}')
-    MONGO_PASS=$(grep "Senha:" /root/dados_vps/infra-mongodb.md | awk '{print $2}')
-else
+# Carregar credenciais do MongoDB (ADR-002: senha vem por env efêmera; ADR-001: usuário do .md)
+if [ ! -f "/root/dados_vps/infra-mongodb.md" ]; then
     echo -e "\e[31mErro: infra-mongodb não encontrado em /root/dados_vps/\e[0m"
+    exit 1
+fi
+MONGO_USER="${MONGO_USER:-$(grep -i 'Usuário' /root/dados_vps/infra-mongodb.md | awk -F': ' '{print $2}' | tr -d ' ')}"
+MONGO_USER="${MONGO_USER:-root}"
+if [ -z "$MONGO_PASS" ]; then
+    echo -e "\e[31mErro: MONGO_PASS não informado (a senha do Mongo não é persistida — passe via env).\e[0m"
     exit 1
 fi
 
@@ -65,7 +68,7 @@ services:
         - traefik.http.routers.checkmate_client.rule=Host(\`$DOMAIN_CHECKMATE\`)
         - traefik.http.services.checkmate_client.loadbalancer.server.port=80
         - traefik.http.routers.checkmate_client.service=checkmate_client
-        - traefik.http.routers.checkmate_client.tls.certresolver=letsencrypt
+        - traefik.http.routers.checkmate_client.tls.certresolver=letsencryptresolver
         - traefik.http.routers.checkmate_client.entrypoints=websecure
         - traefik.http.routers.checkmate_client.tls=true
 
@@ -101,7 +104,7 @@ services:
         - traefik.http.routers.checkmate_server.rule=Host(\`$DOMAIN_CHECKMATE_API\`)
         - traefik.http.services.checkmate_server.loadbalancer.server.port=52345
         - traefik.http.routers.checkmate_server.service=checkmate_server
-        - traefik.http.routers.checkmate_server.tls.certresolver=letsencrypt
+        - traefik.http.routers.checkmate_server.tls.certresolver=letsencryptresolver
         - traefik.http.routers.checkmate_server.entrypoints=websecure
         - traefik.http.routers.checkmate_server.tls=true
 
