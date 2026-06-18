@@ -7,9 +7,9 @@
 SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 
-amarelo="$PGVECTOR_PASSWORDe[33m"
-verde="$PGVECTOR_PASSWORDe[32m"
-reset="$PGVECTOR_PASSWORDe[0m"
+amarelo="\e[33m"
+verde="\e[32m"
+reset="\e[0m"
 
 STACK_NAME="zep"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
@@ -20,7 +20,7 @@ if [ -z "$ZEP_AUTH_SECRET" ]; then
 fi
 
 # Basic Auth para Traefik (painel admin)
-HASHED_PASS=$(htpasswd -nb "$ZEP_USER" "$ZEP_PASS" | sed -e 's/$PGVECTOR_PASSWORD$/$PGVECTOR_PASSWORD$$PGVECTOR_PASSWORD$/g')
+HASHED_PASS=$(htpasswd -nb "$ZEP_USER" "$ZEP_PASS" | sed -e 's/\$/\$\$/g')
 
 echo -e "${amarelo}Instalando Zep no domínio $DOMAIN_ZEP...${reset}"
 
@@ -53,13 +53,13 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.zep.rule=Host($PGVECTOR_PASSWORD`$DOMAIN_ZEP$PGVECTOR_PASSWORD`)"
+        - "traefik.http.routers.zep.rule=Host(\`$DOMAIN_ZEP\`)"
         - "traefik.http.routers.zep.entrypoints=websecure"
         - "traefik.http.routers.zep.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.zep.loadbalancer.server.port=8000"
         
         # Admin Panel Auth
-        - "traefik.http.routers.zep-admin.rule=Host($PGVECTOR_PASSWORD`$DOMAIN_ZEP$PGVECTOR_PASSWORD`) && PathPrefix($PGVECTOR_PASSWORD`/admin$PGVECTOR_PASSWORD`)"
+        - "traefik.http.routers.zep-admin.rule=Host(\`$DOMAIN_ZEP\`) && PathPrefix(\`/admin\`)"
         - "traefik.http.routers.zep-admin.entrypoints=websecure"
         - "traefik.http.routers.zep-admin.tls.certresolver=letsencryptresolver"
         - "traefik.http.routers.zep-admin.middlewares=zep-auth"

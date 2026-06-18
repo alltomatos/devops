@@ -7,9 +7,9 @@
 SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 
-amarelo="$POSTGRES_PASSWORDe[33m"
-verde="$POSTGRES_PASSWORDe[32m"
-reset="$POSTGRES_PASSWORDe[0m"
+amarelo="\e[33m"
+verde="\e[32m"
+reset="\e[0m"
 
 STACK_NAME="wuzapi"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
@@ -54,7 +54,7 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.wuzapi.rule=Host($POSTGRES_PASSWORD`$DOMAIN_WUZAPI$POSTGRES_PASSWORD`)"
+        - "traefik.http.routers.wuzapi.rule=Host(\`$DOMAIN_WUZAPI\`)"
         - "traefik.http.routers.wuzapi.entrypoints=websecure"
         - "traefik.http.routers.wuzapi.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.wuzapi.loadbalancer.server.port=8080"

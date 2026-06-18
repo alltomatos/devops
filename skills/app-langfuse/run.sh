@@ -24,15 +24,17 @@ fi
 
 echo -e "${amarelo}Instalando Langfuse no domínio $DOMAIN_LANGFUSE...${reset}"
 
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+
 cat > langfuse.yaml <<EOL
 version: "3.7"
 services:
   langfuse:
-    image: langfuse/langfuse:latest
+    image: langfuse/langfuse:2
     networks:
       - $NOME_REDE_INTERNA
     environment:
-      - DATABASE_URL=postgresql://postgres:\$POSTGRES_PASSWORD@postgres:5432/langfuse
+      - DATABASE_URL=postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/langfuse?sslmode=disable
       - NEXTAUTH_URL=https://$DOMAIN_LANGFUSE
       - NEXTAUTH_SECRET=$NEXTAUTH_SECRET
       - SALT=$SALT
