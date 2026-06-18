@@ -65,11 +65,15 @@ setup-skills/
 ├── .claude/
 │   ├── config.json          # Configuração do orquestrador
 │   └── context7.json        # Context7 MCP para docs live
+├── catalog/
+│   ├── readme.md            # Catálogo de Soluções Setup Orion
+│   └── docs/                # Documentação de negócio das aplicações
 ├── docs/
 │   ├── SetupOrion.md        # Script-fonte Orion v2.8.0 (45k linhas)
 │   ├── adr/
 │   │   ├── ADR-001.md       # Padrão de persistência em Markdown
-│   │   └── ADR-002.md       # Segurança de segredos e contexto
+│   │   ├── ADR-002.md       # Segurança de segredos e contexto
+│   │   └── ADR-003.md       # Convenções para Claude Code Skills
 │   └── Setup.md             # Guia de setup da VPS
 ├── skills/
 │   ├── 00-core/
@@ -113,6 +117,8 @@ Claude coleta inputs → valida pré-flight → injeta variáveis → executa ru
 ---
 
 ## 📦 Skills Disponíveis
+
+Para uma visão detalhada de cada aplicação, consulte o [**Catálogo de Soluções Setup Orion**](./catalog/readme.md).
 
 ### ✅ Implementadas (7)
 
@@ -162,8 +168,10 @@ Ver [ORCHESTRATOR-ROADMAP.md](./ORCHESTRATOR-ROADMAP.md) para o mapa completo or
 | `CLAUDE.md` | Diretivas do orquestrador (regras inegociáveis) |
 | `ORCHESTRATOR-ROADMAP.md` | Roadmap de skills (source of truth) |
 | `ESTADO_ORQUESTRATOR.md` | Estado atual, GAPs e pendências |
+| `catalog/readme.md` | Catálogo de Soluções Setup Orion |
 | `docs/adr/ADR-001.md` | Decisão: persistência em Markdown |
 | `docs/adr/ADR-002.md` | Decisão: segurança de segredos |
+| `docs/adr/ADR-003.md` | Decisão: convenções de skills |
 
 ---
 
