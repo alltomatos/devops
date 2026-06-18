@@ -25,7 +25,7 @@ Prepara o ambiente Debian 11 para receber as demais skills do ecossistema Setup 
 Ao finalizar, a skill grava o relatório em:
 
 ```
-/root/dados_vps/bootstrap.md
+/root/dados_vps/dados_bootstrap
 ```
 
 E registra a entrada no catálogo central:

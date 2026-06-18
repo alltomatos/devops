@@ -65,16 +65,20 @@ deploy_via_portainer "$STACK_NAME" "mongodb.yaml"
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
     
-    CONTENT="# MongoDB (Infra)
+    # Formato Setup Orion (dados_mongodb) — credenciais persistidas (ADR-002 rev.)
+    CONTENT="[ MONGODB ]
 
-- **Status**: Instalado
-- **Data**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Versão**: 6.0
-- **Host**: mongodb
-- **Porta**: 27017
-- **Usuário**: root
-- **Rede**: $NOME_REDE_INTERNA
-- **Senha Gerada**: $([ "$GEN_PWD" = true ] && echo "Sim" || echo "Não")
+Dominio do MongoDB: mongodb://root:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/?authSource=admin
+
+Host: mongodb
+
+Port: 27017
+
+Usuario: root
+
+Senha: ${MONGO_INITDB_ROOT_PASSWORD}
+
+Rede: ${NOME_REDE_INTERNA}
 "
     save_data "infra-mongodb" "$CONTENT"
 else

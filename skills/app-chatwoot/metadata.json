@@ -4,7 +4,7 @@
   "depends_on": ["infra-bootstrap", "app-traefik"],
   "security_level": "high",
   "persistence": {
-    "chatwoot": "/root/dados_vps/chatwoot.md",
+    "chatwoot": "/root/dados_vps/dados_chatwoot",
     "yaml_files": ["/root/chatwoot.yaml"]
   },
   "required_inputs": [
@@ -68,10 +68,10 @@
     {
       "var": "NOME_REDE_INTERNA",
       "label": "Rede Overlay Docker",
-      "description": "Nome da rede overlay criada pelo Traefik. Lida automaticamente de /root/dados_vps/traefik.md",
+      "description": "Nome da rede overlay criada pelo Traefik. Lida automaticamente de /root/dados_vps/dados_traefik",
       "example": "OrionNet",
       "sensitive": false,
-      "auto_source": "/root/dados_vps/traefik.md"
+      "auto_source": "/root/dados_vps/dados_traefik"
     }
   ],
   "pre_flight_checks": [
@@ -87,7 +87,7 @@
     "Acesse https://{URL_CHATWOOT} e crie a conta de superadmin no primeiro boot",
     "O sidekiq processa filas em background — verifique com: docker service logs chatwoot_sidekiq",
     "Para verificar status dos 3 serviços: docker service ls | grep chatwoot",
-    "Metadados (sem senhas) salvos em: /root/dados_vps/chatwoot.md",
+    "Metadados (sem senhas) salvos em: /root/dados_vps/dados_chatwoot",
     "Stack YAML completa em: /root/chatwoot.yaml"
   ],
   "generated_vars": {

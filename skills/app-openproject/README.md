@@ -19,4 +19,4 @@ Instala o **OpenProject**, a plataforma open-source líder para gerenciamento de
 ## Persistência
 
 Os dados do banco de dados e ativos são persistidos nos volumes `openproject_pgdata`, `openproject_assets`, `openproject_db_data` e `openproject_redis_data`.
-A persistência da skill é salva em `/root/dados_vps/app-openproject.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_openproject`.

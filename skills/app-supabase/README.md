@@ -17,9 +17,9 @@ Instala o **Supabase**, a alternativa open-source ao Firebase. Inclui Banco de D
 
 1. Acesse `https://<DOMAIN_SUPABASE>`.
 2. Use as credenciais fornecidas durante a instalação.
-3. As chaves ANON e SERVICE_ROLE são geradas automaticamente e salvas em `/root/dados_vps/app-supabase.md`.
+3. As chaves ANON e SERVICE_ROLE são geradas automaticamente e salvas em `/root/dados_vps/dados_supabase`.
 
 ## Persistência
 
 Os dados do banco de dados são persistidos em `/root/supabase/docker/volumes/db/data`.
-A persistência da skill é salva em `/root/dados_vps/app-supabase.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_supabase`.

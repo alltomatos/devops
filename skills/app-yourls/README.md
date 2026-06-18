@@ -22,4 +22,4 @@ Instala o **YOURLS** (Your Own URL Shortener), um conjunto de scripts PHP simple
 ## Persistência
 
 Todos os dados (links, cliques, configurações) são persistidos no banco de dados MySQL interno na tabela/banco `yourls`. Não há persistência de arquivos configurada nesta stack simplificada, plugins e temas seriam efêmeros.
-A persistência da skill é salva em `/root/dados_vps/app-yourls.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_yourls`.

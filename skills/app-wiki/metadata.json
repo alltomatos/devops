@@ -12,6 +12,6 @@
       "type": "text"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-wiki.md",
+  "persistence_path": "/root/dados_vps/dados_wiki",
   "version": "1.0.0"
 }

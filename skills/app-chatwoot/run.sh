@@ -12,11 +12,11 @@
 #   SENHA_EMAIL_CHATWOOT    — senha SMTP (sensível — nunca logada)
 #   SMTP_HOST_CHATWOOT      — host SMTP (ex: smtp.hostinger.com)
 #   PORTA_SMTP_CHATWOOT     — porta SMTP (465 ou 587)
-#   NOME_REDE_INTERNA       — rede overlay Docker (lida de /root/dados_vps/traefik.md)
+#   NOME_REDE_INTERNA       — rede overlay Docker (lida de /root/dados_vps/dados_traefik)
 #
 # Padrão de persistência:
 #   /root/chatwoot.yaml           — stack YAML do Chatwoot
-#   /root/dados_vps/chatwoot.md   — metadados do deploy (sem senhas)
+#   /root/dados_vps/dados_chatwoot   — metadados do deploy (sem senhas)
 # =============================================================================
 set -euo pipefail
 
@@ -270,7 +270,7 @@ deploy_stack() {
 # ATENÇÃO: SENHA_EMAIL_CHATWOOT NUNCA é escrita no .md (mascarada como ***)
 # =============================================================================
 persist_data() {
-    echo -e "${amarelo}[5/5] Persistindo metadados em /root/dados_vps/chatwoot.md...${reset}"
+    echo -e "${amarelo}[5/5] Persistindo metadados em /root/dados_vps/dados_chatwoot...${reset}"
 
     save_data "chatwoot" "# Chatwoot
 
@@ -343,7 +343,7 @@ else
     echo -e "${vermelho}  Deploy concluído com $ERRORS erro(s).${reset}"
     echo -e "${branco}  Consulte: docker service ls | grep chatwoot${reset}"
 fi
-echo -e "${branco}  Dados salvos em: /root/dados_vps/chatwoot.md${reset}"
+echo -e "${branco}  Dados salvos em: /root/dados_vps/dados_chatwoot${reset}"
 echo -e "${amarelo}============================================================${reset}"
 echo ""
 

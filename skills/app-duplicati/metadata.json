@@ -15,5 +15,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-duplicati.md"
+  "persistence_path": "/root/dados_vps/dados_duplicati"
 }

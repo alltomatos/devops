@@ -22,15 +22,17 @@ fi
 # Geração de chaves se não existirem (ADR-002: runtime fallback)
 JWT_SECRET=${JWT_SECRET:-$(openssl rand -hex 16)}
 
-# Carregar credenciais do MongoDB (ADR-002: senha vem por env efêmera; ADR-001: usuário do .md)
-if [ ! -f "/root/dados_vps/infra-mongodb.md" ]; then
-    echo -e "\e[31mErro: infra-mongodb não encontrado em /root/dados_vps/\e[0m"
+# Carregar credenciais do MongoDB do dados_mongodb (formato Setup Orion).
+# Env (MONGO_USER/MONGO_PASS) tem prioridade; senão lê do arquivo persistido.
+if [ ! -f "/root/dados_vps/dados_mongodb" ]; then
+    echo -e "\e[31mErro: infra-mongodb não encontrado em /root/dados_vps/ (instale a dependência).\e[0m"
     exit 1
 fi
-MONGO_USER="${MONGO_USER:-$(grep -i 'Usuário' /root/dados_vps/infra-mongodb.md | awk -F': ' '{print $2}' | tr -d ' ')}"
+MONGO_USER="${MONGO_USER:-$(grep "Usuario:" /root/dados_vps/dados_mongodb | awk -F"Usuario:" '{print $2}' | xargs)}"
 MONGO_USER="${MONGO_USER:-root}"
+MONGO_PASS="${MONGO_PASS:-$(grep "Senha:" /root/dados_vps/dados_mongodb | awk -F"Senha:" '{print $2}' | xargs)}"
 if [ -z "$MONGO_PASS" ]; then
-    echo -e "\e[31mErro: MONGO_PASS não informado (a senha do Mongo não é persistida — passe via env).\e[0m"
+    echo -e "\e[31mErro: senha do MongoDB ausente em /root/dados_vps/dados_mongodb (e MONGO_PASS não informado).\e[0m"
     exit 1
 fi
 

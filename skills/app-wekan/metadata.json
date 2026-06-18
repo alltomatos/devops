@@ -7,5 +7,5 @@
     "app-traefik",
     "infra-mongodb"
   ],
-  "persistence_path": "/root/dados_vps/app-wekan.md"
+  "persistence_path": "/root/dados_vps/dados_wekan"
 }

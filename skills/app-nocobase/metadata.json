@@ -25,5 +25,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-nocobase.md"
+  "persistence_path": "/root/dados_vps/dados_nocobase"
 }

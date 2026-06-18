@@ -10,7 +10,8 @@ is_installed() {
   local name="$1" short
   [ -d "$DADOS_DIR" ] || return 1
   short="${name#app-}"; short="${short#infra-}"
-  [ -f "$DADOS_DIR/$name.md" ] || [ -f "$DADOS_DIR/$short.md" ]
+  # Padrão Setup Orion: /root/dados_vps/dados_<servico> (sem extensão)
+  [ -f "$DADOS_DIR/dados_$short" ] || [ -f "$DADOS_DIR/dados_$name" ]
 }
 
 icon() { if is_installed "$1"; then printf '✅'; else printf '⬜'; fi; }

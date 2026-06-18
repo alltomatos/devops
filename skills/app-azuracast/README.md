@@ -20,4 +20,4 @@ Instala o **AzuraCast**, uma solução completa de "Rádio em uma Caixa". Inclui
 ## Persistência
 
 Os dados das estações, músicas, backups e banco de dados são persistidos em múltiplos volumes Docker (prefixo `azuracast_`).
-A persistência da skill é salva em `/root/dados_vps/app-azuracast.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_azuracast`.

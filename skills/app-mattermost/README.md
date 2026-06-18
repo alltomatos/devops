@@ -21,4 +21,4 @@ Instala o **Mattermost Team Edition**, uma plataforma open-source de mensagens e
 
 Os arquivos, configurações e plugins são persistidos em volumes Docker dedicados (prefixo `mattermost_`).
 Os dados de mensagens são armazenados no PostgreSQL.
-A persistência da skill é salva em `/root/dados_vps/app-mattermost.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_mattermost`.

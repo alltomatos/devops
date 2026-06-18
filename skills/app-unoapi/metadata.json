@@ -40,5 +40,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-unoapi.md"
+  "persistence_path": "/root/dados_vps/dados_unoapi"
 }

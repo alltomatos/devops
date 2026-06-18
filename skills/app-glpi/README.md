@@ -26,4 +26,4 @@ Instala o **GLPI**, a solução open-source definitiva para gestão de ativos de
 ## Persistência
 
 Os arquivos do GLPI (documentos, plugins, etc) são persistidos no volume `glpi_data`.
-A persistência da skill é salva em `/root/dados_vps/app-glpi.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_glpi`.

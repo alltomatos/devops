@@ -4,7 +4,7 @@
   "depends_on": ["app-traefik"],
   "security_level": "high",
   "persistence": {
-    "evolution": "/root/dados_vps/evolution.md",
+    "evolution": "/root/dados_vps/dados_evolution",
     "yaml_files": ["/root/evolution.yaml"]
   },
   "required_inputs": [
@@ -25,7 +25,7 @@
     {
       "var": "NOME_REDE_INTERNA",
       "label": "Nome da Rede Interna",
-      "description": "Nome da rede overlay Docker. Lido automaticamente de /root/dados_vps/traefik.md.",
+      "description": "Nome da rede overlay Docker. Lido automaticamente de /root/dados_vps/dados_traefik.",
       "example": "OrionNet",
       "sensitive": false
     }
@@ -33,7 +33,7 @@
   "generated_secrets": [
     {
       "var": "AUTHENTICATION_API_KEY",
-      "description": "Gerada automaticamente via 'openssl rand -hex 16'. Salva em /root/dados_vps/evolution.md.",
+      "description": "Gerada automaticamente via 'openssl rand -hex 16'. Salva em /root/dados_vps/dados_evolution.",
       "sensitive": true
     }
   ],
@@ -45,8 +45,8 @@
   ],
   "post_install_guide": [
     "Acesse https://{URL_EVOLUTION}/manager para abrir o painel web da Evolution API",
-    "No campo de autenticação, informe a AUTHENTICATION_API_KEY salva em /root/dados_vps/evolution.md",
+    "No campo de autenticação, informe a AUTHENTICATION_API_KEY salva em /root/dados_vps/dados_evolution",
     "Crie uma nova instância de WhatsApp pelo Manager e escaneie o QR Code",
-    "A SENHA_POSTGRES nunca aparece nos arquivos gerados — confirme isso em /root/dados_vps/evolution.md"
+    "A SENHA_POSTGRES nunca aparece nos arquivos gerados — confirme isso em /root/dados_vps/dados_evolution"
   ]
 }

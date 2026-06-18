@@ -55,7 +55,7 @@ O PostgreSQL é **externo** à stack: deve estar acessível na rede overlay via 
 2. NEXTAUTH_SECRET é gerado automaticamente por run.sh (openssl)
 3. run.sh gera /root/typebot.yaml com builder + viewer
 4. docker stack deploy executa a stack "typebot"
-5. Metadados (sem senhas) salvos em /root/dados_vps/typebot.md
+5. Metadados (sem senhas) salvos em /root/dados_vps/dados_typebot
 6. Claude informa as URLs de acesso ao usuário
 ```
 
@@ -66,7 +66,7 @@ O PostgreSQL é **externo** à stack: deve estar acessível na rede overlay via 
 | Arquivo | Conteúdo |
 |---------|----------|
 | `/root/typebot.yaml` | Stack YAML completo (builder + viewer) |
-| `/root/dados_vps/typebot.md` | Metadados do deploy (sem credenciais sensíveis) |
+| `/root/dados_vps/dados_typebot` | Metadados do deploy (sem credenciais sensíveis) |
 
 ---
 
@@ -82,6 +82,6 @@ O PostgreSQL é **externo** à stack: deve estar acessível na rede overlay via 
 
 ## Notas de Segurança
 
-- `SENHA_POSTGRES` e `SENHA_SMTP_TYPEBOT` não são persistidas em `/root/dados_vps/typebot.md`
+- `SENHA_POSTGRES` e `SENHA_SMTP_TYPEBOT` não são persistidas em `/root/dados_vps/dados_typebot`
 - `NEXTAUTH_SECRET` gerado por `openssl rand -hex 16` — nunca armazenado em texto plano
 - Redeployar a stack gera um novo `NEXTAUTH_SECRET` — sessões ativas serão invalidadas (comportamento esperado)

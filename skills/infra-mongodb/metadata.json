@@ -14,5 +14,5 @@
     }
   ],
   "security_warning": "A senha root não será persistida conforme ADR-002.",
-  "persistence_path": "/root/dados_vps/infra-mongodb.md"
+  "persistence_path": "/root/dados_vps/dados_mongodb"
 }

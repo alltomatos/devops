@@ -133,7 +133,7 @@ deploy_stack() {
 # PERSISTÊNCIA
 # =============================================================================
 persist_data() {
-    echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/serpbear.md...${reset}"
+    echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_serpbear...${reset}"
 
     save_data "serpbear" "# SerpBear
 

@@ -15,17 +15,17 @@ STACK_NAME="formbricks"
 NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")
 
 # Carregar credenciais do PgVector (ADR-001)
-if [ -f "/root/dados_vps/infra-pgvector.md" ]; then
-    PG_PASS=$(grep "Senha:" /root/dados_vps/infra-pgvector.md | awk '{print $2}')
+if [ -f "/root/dados_vps/dados_pgvector" ]; then
+    PG_PASS=$(grep "Senha:" /root/dados_vps/dados_pgvector | awk '{print $2}')
 else
     PG_PASS=$POSTGRES_PASSWORD
 fi
 
 # Carregar credenciais do MinIO (ADR-001)
-if [ -f "/root/dados_vps/app-minio.md" ]; then
-    S3_ACCESS_KEY=$(grep "Access Key:" /root/dados_vps/app-minio.md | awk '{print $3}')
-    S3_SECRET_KEY=$(grep "Secret Key:" /root/dados_vps/app-minio.md | awk '{print $3}')
-    S3_URL=$(grep "URL API:" /root/dados_vps/app-minio.md | awk '{print $3}' | sed 's/https:\/\///')
+if [ -f "/root/dados_vps/dados_minio" ]; then
+    S3_ACCESS_KEY=$(grep "Access Key:" /root/dados_vps/dados_minio | awk '{print $3}')
+    S3_SECRET_KEY=$(grep "Secret Key:" /root/dados_vps/dados_minio | awk '{print $3}')
+    S3_URL=$(grep "URL API:" /root/dados_vps/dados_minio | awk '{print $3}' | sed 's/https:\/\///')
 else
     echo -e "\e[31mErro: app-minio não encontrado em /root/dados_vps/\e[0m"
     exit 1

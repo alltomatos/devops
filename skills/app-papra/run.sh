@@ -123,7 +123,7 @@ deploy_stack() {
 }
 
 persist_data() {
-    echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/papra.md...${reset}"
+    echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_papra...${reset}"
     save_data "papra" "# Papra
 
 - **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')

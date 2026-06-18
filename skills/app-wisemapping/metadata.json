@@ -13,6 +13,6 @@
       "type": "text"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-wisemapping.md",
+  "persistence_path": "/root/dados_vps/dados_wisemapping",
   "version": "1.0.0"
 }

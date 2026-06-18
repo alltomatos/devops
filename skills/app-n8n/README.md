@@ -41,7 +41,7 @@ Separar o webhook protege o editor: tráfego externo de webhooks bate no serviç
 | `PORTA_SMTP_N8N`    | Porta SMTP (465/587)                     | Não       |
 | `NOME_REDE_INTERNA` | Rede overlay Docker                      | Não       |
 
-> **Segurança**: `SENHA_POSTGRES`, `SENHA_SMTP_N8N` e a `N8N_ENCRYPTION_KEY` (gerada via `openssl rand -hex 16`) **nunca** são gravadas em `/root/dados_vps/n8n.md`. Guarde a encryption key em cofre — sem ela, credenciais criptografadas dos workflows são irrecuperáveis.
+> **Segurança**: `SENHA_POSTGRES`, `SENHA_SMTP_N8N` e a `N8N_ENCRYPTION_KEY` (gerada via `openssl rand -hex 16`) **nunca** são gravadas em `/root/dados_vps/dados_n8n`. Guarde a encryption key em cofre — sem ela, credenciais criptografadas dos workflows são irrecuperáveis.
 
 ## Pré-checagens (Claude deve confirmar com o usuário)
 1. **DNS editor**: `URL_N8N` aponta para o IP da VPS?
@@ -51,7 +51,7 @@ Separar o webhook protege o editor: tráfego externo de webhooks bate no serviç
 
 ## Como o Claude conduz esta skill
 
-1. **Verifica dependências**: confere `/root/dados_vps/traefik.md` e a existência da rede overlay.
+1. **Verifica dependências**: confere `/root/dados_vps/dados_traefik` e a existência da rede overlay.
 2. **Entrevista**: pergunta as 9 variáveis uma a uma. Senhas (`SENHA_POSTGRES`, `SENHA_SMTP_N8N`) são tratadas como sensíveis — não ecoadas em texto claro.
 3. **Reforça os dois domínios**: confirma explicitamente que editor e webhook são subdomínios diferentes, ambos com DNS pronto.
 4. **Confirmação**: mostra resumo (mascarando senhas) e pede aprovação antes de executar.
@@ -68,7 +68,7 @@ Separar o webhook protege o editor: tráfego externo de webhooks bate no serviç
 | Arquivo                       | Conteúdo                              |
 |-------------------------------|---------------------------------------|
 | `/root/n8n.yaml`              | Stack do N8N (editável)               |
-| `/root/dados_vps/n8n.md`      | Metadados do deploy (sem senhas)      |
+| `/root/dados_vps/dados_n8n`      | Metadados do deploy (sem senhas)      |
 
 ## Recursos provisionados
 - **Volume**: `n8n_data`.

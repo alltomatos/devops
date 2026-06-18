@@ -23,4 +23,4 @@ Instala o **pgAdmin 4**, a plataforma de administração e desenvolvimento open-
 ## Persistência
 
 As configurações e servidores salvos no pgAdmin são persistidos no volume `pgadmin_data`.
-A persistência da skill é salva em `/root/dados_vps/app-pgadmin.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_pgadmin`.

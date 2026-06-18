@@ -24,4 +24,4 @@ Instala o **Formbricks**, a solução open-source de "Experience Management" par
 ## Persistência
 
 Os uploads locais são persistidos no volume `formbricks_data`, mas o Formbricks é configurado para priorizar o S3 (MinIO).
-A persistência da skill é salva em `/root/dados_vps/app-formbricks.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_formbricks`.

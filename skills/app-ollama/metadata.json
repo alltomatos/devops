@@ -6,5 +6,5 @@
     "infra-bootstrap"
   ],
   "required_inputs": [],
-  "persistence_path": "/root/dados_vps/app-ollama.md"
+  "persistence_path": "/root/dados_vps/dados_ollama"
 }

@@ -10,8 +10,8 @@
 #   URL_PORTAINER      — domínio do Portainer (ex: portainer.seudominio.com.br)
 #
 # Padrão de persistência:
-#   /root/dados_vps/traefik.md    — metadados do deploy
-#   /root/dados_vps/portainer.md  — credenciais do Portainer
+#   /root/dados_vps/dados_traefik    — metadados do deploy
+#   /root/dados_vps/dados_portainer  — credenciais do Portainer
 # =============================================================================
 
 SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -288,39 +288,42 @@ init_portainer_admin() {
 }
 
 # =============================================================================
-# PERSISTÊNCIA EM MARKDOWN (padrão /root/dados_vps/*.md)
+# PERSISTÊNCIA (padrão Setup Orion: /root/dados_vps/dados_<servico>, sem extensão)
 # =============================================================================
 persist_data() {
-    # Traefik
-    save_data "traefik" "# Traefik
+    # dados_traefik — metadados do proxy/SSL
+    save_data "traefik" "[ TRAEFIK ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Servidor**: $NOME_SERVIDOR
-- **Versão**: traefik:v3.5.3
-- **Rede**: $NOME_REDE_INTERNA
-- **Email SSL**: $EMAIL_SSL
-- **Stack YAML**: /root/traefik.yaml
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Servidor: $NOME_SERVIDOR
 
-## Configuração
-- Entrypoints: HTTP (80 → redirect) e HTTPS (443)
-- Certificate Resolver: Let's Encrypt (HTTP Challenge)
-- Dashboard: habilitado (acessível via rede interna)"
+Versao: traefik:v3.5.3
 
-    # Portainer
-    save_data "portainer" "# Portainer
+Rede: $NOME_REDE_INTERNA
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Servidor**: $NOME_SERVIDOR
-- **Versão**: portainer-ce:latest
-- **URL de Acesso**: https://$URL_PORTAINER
-- **Stack YAML**: /root/portainer.yaml
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Email SSL: $EMAIL_SSL
 
-## Credenciais (modo Total Control)
-> Admin criado automaticamente via API (usuário: ${PORTAINER_ADMIN_USER:-admin}).
-> Credenciais em /root/dados_vps/dados_portainer (chmod 600) — use-as para logar na UI.
-> Todas as demais stacks são criadas via API do Portainer (totalmente gerenciáveis)."
+Stack YAML: /root/traefik.yaml
+
+Status: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+"
+
+    # NOTA: dados_portainer (credenciais) é gerado por init_portainer_admin
+    # (portainer_save_auth). NÃO sobrescrever aqui.
+
+    # dados_vps — arquivo global da VPS (como no Setup Orion v2)
+    _ensure_data_dir
+    cat > "$DATA_DIR/dados_vps" <<EOF
+[ DADOS DA VPS ]
+
+Nome do Servidor: $NOME_SERVIDOR
+
+Rede interna: $NOME_REDE_INTERNA
+
+Email para SSL: $EMAIL_SSL
+
+Link do Portainer: https://$URL_PORTAINER
+EOF
+    chmod 600 "$DATA_DIR/dados_vps" 2>/dev/null
 }
 
 # =============================================================================

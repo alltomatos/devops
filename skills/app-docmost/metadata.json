@@ -13,6 +13,6 @@
       "type": "text"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-docmost.md",
+  "persistence_path": "/root/dados_vps/dados_docmost",
   "version": "1.0.0"
 }

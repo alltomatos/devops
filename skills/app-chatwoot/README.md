@@ -65,7 +65,7 @@ Claude coleta inputs → injeta como env vars → executa run.sh
 | Arquivo                          | Conteúdo                                               |
 |----------------------------------|--------------------------------------------------------|
 | `/root/chatwoot.yaml`            | Stack YAML completa (app + sidekiq + redis)            |
-| `/root/dados_vps/chatwoot.md`    | Metadados do deploy — **sem senhas** (SMTP mascarado)  |
+| `/root/dados_vps/dados_chatwoot`    | Metadados do deploy — **sem senhas** (SMTP mascarado)  |
 | `/root/dados_vps/index.md`       | Catálogo central atualizado pelo lib-persistence.sh    |
 
 ---
@@ -102,7 +102,7 @@ docker service logs chatwoot_app
 docker service logs chatwoot_sidekiq
 
 # Metadados salvos
-cat /root/dados_vps/chatwoot.md
+cat /root/dados_vps/dados_chatwoot
 ```
 
 ---

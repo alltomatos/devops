@@ -15,8 +15,8 @@ STACK_NAME="botpress"
 NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")
 
 # Carregar credenciais do Postgres (ADR-001)
-if [ -f "/root/dados_vps/infra-postgres.md" ]; then
-    POSTGRES_PASS=$(grep "Senha:" /root/dados_vps/infra-postgres.md | awk '{print $2}')
+if [ -f "/root/dados_vps/dados_postgres" ]; then
+    POSTGRES_PASS=$(grep "Senha:" /root/dados_vps/dados_postgres | awk '{print $2}')
 else
     # Fallback ou erro se não encontrar
     POSTGRES_PASS=$POSTGRES_PASSWORD

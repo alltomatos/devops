@@ -17,7 +17,7 @@ Deploya a **Evolution API** (gateway WhatsApp Business) via **Docker Swarm** em 
 |---------------------|-----------------------------------------------|------------------------------------|-----------|
 | `URL_EVOLUTION`     | Domínio da Evolution API (sem `https://`)     | Usuário informa                    | Não       |
 | `SENHA_POSTGRES`    | Senha do usuário `postgres` no BD externo     | Usuário informa                    | **Sim**   |
-| `NOME_REDE_INTERNA` | Nome da rede overlay Docker                   | Lido de `/root/dados_vps/traefik.md` | Não       |
+| `NOME_REDE_INTERNA` | Nome da rede overlay Docker                   | Lido de `/root/dados_vps/dados_traefik` | Não       |
 
 > `AUTHENTICATION_API_KEY` é gerada automaticamente via `openssl rand -hex 16` — o usuário não precisa informá-la.
 
@@ -33,7 +33,7 @@ Deploya a **Evolution API** (gateway WhatsApp Business) via **Docker Swarm** em 
 
 ## Como o Claude conduz esta skill
 
-1. **Lê dependências**: verifica `/root/dados_vps/traefik.md` para confirmar Traefik ativo e capturar `NOME_REDE_INTERNA`.
+1. **Lê dependências**: verifica `/root/dados_vps/dados_traefik` para confirmar Traefik ativo e capturar `NOME_REDE_INTERNA`.
 2. **Entrevista**: solicita `URL_EVOLUTION` e `SENHA_POSTGRES` ao usuário. `NOME_REDE_INTERNA` é preenchido automaticamente.
 3. **Pré-flight**: confirma DNS do domínio e existência do banco `evolution` no PostgreSQL.
 4. **Confirmação**: exibe resumo (sem mostrar `SENHA_POSTGRES`) e pede aprovação explícita antes de executar.
@@ -41,7 +41,7 @@ Deploya a **Evolution API** (gateway WhatsApp Business) via **Docker Swarm** em 
    ```bash
    URL_EVOLUTION="..." SENHA_POSTGRES="..." NOME_REDE_INTERNA="..." ./run.sh
    ```
-6. **Pós-deploy**: lê `/root/dados_vps/evolution.md`, exibe a `API_KEY` gerada e orienta o usuário a acessar `/manager`.
+6. **Pós-deploy**: lê `/root/dados_vps/dados_evolution`, exibe a `API_KEY` gerada e orienta o usuário a acessar `/manager`.
 
 ---
 
@@ -50,7 +50,7 @@ Deploya a **Evolution API** (gateway WhatsApp Business) via **Docker Swarm** em 
 | Arquivo                            | Conteúdo                                          |
 |------------------------------------|---------------------------------------------------|
 | `/root/evolution.yaml`             | Stack Docker Swarm da Evolution API (editável)    |
-| `/root/dados_vps/evolution.md`     | Metadados do deploy, URL, API Key gerada          |
+| `/root/dados_vps/dados_evolution`     | Metadados do deploy, URL, API Key gerada          |
 
 > A `SENHA_POSTGRES` **nunca** é escrita em nenhum arquivo — política inegociável de segurança Orion.
 

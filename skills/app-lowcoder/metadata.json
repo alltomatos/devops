@@ -45,5 +45,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-lowcoder.md"
+  "persistence_path": "/root/dados_vps/dados_lowcoder"
 }

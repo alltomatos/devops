@@ -14,7 +14,7 @@ skills/<nome>/
 ├── run.sh          — script de deploy (executável, idempotente)
 └── README.md       — documentação humana
 skills/00-core/
-└── lib-persistence.sh  — salva dados em /root/dados_vps/<skill>.md
+└── lib-persistence.sh  — salva dados em /root/dados_vps/dados_<skill>
 ```
 
 ## Para usar como assistente DevOps

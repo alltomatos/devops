@@ -6,7 +6,7 @@
 # Padrão Orion:
 #   - Idempotente
 #   - Rede interna Orion
-#   - Persistência em /root/dados_vps/infra-postgres.md
+#   - Persistência em /root/dados_vps/dados_postgres
 # =============================================================================
 
 SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -21,7 +21,7 @@ reset="\e[0m"
 # Variáveis
 SERVICE_NAME="postgres"
 STACK_NAME="postgres"
-DATA_FILE="/root/dados_vps/infra-postgres.md"
+DATA_FILE="/root/dados_vps/dados_postgres"
 
 # 1. Obter Nome da Rede Interna
 # No ecossistema Setup Orion, a rede é definida no bootstrap/traefik. 

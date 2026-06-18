@@ -23,7 +23,7 @@
 #
 # Persistência:
 #   /root/typebot.yaml           — stack YAML (padrão Orion)
-#   /root/dados_vps/typebot.md   — metadados (SEM senhas)
+#   /root/dados_vps/dados_typebot   — metadados (SEM senhas)
 # =============================================================================
 
 set -euo pipefail
@@ -196,7 +196,7 @@ deploy_stack() {
 }
 
 # =============================================================================
-# PERSISTÊNCIA EM MARKDOWN (SEM senhas) — /root/dados_vps/typebot.md
+# PERSISTÊNCIA EM MARKDOWN (SEM senhas) — /root/dados_vps/dados_typebot
 # =============================================================================
 persist_data() {
     echo -e "${amarelo}[5/5] Persistindo metadados (sem senhas)...${reset}"
@@ -226,7 +226,7 @@ persist_data() {
 - O Builder e o Viewer compartilham o mesmo banco e o mesmo segredo de criptografia.
 - O Viewer deve estar acessível publicamente para execução dos fluxos publicados."
 
-    echo -e "${verde}      Metadados salvos em /root/dados_vps/typebot.md${reset}"
+    echo -e "${verde}      Metadados salvos em /root/dados_vps/dados_typebot${reset}"
 }
 
 # =============================================================================
@@ -255,7 +255,7 @@ else
     echo -e "${vermelho}  Deploy concluído com $ERRORS erro(s).${reset}"
     echo -e "${branco}  Consulte os logs: docker service ls${reset}"
 fi
-echo -e "${branco}  Dados salvos em: /root/dados_vps/typebot.md${reset}"
+echo -e "${branco}  Dados salvos em: /root/dados_vps/dados_typebot${reset}"
 echo -e "${amarelo}============================================================${reset}"
 echo ""
 

@@ -29,5 +29,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-zep.md"
+  "persistence_path": "/root/dados_vps/dados_zep"
 }

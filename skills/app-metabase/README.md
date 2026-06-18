@@ -20,4 +20,4 @@ Instala o **Metabase**, a maneira mais fácil e rápida de compartilhar dados e 
 ## Persistência
 
 Os dados internos do Metabase são armazenados no PostgreSQL.
-A persistência da skill é salva em `/root/dados_vps/app-metabase.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_metabase`.

@@ -10,7 +10,7 @@
 #   NOME_REDE_INTERNA  — nome da rede overlay Docker
 #
 # Padrão de persistência:
-#   /root/dados_vps/minio.md  — metadados do deploy (SEM senha)
+#   /root/dados_vps/dados_minio  — metadados do deploy (SEM senha)
 #   /root/minio.yaml          — stack file Docker Swarm
 #
 # Padrão pegar_senha_minio:
@@ -158,7 +158,7 @@ deploy_stack() {
 # Outras skills leem este .md via grep para obter URL_MINIO e URL_S3.
 # =============================================================================
 persist_data() {
-    echo -e "${amarelo}[4/4] Salvando metadados em /root/dados_vps/minio.md...${reset}"
+    echo -e "${amarelo}[4/4] Salvando metadados em /root/dados_vps/dados_minio...${reset}"
 
     save_data "minio" "# MinIO
 
@@ -221,7 +221,7 @@ else
     echo -e "${vermelho}  Deploy concluído com $ERRORS erro(s).${reset}"
     echo -e "${branco}  Consulte os logs: docker service ls && docker service logs minio_minio${reset}"
 fi
-echo -e "${branco}  Dados salvos em: /root/dados_vps/minio.md${reset}"
+echo -e "${branco}  Dados salvos em: /root/dados_vps/dados_minio${reset}"
 echo -e "${amarelo}============================================================${reset}"
 echo ""
 

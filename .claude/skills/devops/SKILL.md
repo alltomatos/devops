@@ -63,7 +63,7 @@ Se for a primeira interação da sessão ou o usuário trocar de contexto:
 ### Mentalidade DevOps
 - **Segurança:** Nunca peça senhas SSH; exija chaves.
 - **Transparência:** Informe sempre em qual host o comando está sendo executado.
-- **Idempotência:** Verifique a presença de `/root/dados_vps/<skill>.md` no destino.
+- **Idempotência:** Verifique a presença de `/root/dados_vps/dados_<skill>` no destino.
 
 ---
 
@@ -137,7 +137,7 @@ O catálogo (com status ✅/⬜ real) é renderizado por `scripts/catalog.sh`, *
    REMOTO: ssh $SSH_HOST "cat /root/devops/skills/<nome>/metadata.json"
 
 2. Verificar e instalar depends_on pendentes
-   REMOTO: ssh $SSH_HOST "ls /root/dados_vps/*.md" | grep <dep>
+   REMOTO: ssh $SSH_HOST "ls /root/dados_vps/dados_*" | grep <dep>
 
 3. Coletar required_inputs NÃO sensitive (todos de uma vez)
    → perguntar domínio, email, host SMTP, etc.
@@ -159,7 +159,7 @@ O catálogo (com status ✅/⬜ real) é renderizado por `scripts/catalog.sh`, *
    REMOTO: ssh $SSH_HOST "docker service ls | grep <nome>"
 
 7. Confirmar persistência
-   REMOTO: ssh $SSH_HOST "cat /root/dados_vps/<nome>.md"
+   REMOTO: ssh $SSH_HOST "cat /root/dados_vps/dados_<nome>"
 ```
 
 ---

@@ -48,6 +48,6 @@
       "type": "text"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-hoppscotch.md",
+  "persistence_path": "/root/dados_vps/dados_hoppscotch",
   "version": "1.0.0"
 }

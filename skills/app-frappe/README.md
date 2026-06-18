@@ -25,4 +25,4 @@ Instala o **ERPNext**, o ERP open-source mais avançado do mundo, construído so
 ## Persistência
 
 Sites, logs e bancos de dados são persistidos em volumes Docker dedicados (prefixo `erpnext_`).
-A persistência da skill é salva em `/root/dados_vps/app-frappe.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_frappe`.

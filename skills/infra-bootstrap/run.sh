@@ -6,7 +6,7 @@
 # Padrão:
 #   - Executado como root
 #   - Idempotente: verifica existência antes de instalar
-#   - Loga cada etapa em /root/dados_vps/bootstrap.md
+#   - Loga cada etapa em /root/dados_vps/dados_bootstrap
 #   - Usa lib-persistence.sh para escrita estruturada
 # =============================================================================
 
@@ -20,7 +20,7 @@ branco="\e[97m"
 vermelho="\e[91m"
 reset="\e[0m"
 
-LOG_FILE="/root/dados_vps/bootstrap.md"
+LOG_FILE="/root/dados_vps/dados_bootstrap"
 ERRORS=0
 INSTALLED=()
 PRESENT=()
@@ -201,10 +201,10 @@ echo -e "${amarelo}============================================================$
 if [ "$ERRORS" -eq 0 ]; then
     echo -e "${verde}  Bootstrap concluído com sucesso.${reset}"
 else
-    echo -e "${vermelho}  Bootstrap concluído com $ERRORS erro(s). Verifique /root/dados_vps/bootstrap.md${reset}"
+    echo -e "${vermelho}  Bootstrap concluído com $ERRORS erro(s). Verifique /root/dados_vps/dados_bootstrap${reset}"
 fi
 
-echo -e "${branco}  Relatório salvo em: /root/dados_vps/bootstrap.md${reset}"
+echo -e "${branco}  Relatório salvo em: /root/dados_vps/dados_bootstrap${reset}"
 echo -e "${amarelo}============================================================${reset}"
 echo ""
 

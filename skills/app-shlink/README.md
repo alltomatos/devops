@@ -23,5 +23,5 @@ Instala o **Shlink**, um poderoso encurtador de URL self-hosted que suporta dom�
 
 ## Persistência
 
-A API Key interna é salva em `/root/dados_vps/app-shlink.md`.
+A API Key interna é salva em `/root/dados_vps/dados_shlink`.
 Os dados dos links e visitas são persistidos no PostgreSQL e a configuração no volume `shlink_data`.

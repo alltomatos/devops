@@ -3,5 +3,5 @@
   "version": "1.0.0",
   "description": "Customized Chatwoot version (Nestor) with focus on stability and features",
   "dependencies": ["infra-pgvector", "infra-redis"],
-  "persistence_path": "/root/dados_vps/chatwoot_nestor.md"
+  "persistence_path": "/root/dados_vps/dados_chatwoot_nestor"
 }

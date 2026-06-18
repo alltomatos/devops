@@ -24,6 +24,6 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-affine.md",
+  "persistence_path": "/root/dados_vps/dados_affine",
   "version": "1.0.0"
 }

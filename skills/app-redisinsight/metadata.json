@@ -5,7 +5,7 @@
   "depends_on": ["infra-bootstrap", "app-traefik"],
   "security_level": "medium",
   "persistence": {
-    "redisinsight": "/root/dados_vps/redisinsight.md",
+    "redisinsight": "/root/dados_vps/dados_redisinsight",
     "yaml_files": ["/root/redisinsight.yaml"]
   },
   "required_inputs": [

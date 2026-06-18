@@ -22,4 +22,4 @@ Instala o **ntfy**, um serviço de notificações push via HTTP, simples e self-
 ## Persistência
 
 Os arquivos de cache e configuração são persistidos nos volumes `ntfy_cache` e `ntfy_etc`.
-A persistência da skill é salva em `/root/dados_vps/app-ntfy.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_ntfy`.

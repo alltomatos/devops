@@ -22,4 +22,4 @@ Instala o **Planka**, um quadro Kanban elegante e open-source para grupos de tra
 ## Persistência
 
 Avatares, planos de fundo e anexos são persistidos em volumes Docker dedicados (prefixo `planka_`).
-A persistência da skill é salva em `/root/dados_vps/app-planka.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_planka`.

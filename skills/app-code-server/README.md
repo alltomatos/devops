@@ -21,4 +21,4 @@ Instala o **code-server**, permitindo que você execute o VS Code em qualquer m�
 ## Persistência
 
 As configurações e o workspace do usuário são persistidos no volume `code_server_config`.
-A persistência da skill é salva em `/root/dados_vps/app-code-server.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_code-server`.

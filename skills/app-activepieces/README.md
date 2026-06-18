@@ -21,4 +21,4 @@ Instala o **ActivePieces**, uma ferramenta poderosa e open-source para automaç�
 
 Os dados dos fluxos, configurações e contas são armazenados no PostgreSQL.
 Cache e filas usam o Redis configurado na stack.
-A persistência da skill é salva em `/root/dados_vps/app-activepieces.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_activepieces`.

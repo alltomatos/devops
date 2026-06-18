@@ -15,8 +15,8 @@ STACK_NAME="glpi"
 NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")
 
 # Carregar credenciais do MySQL (ADR-001)
-if [ -f "/root/dados_vps/infra-mysql.md" ]; then
-    MYSQL_PASS=$(grep "Senha root:" /root/dados_vps/infra-mysql.md | awk '{print $3}')
+if [ -f "/root/dados_vps/dados_mysql" ]; then
+    MYSQL_PASS=$(grep "Senha root:" /root/dados_vps/dados_mysql | awk '{print $3}')
 else
     MYSQL_PASS=$MYSQL_PASSWORD
 fi

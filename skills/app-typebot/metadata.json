@@ -4,7 +4,7 @@
   "depends_on": ["infra-bootstrap", "app-traefik"],
   "security_level": "high",
   "persistence": {
-    "typebot": "/root/dados_vps/typebot.md",
+    "typebot": "/root/dados_vps/dados_typebot",
     "yaml_files": ["/root/typebot.yaml"]
   },
   "required_inputs": [

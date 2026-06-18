@@ -5,7 +5,7 @@
   "depends_on": ["infra-bootstrap", "app-traefik", "infra-postgres"],
   "security_level": "high",
   "persistence": {
-    "astracampaign": "/root/dados_vps/astracampaign.md",
+    "astracampaign": "/root/dados_vps/dados_astracampaign",
     "yaml_files": ["/root/astracampaign.yaml"]
   },
   "required_inputs": [

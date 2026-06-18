@@ -22,6 +22,6 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-gotenberg.md",
+  "persistence_path": "/root/dados_vps/dados_gotenberg",
   "version": "1.0.0"
 }

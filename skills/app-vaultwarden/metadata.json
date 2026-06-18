@@ -38,6 +38,6 @@
       "type": "text"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-vaultwarden.md",
+  "persistence_path": "/root/dados_vps/dados_vaultwarden",
   "version": "1.0.0"
 }

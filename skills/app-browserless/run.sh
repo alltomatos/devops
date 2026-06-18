@@ -88,7 +88,7 @@ deploy_stack() {
 }
 
 persist_data() {
-    echo -e "${amarelo}[3/3] Salvando metadados em /root/dados_vps/browserless.md...${reset}"
+    echo -e "${amarelo}[3/3] Salvando metadados em /root/dados_vps/dados_browserless...${reset}"
     save_data "browserless" "# Browserless
 
 - **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')

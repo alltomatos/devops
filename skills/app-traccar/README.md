@@ -22,4 +22,4 @@ Instala o **Traccar**, um sistema moderno, open-source e completo para rastreame
 
 A configuração em XML (`traccar.xml`) e os logs ficam em `/opt/traccar/`.
 Os dados do banco de dados ficam no volume `traccar_db`.
-A persistência da skill é salva em `/root/dados_vps/app-traccar.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_traccar`.

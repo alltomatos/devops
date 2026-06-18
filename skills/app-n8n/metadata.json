@@ -4,7 +4,7 @@
   "depends_on": ["infra-bootstrap", "app-traefik"],
   "security_level": "high",
   "persistence": {
-    "n8n": "/root/dados_vps/n8n.md",
+    "n8n": "/root/dados_vps/dados_n8n",
     "yaml_files": ["/root/n8n.yaml"]
   },
   "required_inputs": [

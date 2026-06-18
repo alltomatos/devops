@@ -14,5 +14,5 @@
     }
   ],
   "security_warning": "A senha do banco de dados será usada apenas em tempo de execução e não será persistida em logs ou no git.",
-  "persistence_path": "/root/dados_vps/infra-postgres.md"
+  "persistence_path": "/root/dados_vps/dados_postgres"
 }

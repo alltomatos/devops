@@ -20,5 +20,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-code-server.md"
+  "persistence_path": "/root/dados_vps/dados_code-server"
 }

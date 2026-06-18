@@ -19,5 +19,5 @@ Instala o **Uptime Kuma**, uma ferramenta de monitoramento self-hosted fácil de
 
 ## Persistência
 
-Os dados da instalação são salvos em `/root/dados_vps/app-uptimekuma.md`.
+Os dados da instalação são salvos em `/root/dados_vps/dados_uptimekuma`.
 Os dados do banco de dados do Uptime Kuma são persistidos no volume Docker `uptimekuma_data`.

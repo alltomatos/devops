@@ -21,4 +21,4 @@ Instala o **phpMyAdmin**, uma ferramenta de software livre escrita em PHP, com a
 ## Persistência
 
 O phpMyAdmin em si não possui estado persistente crucial, operando como um cliente para o MySQL.
-A persistência da skill é salva em `/root/dados_vps/app-phpmyadmin.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_phpmyadmin`.

@@ -35,5 +35,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-tooljet.md"
+  "persistence_path": "/root/dados_vps/dados_tooljet"
 }

@@ -25,5 +25,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-shlink.md"
+  "persistence_path": "/root/dados_vps/dados_shlink"
 }

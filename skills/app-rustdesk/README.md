@@ -24,4 +24,4 @@ Instala o seu próprio servidor de acesso remoto **RustDesk**, garantindo total 
 ## Persistência
 
 As chaves do servidor e logs são persistidos no volume `rustdesk_data`.
-A persistência da skill é salva em `/root/dados_vps/app-rustdesk.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_rustdesk`.

@@ -15,4 +15,4 @@ Instalação do PostgreSQL com a extensão `pgvector`, otimizada para aplicaçõ
 ## Persistência
 
 - Volume: `pgvector_data`
-- Metadados: `/root/dados_vps/infra-pgvector.md`
+- Metadados: `/root/dados_vps/dados_pgvector`

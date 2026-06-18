@@ -23,5 +23,5 @@ Instalação otimizada do PostgreSQL 14 em cluster Docker Swarm para o ecossiste
 
 ## Persistência
 
-Os metadados da instalação são salvos em `/root/dados_vps/infra-postgres.md`.
+Os metadados da instalação são salvos em `/root/dados_vps/dados_postgres`.
 O banco de dados utiliza o volume externo `postgres_data`.

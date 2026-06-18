@@ -21,4 +21,4 @@ Instala o **Checkmate**, uma ferramenta de monitoramento de uptime e performance
 ## Persistência
 
 Os dados do Redis são persistidos no volume `checkmate_redis_data`.
-A persistência da skill é salva em `/root/dados_vps/app-checkmate.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_checkmate`.

@@ -24,6 +24,6 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-authentik.md",
+  "persistence_path": "/root/dados_vps/dados_authentik",
   "version": "1.0.0"
 }

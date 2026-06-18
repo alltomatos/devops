@@ -100,7 +100,7 @@ deploy_stack() {
 }
 
 persist_data() {
-    echo -e "${amarelo}[4/4] Salvando metadados em /root/dados_vps/focalboard.md...${reset}"
+    echo -e "${amarelo}[4/4] Salvando metadados em /root/dados_vps/dados_focalboard...${reset}"
     save_data "focalboard" "# Focalboard
 
 - **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')

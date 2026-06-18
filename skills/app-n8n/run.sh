@@ -15,7 +15,7 @@
 #   NOME_REDE_INTERNA  — nome da rede overlay Docker
 #
 # Padrão de persistência:
-#   /root/dados_vps/n8n.md   — metadados do deploy (sem senhas)
+#   /root/dados_vps/dados_n8n   — metadados do deploy (sem senhas)
 #   /root/n8n.yaml           — stack Docker Swarm
 # =============================================================================
 
@@ -254,7 +254,7 @@ deploy_stack() {
 # PERSISTÊNCIA EM MARKDOWN (sem senhas — padrão Orion)
 # =============================================================================
 persist_data() {
-    echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/n8n.md...${reset}"
+    echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_n8n...${reset}"
 
     save_data "n8n" "# N8N
 
@@ -312,7 +312,7 @@ else
     echo -e "${vermelho}  Deploy concluído com $ERRORS erro(s).${reset}"
     echo -e "${branco}  Consulte: docker service ls | grep n8n${reset}"
 fi
-echo -e "${branco}  Dados salvos em: /root/dados_vps/n8n.md${reset}"
+echo -e "${branco}  Dados salvos em: /root/dados_vps/dados_n8n${reset}"
 echo -e "${amarelo}============================================================${reset}"
 echo ""
 

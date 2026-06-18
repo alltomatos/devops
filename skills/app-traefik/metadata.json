@@ -4,8 +4,8 @@
   "depends_on": ["infra-bootstrap"],
   "security_level": "medium",
   "persistence": {
-    "traefik": "/root/dados_vps/traefik.md",
-    "portainer": "/root/dados_vps/portainer.md",
+    "traefik": "/root/dados_vps/dados_traefik",
+    "portainer": "/root/dados_vps/dados_portainer",
     "yaml_files": ["/root/traefik.yaml", "/root/portainer.yaml"]
   },
   "required_inputs": [

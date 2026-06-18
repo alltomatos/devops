@@ -21,4 +21,4 @@ Instala o **WordPress**, o CMS mais popular do mundo, com suporte a Redis para c
 ## Persistência
 
 Os arquivos do WordPress e configurações do PHP são persistidos em volumes Docker dedicados (prefixo `wordpress_`).
-A persistência da skill é salva em `/root/dados_vps/app-wordpress.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_wordpress`.

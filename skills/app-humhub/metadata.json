@@ -53,6 +53,6 @@
       "type": "text"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-humhub.md",
+  "persistence_path": "/root/dados_vps/dados_humhub",
   "version": "1.0.0"
 }

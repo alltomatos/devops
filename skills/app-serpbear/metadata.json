@@ -5,7 +5,7 @@
   "depends_on": ["infra-bootstrap", "app-traefik"],
   "security_level": "medium",
   "persistence": {
-    "serpbear": "/root/dados_vps/serpbear.md",
+    "serpbear": "/root/dados_vps/dados_serpbear",
     "yaml_files": ["/root/serpbear.yaml"]
   },
   "required_inputs": [

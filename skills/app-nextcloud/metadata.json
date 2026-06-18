@@ -24,6 +24,6 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-nextcloud.md",
+  "persistence_path": "/root/dados_vps/dados_nextcloud",
   "version": "1.0.0"
 }

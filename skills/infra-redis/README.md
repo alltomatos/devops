@@ -11,4 +11,4 @@ Instalação do Redis para cache de alta performance e mensagens pub-sub no ecos
 ## Persistência
 
 - Volume: `redis_data`
-- Metadados: `/root/dados_vps/infra-redis.md`
+- Metadados: `/root/dados_vps/dados_redis`

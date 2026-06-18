@@ -14,5 +14,5 @@
     }
   ],
   "security_warning": "A senha não será persistida conforme ADR-002.",
-  "persistence_path": "/root/dados_vps/infra-pgvector.md"
+  "persistence_path": "/root/dados_vps/dados_pgvector"
 }

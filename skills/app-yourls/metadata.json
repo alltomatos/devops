@@ -20,5 +20,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-yourls.md"
+  "persistence_path": "/root/dados_vps/dados_yourls"
 }

@@ -23,4 +23,4 @@ Instala a stack de monitoramento padrão do ecossistema Setup Orion, composta po
 ## Persistência
 
 Os arquivos de configuração são armazenados em `/opt/monitor-orion/`.
-A persistência da skill é salva em `/root/dados_vps/app-monitor.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_monitor`.

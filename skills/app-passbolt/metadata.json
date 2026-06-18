@@ -38,6 +38,6 @@
       "type": "text"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-passbolt.md",
+  "persistence_path": "/root/dados_vps/dados_passbolt",
   "version": "1.0.0"
 }

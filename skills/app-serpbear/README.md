@@ -23,4 +23,4 @@ NOME_REDE_INTERNA="OrionNet" \
 ```
 
 ## Persistência de Dados
-Os metadados da instalação são salvos em `/root/dados_vps/serpbear.md`.
+Os metadados da instalação são salvos em `/root/dados_vps/dados_serpbear`.

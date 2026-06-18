@@ -55,5 +55,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-directus.md"
+  "persistence_path": "/root/dados_vps/dados_directus"
 }

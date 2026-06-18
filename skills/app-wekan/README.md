@@ -8,7 +8,7 @@ Este skill realiza a instalação do **Wekan**, um quadro Kanban open-source (si
 - **Banco de Dados**: MongoDB (infra-mongodb)
 - **Persistence**: 
   - Volume `wekan_files` montado em `/data` no container.
-  - Metadados em `/root/dados_vps/app-wekan.md`.
+  - Metadados em `/root/dados_vps/dados_wekan`.
 - **Segurança**:
   - Utiliza Traefik para SSL/TLS automático via Let's Encrypt.
   - Segredos (MONGO_PASSWORD e WEKAN_SECRET_KEY) são persistidos localmente para garantir a persistência da instalação e reuso em caso de re-deploy.

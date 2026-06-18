@@ -35,5 +35,5 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-baserow.md"
+  "persistence_path": "/root/dados_vps/dados_baserow"
 }

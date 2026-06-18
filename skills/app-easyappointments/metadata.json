@@ -5,7 +5,7 @@
   "depends_on": ["infra-bootstrap", "app-traefik", "infra-mysql"],
   "security_level": "medium",
   "persistence": {
-    "easyappointments": "/root/dados_vps/easyappointments.md",
+    "easyappointments": "/root/dados_vps/dados_easyappointments",
     "yaml_files": ["/root/easyappointments.yaml"]
   },
   "required_inputs": [

@@ -27,6 +27,6 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-jitsi.md",
+  "persistence_path": "/root/dados_vps/dados_jitsi",
   "version": "1.0.0"
 }

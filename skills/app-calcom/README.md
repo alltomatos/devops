@@ -22,4 +22,4 @@ Instala o **Cal.com**, a plataforma de agendamento open-source que coloca você 
 ## Persistência
 
 Os dados do Cal.com são persistidos no banco de dados PostgreSQL.
-A persistência da skill é salva em `/root/dados_vps/app-calcom.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_calcom`.

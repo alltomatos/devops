@@ -16,7 +16,7 @@ reset="\e[0m"
 # Variáveis
 SERVICE_NAME="pgvector"
 STACK_NAME="pgvector"
-DATA_FILE="/root/dados_vps/infra-pgvector.md"
+DATA_FILE="/root/dados_vps/dados_pgvector"
 
 NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")
 

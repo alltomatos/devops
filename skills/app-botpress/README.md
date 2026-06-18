@@ -21,4 +21,4 @@ Instala o **Botpress**, uma plataforma poderosa para criação de chatbots conve
 ## Persistência
 
 Os dados do Botpress são persistidos no volume `botpress_data`.
-A persistência da skill é salva em `/root/dados_vps/app-botpress.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_botpress`.

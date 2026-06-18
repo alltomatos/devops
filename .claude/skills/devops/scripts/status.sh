@@ -16,7 +16,8 @@ for d in "$SKILLS"/*/; do
   [ "$name" = "00-core" ] && continue
   total=$((total + 1))
   short="${name#app-}"; short="${short#infra-}"
-  if [ -f "$DADOS/$name.md" ] || [ -f "$DADOS/$short.md" ]; then
+  # Padrão Setup Orion: /root/dados_vps/dados_<servico> (sem extensão)
+  if [ -f "$DADOS/dados_$short" ] || [ -f "$DADOS/dados_$name" ]; then
     ok=$((ok + 1))
   fi
 done

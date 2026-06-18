@@ -21,4 +21,4 @@ Instala o **PgBackWeb**, uma interface web moderna e simples para gerenciar back
 ## Persistência
 
 Os backups locais (se configurados) são salvos no volume `pgbackweb_backups`. Os dados da aplicação ficam no banco PostgreSQL interno.
-A persistência da skill é salva em `/root/dados_vps/app-pgbackweb.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_pgbackweb`.

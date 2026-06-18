@@ -15,7 +15,7 @@
 #
 # Padrão de persistência:
 #   /root/evolution.yaml          — stack YAML (padrão Orion)
-#   /root/dados_vps/evolution.md  — metadados (NUNCA grava SENHA_POSTGRES)
+#   /root/dados_vps/dados_evolution  — metadados (NUNCA grava SENHA_POSTGRES)
 # =============================================================================
 
 set -euo pipefail
@@ -184,7 +184,7 @@ deploy_stack() {
 # PERSISTÊNCIA EM MARKDOWN (NUNCA grava SENHA_POSTGRES)
 # =============================================================================
 persist_data() {
-    echo -e "${amarelo}[5/5] Persistindo metadados em /root/dados_vps/evolution.md...${reset}"
+    echo -e "${amarelo}[5/5] Persistindo metadados em /root/dados_vps/dados_evolution...${reset}"
 
     save_data "evolution" "# Evolution API
 
@@ -231,7 +231,7 @@ echo -e "${amarelo}============================================================$
 if [ "$ERRORS" -eq 0 ]; then
     echo -e "${verde}  Deploy concluído com sucesso.${reset}"
     echo -e "${branco}  Manager disponível em: https://$URL_EVOLUTION/manager${reset}"
-    echo -e "${branco}  API Key salva em: /root/dados_vps/evolution.md${reset}"
+    echo -e "${branco}  API Key salva em: /root/dados_vps/dados_evolution${reset}"
 else
     echo -e "${vermelho}  Deploy concluído com $ERRORS erro(s).${reset}"
     echo -e "${branco}  Consulte os logs: docker service ls${reset}"

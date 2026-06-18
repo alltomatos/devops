@@ -24,4 +24,4 @@ NOME_REDE_INTERNA="OrionNet" \
 ```
 
 ## Persistência de Dados
-Os metadados da instalação são salvos em `/root/dados_vps/redisinsight.md`.
+Os metadados da instalação são salvos em `/root/dados_vps/dados_redisinsight`.

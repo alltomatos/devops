@@ -23,6 +23,6 @@
       "type": "password"
     }
   ],
-  "persistence_path": "/root/dados_vps/app-keycloak.md",
+  "persistence_path": "/root/dados_vps/dados_keycloak",
   "version": "1.0.0"
 }

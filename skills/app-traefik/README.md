@@ -24,7 +24,7 @@ Deploya o **Traefik v3.5.3** (proxy reverso com SSL automático) e o **Portainer
 
 ## Como o Claude conduz esta skill
 
-1. **Verifica dependência**: confere se `/root/dados_vps/bootstrap.md` existe.
+1. **Verifica dependência**: confere se `/root/dados_vps/dados_bootstrap` existe.
 2. **Entrevista**: pergunta as 4 variáveis ao usuário, uma de cada vez, validando o formato (ex: email válido, domínio sem `http://`).
 3. **Pré-flight**: relembra o usuário das checagens de DNS e firewall.
 4. **Confirmação**: mostra um resumo dos dados e pede aprovação explícita antes de executar.
@@ -40,8 +40,8 @@ Deploya o **Traefik v3.5.3** (proxy reverso com SSL automático) e o **Portainer
 |----------------------------------|-----------------------------------|
 | `/root/traefik.yaml`             | Stack do Traefik (editável)       |
 | `/root/portainer.yaml`           | Stack do Portainer (editável)     |
-| `/root/dados_vps/traefik.md`     | Metadados do deploy do Traefik    |
-| `/root/dados_vps/portainer.md`   | Metadados e URL do Portainer      |
+| `/root/dados_vps/dados_traefik`     | Metadados do deploy do Traefik    |
+| `/root/dados_vps/dados_portainer`   | Metadados e URL do Portainer      |
 
 ## Recursos provisionados
 - **Docker Swarm** inicializado (se ainda não estiver).

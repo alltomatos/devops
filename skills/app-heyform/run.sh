@@ -15,9 +15,9 @@ STACK_NAME="heyform"
 NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")
 
 # Carregar credenciais do MongoDB (ADR-001)
-if [ -f "/root/dados_vps/infra-mongodb.md" ]; then
-    MONGO_USER=$(grep "Usuário:" /root/dados_vps/infra-mongodb.md | awk '{print $2}')
-    MONGO_PASS=$(grep "Senha:" /root/dados_vps/infra-mongodb.md | awk '{print $2}')
+if [ -f "/root/dados_vps/dados_mongodb" ]; then
+    MONGO_USER=$(grep "Usuário:" /root/dados_vps/dados_mongodb | awk '{print $2}')
+    MONGO_PASS=$(grep "Senha:" /root/dados_vps/dados_mongodb | awk '{print $2}')
 else
     echo -e "\e[31mErro: infra-mongodb não encontrado em /root/dados_vps/\e[0m"
     exit 1

@@ -19,4 +19,4 @@ Instala o **NetBox**, a ferramenta padrão para IPAM (IP Address Management) e D
 ## Persistência
 
 Os dados do banco de dados e arquivos de mídia são persistidos em volumes Docker dedicados (prefixo `netbox_`).
-A persistência da skill é salva em `/root/dados_vps/app-netbox.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_netbox`.

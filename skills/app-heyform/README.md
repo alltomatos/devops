@@ -20,4 +20,4 @@ Instala o **HeyForm**, um criador de formulários online interativo, open-source
 ## Persistência
 
 Os uploads de arquivos são armazenados no volume local `heyform_uploads`. Os dados dos formulários e respostas vão para o MongoDB. O Redis é usado para fila e cache.
-A persistência da skill é salva em `/root/dados_vps/app-heyform.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_heyform`.

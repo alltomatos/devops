@@ -17,13 +17,23 @@ _ensure_data_dir() {
 }
 
 # -----------------------------------------------------------------------------
-# Salva dados de uma skill em arquivo .md
-# Uso: save_data "nome-serviço" "conteúdo markdown completo"
+# Normaliza o nome de um serviço para o caminho de persistência no padrão
+# Setup Orion: /root/dados_vps/dados_<nome>  (SEM extensão, prefixo app-/infra-
+# removido). Ex.: "infra-mongodb" -> dados_mongodb ; "app-checkmate" -> dados_checkmate.
+# -----------------------------------------------------------------------------
+_dados_path() {
+    local s="${1#app-}"; s="${s#infra-}"
+    echo "$DATA_DIR/dados_$s"
+}
+
+# -----------------------------------------------------------------------------
+# Salva dados de uma skill (padrão Setup Orion: arquivo dados_<nome> sem extensão)
+# Uso: save_data "nome-serviço" "conteúdo completo"
 # -----------------------------------------------------------------------------
 save_data() {
     local service="$1"
     local content="$2"
-    local target="$DATA_DIR/$service.md"
+    local target; target="$(_dados_path "$service")"
     local tmp
     tmp=$(mktemp)
 
@@ -31,9 +41,8 @@ save_data() {
 
     # Escrita atômica: escreve no temp e move (evita corrupção em falhas)
     echo "$content" > "$tmp" && mv "$tmp" "$target"
-
-    # Atualiza o índice central
-    _update_index "$service"
+    # Arquivos podem conter credenciais (padrão Setup Orion) — restringe acesso.
+    chmod 600 "$target" 2>/dev/null
 }
 
 # -----------------------------------------------------------------------------
@@ -42,7 +51,7 @@ save_data() {
 # -----------------------------------------------------------------------------
 read_data() {
     local service="$1"
-    local target="$DATA_DIR/$service.md"
+    local target; target="$(_dados_path "$service")"
 
     if [ -f "$target" ]; then
         cat "$target"
@@ -57,36 +66,7 @@ read_data() {
 # Uso: service_exists "nome-serviço" → retorna 0 (sim) ou 1 (não)
 # -----------------------------------------------------------------------------
 service_exists() {
-    [ -f "$DATA_DIR/$1.md" ]
-}
-
-# -----------------------------------------------------------------------------
-# Atualiza o índice central de instalações
-# Mantém entradas únicas e ordenadas
-# -----------------------------------------------------------------------------
-_update_index() {
-    local service="$1"
-    local index="$DATA_DIR/index.md"
-
-    _ensure_data_dir
-
-    # Cria o cabeçalho se o índice não existe ainda
-    if [ ! -f "$index" ]; then
-        cat > "$index" <<MD
-# Catálogo de Instalações Setup Orion
-
-> Gerado automaticamente pelas skills do ecossistema Setup Orion.
-
-## Serviços Instalados
-
-MD
-    fi
-
-    # Adiciona entrada somente se ainda não existir
-    local entry="- [$service]($service.md)"
-    if ! grep -qF -- "$entry" "$index"; then
-        echo "$entry" >> "$index"
-    fi
+    [ -f "$(_dados_path "$1")" ]
 }
 
 # =============================================================================
@@ -284,9 +264,8 @@ deploy_via_portainer() {
     return 1
 }
 list_services() {
-    local index="$DATA_DIR/index.md"
-    if [ -f "$index" ]; then
-        grep "^- \[" "$index" | sed 's/- \[//;s/\].*//'
+    if ls "$DATA_DIR"/dados_* >/dev/null 2>&1; then
+        ls -1 "$DATA_DIR"/dados_* | sed "s#.*/dados_##"
     else
         echo "[lib-persistence] Nenhum serviço registrado ainda."
     fi

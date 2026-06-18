@@ -22,4 +22,4 @@ Instala o **Odoo**, um conjunto de aplicativos de negócios open-source que cobr
 
 A skill configura seu próprio banco de dados PostgreSQL interno para garantir isolamento compatível com o Odoo.
 Arquivos de configuração, dados, addons extras e o banco de dados são persistidos em volumes Docker (`odoo_app_data`, `odoo_app_config`, `odoo_app_addons`, `odoo_db_data`).
-A persistência da skill é salva em `/root/dados_vps/app-odoo.md`.
+A persistência da skill é salva em `/root/dados_vps/dados_odoo`.

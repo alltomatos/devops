@@ -7,5 +7,5 @@
     "app-traefik"
   ],
   "required_inputs": [],
-  "persistence_path": "/root/dados_vps/infra-qdrant.md"
+  "persistence_path": "/root/dados_vps/dados_qdrant"
 }

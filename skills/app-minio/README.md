@@ -40,7 +40,7 @@ run.sh gera /root/minio.yaml (stack Swarm com labels Traefik)
         ↓
 docker stack deploy → MinIO sobe com Traefik roteando os 2 domínios
         ↓
-run.sh salva /root/dados_vps/minio.md com URL_MINIO e URL_S3
+run.sh salva /root/dados_vps/dados_minio com URL_MINIO e URL_S3
 (SENHA_MINIO nunca é escrita em disco)
         ↓
 Claude orienta criação de bucket e geração de Access Keys no painel
@@ -52,7 +52,7 @@ Claude orienta criação de bucket e geração de Access Keys no painel
 
 > Esta é a integração mais importante desta skill no ecossistema Setup Orion.
 
-Quando o Claude instala skills que precisam de storage de arquivos (uploads, attachments, mídia), ele lê `/root/dados_vps/minio.md` para obter o `URL_S3` e usa como endpoint S3 na configuração de cada serviço.
+Quando o Claude instala skills que precisam de storage de arquivos (uploads, attachments, mídia), ele lê `/root/dados_vps/dados_minio` para obter o `URL_S3` e usa como endpoint S3 na configuração de cada serviço.
 
 Skills que dependem de `URL_S3`:
 
@@ -71,7 +71,7 @@ Skills que dependem de `URL_S3`:
 | Item                  | Comportamento                                                       |
 |-----------------------|---------------------------------------------------------------------|
 | `SENHA_MINIO`         | Injetada apenas em tempo de execução — nunca gravada em nenhum .md |
-| `/root/dados_vps/minio.md` | Contém apenas URLs e metadados operacionais                   |
+| `/root/dados_vps/dados_minio` | Contém apenas URLs e metadados operacionais                   |
 | Access Keys de integração | Geradas manualmente no painel após o deploy                   |
 | SSL                   | Automático via Traefik + Let's Encrypt para os 2 domínios          |
 
@@ -96,7 +96,7 @@ Após o deploy, acesse o painel e execute:
 | Caminho                        | Conteúdo                                     |
 |--------------------------------|----------------------------------------------|
 | `/root/minio.yaml`             | Stack Docker Swarm (Traefik labels incluídos)|
-| `/root/dados_vps/minio.md`     | Metadados do deploy: URLs, volume, status    |
+| `/root/dados_vps/dados_minio`     | Metadados do deploy: URLs, volume, status    |
 
 ---
 
