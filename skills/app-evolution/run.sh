@@ -21,8 +21,8 @@
 set -euo pipefail
 
 SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
-# shellcheck source=/root/setup-skills/skills/00-core/lib-persistence.sh
-source "/root/setup-skills/skills/00-core/lib-persistence.sh"
+# shellcheck source=/root/devops/skills/00-core/lib-persistence.sh
+source "/root/devops/skills/00-core/lib-persistence.sh"
 
 # Cores padrão Orion Design
 amarelo="\e[33m"

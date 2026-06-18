@@ -1,6 +1,6 @@
 # ORCHESTRATOR-ROADMAP
 
-Este documento mapeia o progresso do projeto `setup-skills` sob governança do orquestrador.
+Este documento mapeia o progresso do projeto `devops` sob governança do orquestrador.
 Fonte de verdade: `docs/SetupOrion.md` (v2.8.0 — 45.909 linhas, ~110 ferramentas).
 
 ---

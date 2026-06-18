@@ -15,7 +15,7 @@ allowed-tools: Bash(read *) Read Write
 ### 1. Localizar a função no SetupOrion.md
 
 ```
-!`grep -n "ferramenta_$ARGUMENTS\b" /root/setup-skills/docs/SetupOrion.md 2>/dev/null | head -5`
+!`grep -n "ferramenta_$ARGUMENTS\b" /root/devops/docs/SetupOrion.md 2>/dev/null | head -5`
 ```
 
 ### 2. Extrair o bloco YAML da função

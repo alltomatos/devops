@@ -3,7 +3,7 @@
 set -u
 
 DADOS="${ORION_DADOS_DIR:-/root/dados_vps}"
-SKILLS="${ORION_SKILLS_DIR:-/root/setup-skills/skills}"
+SKILLS="${ORION_SKILLS_DIR:-/root/devops/skills}"
 
 if [ ! -d "$SKILLS" ]; then
   echo "Servidor nao conectado"

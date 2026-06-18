@@ -12,7 +12,7 @@ agent: Explore
 
 ## Tarefa
 
-Auditar todas as deploy skills em `/root/setup-skills/skills/` verificando conformidade com os ADRs.
+Auditar todas as deploy skills em `/root/devops/skills/` verificando conformidade com os ADRs.
 
 ### ADR-001 — Persistência em Markdown
 
@@ -37,7 +37,7 @@ Auditar todas as deploy skills em `/root/setup-skills/skills/` verificando confo
 !`python3 << 'EOF'
 import os, json
 
-SKILLS = "/root/setup-skills/skills"
+SKILLS = "/root/devops/skills"
 results = []
 
 for name in sorted(os.listdir(SKILLS)):

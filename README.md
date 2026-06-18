@@ -49,8 +49,8 @@ claude login
 ### 3. Clonar o projeto
 
 ```bash
-git clone https://github.com/alltomatos/setup-skills.git
-cd setup-skills
+git clone https://github.com/alltomatos/devops.git
+cd devops
 
 # Iniciar o orquestrador
 claude
@@ -61,7 +61,7 @@ claude
 ## 📐 Arquitetura
 
 ```
-setup-skills/
+devops/
 ├── .claude/
 │   ├── config.json          # Configuração do orquestrador
 │   └── context7.json        # Context7 MCP para docs live
