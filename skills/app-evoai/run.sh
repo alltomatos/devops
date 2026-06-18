@@ -60,7 +60,7 @@ services:
       - SMTP_PORT=$SMTP_PORT
       - SMTP_USE_TLS=$SMTP_USE_TLS
       - SMTP_USE_SSL=$SMTP_USE_SSL
-      - POSTGRES_CONNECTION_STRING=postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/evoai?sslmode=disable
+      - POSTGRES_CONNECTION_STRING=postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/evoai
       - REDIS_HOST=evoai_redis
       - REDIS_PORT=6379
       - REDIS_DB=9
