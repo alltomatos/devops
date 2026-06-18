@@ -137,6 +137,8 @@ services:
       - DOORKEEPER_JWT_SECRET_KEY=$DOORKEEPER_SECRET
       - DOORKEEPER_JWT_ALGORITHM=hs256
       - DOORKEEPER_JWT_ISS=evo-auth-service
+    healthcheck:
+      disable: true
     deploy:
       placement:
         constraints: [node.role == manager]
