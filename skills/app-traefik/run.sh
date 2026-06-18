@@ -241,12 +241,16 @@ YAML
 # DEPLOY DAS STACKS
 # =============================================================================
 deploy_stacks() {
-    echo -e "${amarelo}[6/6] Executando deploy das stacks...${reset}"
+    echo -e "${amarelo}[6/6] Executando deploy das stacks (bootstrap)...${reset}"
+
+    # IMPORTANTE: Traefik e Portainer são a fundação e NÃO podem ser criados via
+    # API do Portainer (ele ainda não existe). Por isso — e somente para estas
+    # duas stacks de bootstrap — usamos `docker stack deploy` diretamente.
+    # Todas as DEMAIS skills usam deploy_via_portainer (modo Total Control).
 
     # Traefik
-    deploy_via_portainer "traefik" "/root/traefik.yaml"
-    if [ $? -eq 0 ]; then
-        echo -e "${verde}      [OK] Stack traefik deployada.${reset}"
+    if docker stack deploy --prune --resolve-image always -c /root/traefik.yaml traefik; then
+        echo -e "${verde}      [OK] Stack traefik deployada (bootstrap).${reset}"
     else
         echo -e "${vermelho}      [FAIL] Falha no deploy do traefik.${reset}"
         ERRORS=$((ERRORS + 1))
@@ -257,11 +261,28 @@ deploy_stacks() {
     sleep 30
 
     # Portainer
-    deploy_via_portainer "portainer" "/root/portainer.yaml"
-    if [ $? -eq 0 ]; then
-        echo -e "${verde}      [OK] Stack portainer deployada.${reset}"
+    if docker stack deploy --prune --resolve-image always -c /root/portainer.yaml portainer; then
+        echo -e "${verde}      [OK] Stack portainer deployada (bootstrap).${reset}"
     else
         echo -e "${vermelho}      [FAIL] Falha no deploy do portainer.${reset}"
+        ERRORS=$((ERRORS + 1))
+    fi
+}
+
+# -----------------------------------------------------------------------------
+# Inicializa o admin do Portainer via API (Total Control) logo após o deploy,
+# dentro da janela de segurança do Portainer. A senha é gerada (ou vem de
+# PORTAINER_ADMIN_PASSWORD) e persistida em /root/dados_vps/portainer_auth.
+# -----------------------------------------------------------------------------
+init_portainer_admin() {
+    echo -e "${amarelo}      Inicializando admin do Portainer via API...${reset}"
+    PORTAINER_ADMIN_USER="${PORTAINER_ADMIN_USER:-admin}"
+    PORTAINER_ADMIN_PASSWORD="${PORTAINER_ADMIN_PASSWORD:-$(openssl rand -hex 16)}"
+    if portainer_init_admin "$URL_PORTAINER" "$PORTAINER_ADMIN_USER" "$PORTAINER_ADMIN_PASSWORD"; then
+        echo -e "${verde}      [OK] Admin do Portainer pronto (Total Control habilitado).${reset}"
+    else
+        echo -e "${vermelho}      [FAIL] Não foi possível inicializar o admin do Portainer.${reset}"
+        echo -e "${vermelho}             Deploys via API ficarão indisponíveis até resolver.${reset}"
         ERRORS=$((ERRORS + 1))
     fi
 }
@@ -296,9 +317,10 @@ persist_data() {
 - **Stack YAML**: /root/portainer.yaml
 - **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
 
-## Credenciais Iniciais
-> Acesse https://$URL_PORTAINER e crie o usuário admin no primeiro acesso.
-> Guarde as credenciais em local seguro — esta skill não gerencia senhas do Portainer."
+## Credenciais (modo Total Control)
+> Admin criado automaticamente via API (usuário: ${PORTAINER_ADMIN_USER:-admin}).
+> A senha está em /root/dados_vps/portainer_auth (chmod 600) — use-a para logar na UI.
+> Todas as demais stacks são criadas via API do Portainer (totalmente gerenciáveis)."
 }
 
 # =============================================================================
@@ -317,6 +339,7 @@ setup_network
 generate_traefik_yaml
 generate_portainer_yaml
 deploy_stacks
+init_portainer_admin
 persist_data
 
 echo ""
