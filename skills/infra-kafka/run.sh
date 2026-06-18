@@ -25,7 +25,7 @@ cat > kafka.yaml <<EOL
 version: "3.7"
 services:
   kafka:
-    image: bitnami/kafka:latest
+    image: bitnamilegacy/kafka:latest
     networks:
       - $NOME_REDE_INTERNA
     environment:
