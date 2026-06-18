@@ -118,16 +118,17 @@ if [ $? -eq 0 ]; then
     echo -e "${verde}Deploy do Wekan concluído com sucesso!${reset}"
     
     # Persistência (Incluindo segredos conforme solicitado na Epic E18)
-    CONTENT="# Wekan
+    CONTENT="[ WEKAN ]
 
-- **Status**: Instalado
-- **Data**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://$DOMAIN_WEKAN
-- **Rede**: $NOME_REDE_INTERNA
-- **WEKAN_SECRET_KEY**: $WEKAN_SECRET_KEY
-- **MONGO_PASSWORD**: $MONGO_PASSWORD
-- **Stack**: wekan.yaml
-"
+Dominio: https://$DOMAIN_WEKAN
+
+Host: wekan
+
+Port: 8080
+
+Secret Key: $WEKAN_SECRET_KEY
+
+Rede: $NOME_REDE_INTERNA"
     save_data "app-wekan" "$CONTENT"
 else
     echo -e "${vermelho}Erro ao realizar deploy do Wekan.${reset}"

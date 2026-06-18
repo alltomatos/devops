@@ -54,7 +54,15 @@ deploy_via_portainer "$STACK_NAME" "openwebui.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-openwebui" "# Open WebUI (AI/Frontend)\n\n- Status: Instalado\n- URL: https://$DOMAIN_OPENWEBUI\n- Backend: Ollama (http://ollama:11434)"
+    save_data "app-openwebui" "[ OPENWEBUI ]
+
+Dominio: https://$DOMAIN_OPENWEBUI
+
+Host: openwebui
+
+Port: 8080
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

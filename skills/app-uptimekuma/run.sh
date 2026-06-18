@@ -64,7 +64,15 @@ deploy_via_portainer "$STACK_NAME" "uptimekuma${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-uptimekuma" "# Uptime Kuma\n\n- Status: Instalado\n- URL: https://$DOMAIN_UPTIMEKUMA"
+    save_data "app-uptimekuma" "[ UPTIMEKUMA ]
+
+Dominio: https://$DOMAIN_UPTIMEKUMA
+
+Host: uptimekuma
+
+Port: 3001
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

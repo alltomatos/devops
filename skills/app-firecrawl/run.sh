@@ -47,7 +47,15 @@ deploy_via_portainer "$STACK_NAME" "firecrawl.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-firecrawl" "# Firecrawl (AI/Scraping)\n\n- Status: Instalado\n- URL: https://$DOMAIN_FIRECRAWL"
+    save_data "app-firecrawl" "[ FIRECRAWL ]
+
+Dominio: https://$DOMAIN_FIRECRAWL
+
+Host: firecrawl
+
+Port: 3002
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

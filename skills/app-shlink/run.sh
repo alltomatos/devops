@@ -121,7 +121,23 @@ deploy_via_portainer "$STACK_NAME" "shlink${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-shlink" "# Shlink\n\n- Status: Instalado\n- Painel UI: https://$DOMAIN_SHLINK_UI\n- API/URLs: https://$DOMAIN_SHLINK_API\n- SHLINK_API_KEY: $SHLINK_API_KEY"
+    save_data "app-shlink" "[ SHLINK ]
+
+Dominio: https://$DOMAIN_SHLINK_UI
+
+API: https://$DOMAIN_SHLINK_API
+
+Host: api
+
+Port: 8080
+
+Usuario: $SHLINK_USER
+
+Senha: $SHLINK_PASSWORD
+
+API Key: $SHLINK_API_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

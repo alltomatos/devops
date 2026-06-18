@@ -89,14 +89,15 @@ deploy_stack() {
 
 persist_data() {
     echo -e "${amarelo}[3/3] Salvando metadados em /root/dados_vps/dados_browserless...${reset}"
-    save_data "browserless" "# Browserless
+    save_data "browserless" "[ BROWSERLESS ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_BROWSERLESS}
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_BROWSERLESS}
 
-> Browserless é um serviço que fornece instâncias do Chrome headless prontas para uso via APIs (Puppeteer, Playwright, etc)."
+Host: browserless
+
+Port: 3000
+
+Rede: ${NOME_REDE_INTERNA}"
     echo -e "${verde}      Metadados salvos.${reset}"
 }
 

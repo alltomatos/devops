@@ -41,5 +41,17 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "gotenberg.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-gotenberg" "# Gotenberg\n\n- Status: Instalado\n- URL: https://$DOMAIN_GOTENBERG\n- API Key: $GOTENBERG_USER / $GOTENBERG_PASS"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-gotenberg" "[ GOTENBERG ]
+
+Dominio: https://$DOMAIN_GOTENBERG
+
+Host: gotenberg
+
+Port: 3000
+
+Usuario: $GOTENBERG_USER
+
+Senha: $GOTENBERG_PASS
+
+Rede: $NOME_REDE_INTERNA"
 rm -f gotenberg.yaml; exit 0

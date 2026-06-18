@@ -117,7 +117,19 @@ deploy_via_portainer "$STACK_NAME" "outline.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-outline" "# Outline\n\n- Status: Instalado\n- URL: https://$DOMAIN_OUTLINE\n- Login via Google OAuth\n- Secret Key: $SECRET_KEY\n- Utils Secret: $UTILS_SECRET"
+    save_data "app-outline" "[ OUTLINE ]
+
+Dominio: https://$DOMAIN_OUTLINE
+
+Host: outline_app
+
+Port: 3000
+
+Secret Key: $SECRET_KEY
+
+Utils Secret: $UTILS_SECRET
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

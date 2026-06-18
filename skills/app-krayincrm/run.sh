@@ -118,13 +118,19 @@ deploy_via_portainer "$STACK_NAME" "krayin.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-krayincrm" "# Krayin CRM
+    save_data "app-krayincrm" "[ KRAYINCRM ]
 
-- Status: Instalado
-- URL: https://$DOMAIN_KRAYIN
-- DB: MySQL (interno)
-- APP_KEY: $APP_KEY
-- DB_PASSWORD: $DB_PASSWORD"
+Dominio: https://$DOMAIN_KRAYIN
+
+Host: krayin_app
+
+Port: 80
+
+APP_KEY: $APP_KEY
+
+DB_PASSWORD: $DB_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

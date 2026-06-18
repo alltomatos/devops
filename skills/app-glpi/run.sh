@@ -16,7 +16,7 @@ NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}
 
 # Carregar credenciais do MySQL (ADR-001)
 if [ -f "/root/dados_vps/dados_mysql" ]; then
-    MYSQL_PASS=$(grep "Senha root:" /root/dados_vps/dados_mysql | awk '{print $3}')
+    MYSQL_PASS=$(grep "Senha:" /root/dados_vps/dados_mysql | awk '{print $2}')
 else
     MYSQL_PASS=$MYSQL_PASSWORD
 fi
@@ -73,7 +73,15 @@ deploy_via_portainer "$STACK_NAME" "glpi${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-glpi" "# GLPI\n\n- Status: Instalado\n- URL: https://$DOMAIN_GLPI\n- Banco de Dados: glpi\n- Servidor SQL: mysql\n- Usuário SQL: root\n- Senha SQL: $MYSQL_PASS"
+    save_data "app-glpi" "[ GLPI ]
+
+Dominio: https://$DOMAIN_GLPI
+
+Host: app
+
+Port: 80
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

@@ -53,7 +53,20 @@ deploy_via_portainer "$STACK_NAME" "kafka.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "infra-kafka" "# Apache Kafka\n\n- Status: Instalado\n- Host: kafka\n- Porta: 9092\n- Modo: KRaft (sem Zookeeper)"
+    CONTENT="[ KAFKA ]
+
+Dominio: PLAINTEXT://kafka:9092
+
+Host: kafka
+
+Port: 9092
+
+Usuario: Não tem
+
+Senha: Não tem
+
+Rede: $NOME_REDE_INTERNA"
+    save_data "infra-kafka" "$CONTENT"
 else
     exit 1
 fi

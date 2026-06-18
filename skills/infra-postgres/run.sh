@@ -88,19 +88,17 @@ if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
     
     # 6. Persistir metadados (Markdown)
-    CONTENT="# PostgreSQL (Infra)
+    CONTENT="[ POSTGRES ]
 
-- **Status**: Instalado
-- **Data**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Versão**: 14
-- **Host**: postgres
-- **Porta**: 5432
-- **Usuário**: postgres
-- **Rede**: $NOME_REDE_INTERNA
-- **Senha Gerada**: $([ "$GEN_PWD" = true ] && echo "Sim" || echo "Não (fornecida pelo usuário)")
+Host: postgres
 
-> Nota: A senha real não é persistida aqui conforme ADR-002.
-"
+Port: 5432
+
+Usuario: postgres
+
+Senha: $POSTGRES_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
     save_data "infra-postgres" "$CONTENT"
     
     echo -e "${branco}Dados da skill salvos em: $DATA_FILE${reset}"

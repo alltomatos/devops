@@ -99,13 +99,23 @@ deploy_via_portainer "$STACK_NAME" "woofed.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-woofed" "# WoofedCRM
+    save_data "app-woofed" "[ WOOFED ]
 
-- Status: Instalado
-- URL: https://$DOMAIN_WOOFED
-- Motor User: $MOTOR_USER
-- DB_PASSWORD: $DB_PASSWORD
-- SECRET_KEY_BASE: $SECRET_KEY_BASE"
+Dominio: https://$DOMAIN_WOOFED
+
+Host: woofed_web
+
+Port: 3000
+
+Usuario: $MOTOR_USER
+
+Senha: $MOTOR_PASS
+
+DB Senha: $DB_PASSWORD
+
+Secret Key Base: $SECRET_KEY_BASE
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

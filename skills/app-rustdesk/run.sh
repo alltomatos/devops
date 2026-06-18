@@ -114,7 +114,19 @@ deploy_via_portainer "$STACK_NAME" "rustdesk${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-rustdesk" "# RustDesk Server\n\n- ID Server: $DOMAIN_HBBS\n- Relay Server: $DOMAIN_HBBR\n- Public Key: $RUSTDESK_KEY\n- Config String: $RUSTDESK_STRING"
+    save_data "app-rustdesk" "[ RUSTDESK ]
+
+Dominio: https://$DOMAIN_HBBS
+
+ID Server: $DOMAIN_HBBS
+
+Relay Server: $DOMAIN_HBBR
+
+Public Key: $RUSTDESK_KEY
+
+Config String: $RUSTDESK_STRING
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

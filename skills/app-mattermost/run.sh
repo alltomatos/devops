@@ -92,7 +92,15 @@ deploy_via_portainer "$STACK_NAME" "mattermost${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-mattermost" "# Mattermost\n\n- Status: Instalado\n- URL: https://$DOMAIN_MATTERMOST\n- Nota: Crie sua conta de administrador no primeiro acesso."
+    save_data "app-mattermost" "[ MATTERMOST ]
+
+Dominio: https://$DOMAIN_MATTERMOST
+
+Host: app
+
+Port: 8065
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

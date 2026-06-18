@@ -65,16 +65,19 @@ deploy_via_portainer "$STACK_NAME" "rabbitmq.yaml"
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
     
-    CONTENT="# RabbitMQ (Infra/Fila)
+    CONTENT="[ RABBITMQ ]
 
-- **Status**: Instalado
-- **Data**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Host**: rabbitmq
-- **Portas**: 5672 (AMQP), 15672 (Management)
-- **Usuário**: admin
-- **Rede**: $NOME_REDE_INTERNA
-- **Senha Gerada**: $([ "$GEN_PWD" = true ] && echo "Sim" || echo "Não")
-"
+Dominio: amqp://admin:$RABBITMQ_DEFAULT_PASS@rabbitmq:5672
+
+Host: rabbitmq
+
+Port: 5672
+
+Usuario: admin
+
+Senha: $RABBITMQ_DEFAULT_PASS
+
+Rede: $NOME_REDE_INTERNA"
     save_data "infra-rabbitmq" "$CONTENT"
 else
     echo -e "${vermelho}Erro ao fazer o deploy da stack RabbitMQ.${reset}"

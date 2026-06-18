@@ -16,7 +16,7 @@ NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}
 
 # Carregar credenciais do MongoDB (ADR-001)
 if [ -f "/root/dados_vps/dados_mongodb" ]; then
-    MONGO_USER=$(grep "Usuário:" /root/dados_vps/dados_mongodb | awk '{print $2}')
+    MONGO_USER=$(grep "Usuario:" /root/dados_vps/dados_mongodb | awk '{print $2}')
     MONGO_PASS=$(grep "Senha:" /root/dados_vps/dados_mongodb | awk '{print $2}')
 else
     echo -e "\e[31mErro: infra-mongodb não encontrado em /root/dados_vps/\e[0m"
@@ -117,7 +117,19 @@ deploy_via_portainer "$STACK_NAME" "heyform${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-heyform" "# HeyForm\n\n- Status: Instalado\n- URL: https://$DOMAIN_HEYFORM\n- Session Key: $SESSION_KEY\n- Form Encryption Key: $FORM_ENCRYPTION_KEY\n- Nota: Crie sua conta de administrador no primeiro acesso."
+    save_data "app-heyform" "[ HEYFORM ]
+
+Dominio: https://$DOMAIN_HEYFORM
+
+Host: app
+
+Port: 9157
+
+Session Key: $SESSION_KEY
+
+Form Encryption Key: $FORM_ENCRYPTION_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

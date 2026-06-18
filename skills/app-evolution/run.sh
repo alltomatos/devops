@@ -186,26 +186,19 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Persistindo metadados em /root/dados_vps/dados_evolution...${reset}"
 
-    save_data "evolution" "# Evolution API
+    save_data "evolution" "[ EVOLUTION ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Versão**: atendai/evolution-api:latest
-- **Rede**: $NOME_REDE_INTERNA
-- **URL de Acesso**: https://$URL_EVOLUTION
-- **Manager**: https://$URL_EVOLUTION/manager
-- **Stack YAML**: /root/evolution.yaml
-- **API Key (AUTHENTICATION_API_KEY)**: $API_KEY
-- **Banco de Dados**: PostgreSQL externo (host=postgres, user=postgres, db=evolution)
-- **Cache**: Redis embutido na stack (evolution_redis)
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://$URL_EVOLUTION
 
-## Acesso
-> Manager web: https://$URL_EVOLUTION/manager
-> No primeiro acesso, informe a API Key acima para autenticar.
+Manager: https://$URL_EVOLUTION/manager
 
-## Segurança
-> A senha do PostgreSQL **não** é persistida neste arquivo por política de segurança Orion.
-> A API Key é o segredo de acesso à Evolution — guarde-a em local seguro."
+Host: evolution_api
+
+Port: 8080
+
+API Key: $API_KEY
+
+Rede: $NOME_REDE_INTERNA"
 
     echo -e "${verde}      Metadados persistidos (sem senha do PostgreSQL).${reset}"
 }

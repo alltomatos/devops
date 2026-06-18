@@ -16,7 +16,7 @@ NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}
 
 # Recuperar ou gerar Zep API Key (idempotência)
 if [ -z "$ZEP_AUTH_SECRET" ]; then
-    ZEP_AUTH_SECRET=$(read_data "app-zep" | grep -oP '(?<=- API Key: ).*' || openssl rand -hex 16)
+    ZEP_AUTH_SECRET=$(read_data "app-zep" | grep -oP '(?<=API Key: ).*' || openssl rand -hex 16)
 fi
 
 # Basic Auth para Traefik (painel admin)
@@ -76,7 +76,20 @@ deploy_via_portainer "$STACK_NAME" "zep.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-zep" "# Zep (AI/Memory)\n\n- Status: Instalado\n- URL: https://$DOMAIN_ZEP/admin\n- API Endpoint: https://$DOMAIN_ZEP\n- API Key: $ZEP_AUTH_SECRET\n- DB: pgvector"
+    CONTENT="[ ZEP ]
+
+Dominio: https://$DOMAIN_ZEP
+
+Painel Admin: https://$DOMAIN_ZEP/admin
+
+Usuario: $ZEP_USER
+
+Senha: $ZEP_PASS
+
+API Key: $ZEP_AUTH_SECRET
+
+Rede: $NOME_REDE_INTERNA"
+    save_data "app-zep" "$CONTENT"
 else
     exit 1
 fi

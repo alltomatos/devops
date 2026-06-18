@@ -168,7 +168,29 @@ deploy_via_portainer "$STACK_NAME" "evocrm.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-evocrm" "# EvoCRM\n\n- Status: Instalado\n- Frontend: https://$DOMAIN_EVOCRM_FRONT\n- API Gateway: https://$DOMAIN_EVOCRM_API"
+    save_data "app-evocrm" "[ EVOCRM ]
+
+Dominio: https://$DOMAIN_EVOCRM_FRONT
+
+API: https://$DOMAIN_EVOCRM_API
+
+Host: gateway
+
+Port: 3030
+
+Secret Key Base: $SECRET_KEY_BASE
+
+JWT Secret: $JWT_SECRET
+
+API Token: $API_TOKEN
+
+Doorkeeper Secret: $DOORKEEPER_SECRET
+
+Bot Runtime Secret: $BOT_RUNTIME_SECRET
+
+Encryption Key: $ENCRYPTION_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

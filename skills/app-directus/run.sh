@@ -111,7 +111,23 @@ deploy_via_portainer "$STACK_NAME" "directus.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-directus" "# Directus\n\n- Status: Instalado\n- URL: https://$DOMAIN_DIRECTUS\n- Admin: $ADMIN_EMAIL\n- KEY: $KEY\n- SECRET: $SECRET"
+    save_data "app-directus" "[ DIRECTUS ]
+
+Dominio: https://$DOMAIN_DIRECTUS
+
+Host: directus
+
+Port: 8055
+
+Usuario: $ADMIN_EMAIL
+
+Senha: $ADMIN_PASSWORD
+
+Key: $KEY
+
+Secret: $SECRET
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

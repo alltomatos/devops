@@ -76,7 +76,21 @@ deploy_via_portainer "$STACK_NAME" "transcrevezap.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-transcrevezap" "# TranscreveZap\n\n- Status: Instalado\n- API: https://$DOMAIN_TRANSCREVE_API\n- Manager: https://$DOMAIN_TRANSCREVE_MANAGER"
+    save_data "app-transcrevezap" "[ TRANSCREVEZAP ]
+
+Dominio: https://$DOMAIN_TRANSCREVE_MANAGER
+
+API: https://$DOMAIN_TRANSCREVE_API
+
+Host: transcrevezap
+
+Port: 8005
+
+Usuario: $MANAGER_USER
+
+Senha: $MANAGER_PASS
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

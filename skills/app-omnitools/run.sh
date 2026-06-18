@@ -44,7 +44,15 @@ deploy_via_portainer "$STACK_NAME" "omnitools.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-omnitools" "# OmniTools\n\n- Status: Instalado\n- URL: https://$DOMAIN_OMNITOOLS"
+    save_data "app-omnitools" "[ OMNITOOLS ]
+
+Dominio: https://$DOMAIN_OMNITOOLS
+
+Host: omnitools
+
+Port: 3000
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

@@ -95,7 +95,19 @@ deploy_via_portainer "$STACK_NAME" "baserow.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-baserow" "# Baserow\n\n- Status: Instalado\n- URL: https://$DOMAIN_BASEROW\n- SECRET_KEY: $SECRET_KEY\n- BASEROW_JWT_SECRET_KEY: $BASEROW_JWT_SECRET_KEY"
+    save_data "app-baserow" "[ BASEROW ]
+
+Dominio: https://$DOMAIN_BASEROW
+
+Host: baserow_app
+
+Port: 80
+
+Secret Key: $SECRET_KEY
+
+JWT Secret: $BASEROW_JWT_SECRET_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

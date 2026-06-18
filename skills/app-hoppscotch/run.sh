@@ -83,5 +83,19 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "hoppscotch.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-hoppscotch" "# Hoppscotch\n\n- Status: Instalado\n- URL: https://$DOMAIN_HOPPSCOTCH\n- Encryption Key: $ENC_KEY\n- JWT Secret: $JWT_KEY\n- Session Secret: $SESSION_KEY"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-hoppscotch" "[ HOPPSCOTCH ]
+
+Dominio: https://$DOMAIN_HOPPSCOTCH
+
+Host: hoppscotch_frontend
+
+Port: 3000
+
+Encryption Key: $ENC_KEY
+
+JWT Secret: $JWT_KEY
+
+Session Secret: $SESSION_KEY
+
+Rede: $NOME_REDE_INTERNA"
 rm -f hoppscotch.yaml; exit 0

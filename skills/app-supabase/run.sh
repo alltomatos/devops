@@ -211,7 +211,29 @@ deploy_via_portainer "$STACK_NAME" "supabase${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-supabase" "# Supabase\n\n- Status: Instalado\n- URL: https://$DOMAIN_SUPABASE\n- User: $SUPABASE_USER\n- Anon Key: $ANON_KEY"
+    save_data "app-supabase" "[ SUPABASE ]
+
+Dominio: https://$DOMAIN_SUPABASE
+
+Host: kong
+
+Port: 8000
+
+Usuario: $SUPABASE_USER
+
+Senha: $SUPABASE_PASSWORD
+
+JWT Secret: $JWT_SECRET
+
+Anon Key: $ANON_KEY
+
+Service Key: $SERVICE_KEY
+
+Postgres Password: $POSTGRES_PASSWORD
+
+PG Meta Crypto Key: $PG_META_CRYPTO_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

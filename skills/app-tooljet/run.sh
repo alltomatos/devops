@@ -101,7 +101,19 @@ deploy_via_portainer "$STACK_NAME" "tooljet.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-tooljet" "# ToolJet\n\n- Status: Instalado\n- URL: https://$DOMAIN_TOOLJET\n- LOCKBOX_MASTER_KEY: $LOCKBOX_MASTER_KEY\n- SECRET_KEY_BASE: $SECRET_KEY_BASE"
+    save_data "app-tooljet" "[ TOOLJET ]
+
+Dominio: https://$DOMAIN_TOOLJET
+
+Host: tooljet_app
+
+Port: 80
+
+Lockbox Master Key: $LOCKBOX_MASTER_KEY
+
+Secret Key Base: $SECRET_KEY_BASE
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

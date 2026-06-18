@@ -170,7 +170,13 @@ deploy_via_portainer "$STACK_NAME" "monitor${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-monitor" "# Monitor Orion\n\n- Status: Instalado\n- Grafana: https://$DOMAIN_GRAFANA\n- Prometheus: https://$DOMAIN_PROMETHEUS"
+    save_data "app-monitor" "[ MONITOR ]
+
+Dominio: https://$DOMAIN_GRAFANA
+
+Dominio Prometheus: https://$DOMAIN_PROMETHEUS
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

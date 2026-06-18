@@ -37,5 +37,13 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "wiki.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-wiki" "# Wiki.js\n\n- Status: Instalado\n- URL: https://$DOMAIN_WIKI"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-wiki" "[ WIKI ]
+
+Dominio: https://$DOMAIN_WIKI
+
+Host: wiki
+
+Port: 3000
+
+Rede: $NOME_REDE_INTERNA"
 rm -f wiki.yaml; exit 0

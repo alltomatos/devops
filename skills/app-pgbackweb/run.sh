@@ -76,7 +76,17 @@ deploy_via_portainer "$STACK_NAME" "pgbackweb${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-pgbackweb" "# PgBackWeb\n\n- Status: Instalado\n- URL: https://$DOMAIN_PGBACKWEB\n- Encryption Key: $PBW_ENCRYPTION_KEY"
+    save_data "app-pgbackweb" "[ PGBACKWEB ]
+
+Dominio: https://$DOMAIN_PGBACKWEB
+
+Host: app
+
+Port: 8085
+
+Encryption Key: $PBW_ENCRYPTION_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

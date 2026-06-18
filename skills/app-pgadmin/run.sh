@@ -65,7 +65,19 @@ deploy_via_portainer "$STACK_NAME" "pgadmin${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-pgadmin" "# pgAdmin 4\n\n- Status: Instalado\n- URL: https://$DOMAIN_PGADMIN\n- User: $PGADMIN_USER"
+    save_data "app-pgadmin" "[ PGADMIN ]
+
+Dominio: https://$DOMAIN_PGADMIN
+
+Host: app
+
+Port: 80
+
+Usuario: $PGADMIN_USER
+
+Senha: $PGADMIN_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

@@ -142,7 +142,21 @@ if [ $? -eq 0 ]; then
     # Comandos de inicialização manual do site (como no SetupOrion)
     # docker exec -it \$(docker ps -qf "name=erpnext_backend") bash -c "bench new-site $DOMAIN_FRAPPE --mariadb-root-password=$DB_PASSWORD --admin-password=$FRAPPE_ADMIN_PASSWORD --install-app erpnext"
     
-    save_data "app-frappe" "# Frappe ERPNext\n\n- Status: Stack Instalada\n- URL: https://$DOMAIN_FRAPPE\n- Admin: administrator\n- Admin Password: $FRAPPE_ADMIN_PASSWORD\n- DB Password Interno: $DB_PASSWORD\n\n*Nota: Pode ser necessário executar o 'bench new-site' manualmente no container backend se o site não carregar.*"
+    save_data "app-frappe" "[ FRAPPE ]
+
+Dominio: https://$DOMAIN_FRAPPE
+
+Host: frontend
+
+Port: 8080
+
+Usuario: administrator
+
+Senha: $FRAPPE_ADMIN_PASSWORD
+
+DB Password Interno: $DB_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

@@ -111,7 +111,23 @@ deploy_via_portainer "$STACK_NAME" "openproject${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-openproject" "# OpenProject\n\n- Status: Instalado\n- URL: https://$DOMAIN_OPENPROJECT\n- Usuário: admin\n- Senha: admin\n- Secret Key: $SECRET_KEY\n- DB Password Interno: $DB_PASSWORD"
+    save_data "app-openproject" "[ OPENPROJECT ]
+
+Dominio: https://$DOMAIN_OPENPROJECT
+
+Host: app
+
+Port: 8080
+
+Usuario: admin
+
+Senha: admin
+
+Secret Key: $SECRET_KEY
+
+DB Password: $DB_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

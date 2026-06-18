@@ -61,7 +61,15 @@ deploy_via_portainer "$STACK_NAME" "appsmith.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-appsmith" "# Appsmith\n\n- Status: Instalado\n- URL: https://$DOMAIN_APPSMITH"
+    save_data "app-appsmith" "[ APPSMITH ]
+
+Dominio: https://$DOMAIN_APPSMITH
+
+Host: appsmith
+
+Port: 80
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

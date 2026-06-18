@@ -98,5 +98,19 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "authentik.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-authentik" "# Authentik\n\n- Status: Instalado\n- URL: https://$DOMAIN_AUTHENTIK\n- Secret Key: $SECRET_KEY"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-authentik" "[ AUTHENTIK ]
+
+Dominio: https://$DOMAIN_AUTHENTIK
+
+Host: authentik_server
+
+Port: 9000
+
+Usuario: $AUTHENTIK_EMAIL
+
+Senha: $AUTHENTIK_PASS
+
+Secret Key: $SECRET_KEY
+
+Rede: $NOME_REDE_INTERNA"
 rm -f authentik.yaml; exit 0

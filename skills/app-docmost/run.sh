@@ -66,5 +66,15 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "docmost.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-docmost" "# Docmost\n\n- Status: Instalado\n- URL: https://$DOMAIN_DOCMOST\n- App Secret: $SECRET"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-docmost" "[ DOCMOST ]
+
+Dominio: https://$DOMAIN_DOCMOST
+
+Host: docmost_app
+
+Port: 3000
+
+App Secret: $SECRET
+
+Rede: $NOME_REDE_INTERNA"
 rm -f docmost.yaml; exit 0

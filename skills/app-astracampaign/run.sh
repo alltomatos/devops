@@ -172,20 +172,17 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_astracampaign...${reset}"
 
-    save_data "astracampaign" "# AstraCampaign
+    save_data "astracampaign" "[ ASTRACAMPAIGN ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_ASTRACAMPAIGN}
-- **Backend**: https://${URL_ASTRACAMPAIGN}/api
-- **Banco de Dados**: PostgreSQL (host: postgres, db: astracampaign)
-- **Queue**: Redis (serviço interno: astracampaign_redis)
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Stack YAML**: /root/astracampaign.yaml
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_ASTRACAMPAIGN}
 
-## Nota de Segurança
-> A senha do banco de dados não é armazenada aqui.
-> O JWT_SECRET foi gerado automaticamente."
+Host: astracampaign_frontend
+
+Port: 80
+
+JWT Secret: ${JWTSECRET_ASTRACAMPAIGN}
+
+Rede: ${NOME_REDE_INTERNA}"
 
     echo -e "${verde}      Metadados salvos.${reset}"
 }

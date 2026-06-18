@@ -256,32 +256,19 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_n8n...${reset}"
 
-    save_data "n8n" "# N8N
+    save_data "n8n" "[ N8N ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Modo**: Queue (editor + worker + webhook)
-- **URL Editor**: https://${URL_N8N}
-- **URL Webhook**: https://${URL_WEBHOOK_N8N}
-- **Banco de Dados**: PostgreSQL (host=postgres, db=n8n_queue, user=postgres)
-- **Cache/Queue**: Redis 7 (serviço interno n8n_redis)
-- **SMTP Host**: ${HOST_SMTP_N8N}:${PORTA_SMTP_N8N}
-- **SMTP Remetente**: ${EMAIL_SMTP_N8N}
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Stack YAML**: /root/n8n.yaml
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_N8N}
 
-## Serviços na Stack
-| Serviço        | Função                                    |
-|----------------|-------------------------------------------|
-| n8n_editor     | Interface web de criação de workflows     |
-| n8n_worker     | Executor assíncrono de workflows em queue |
-| n8n_webhook    | Receptor dedicado de webhooks externos    |
-| n8n_redis      | Broker de filas Bull entre os serviços    |
+Dominio Webhook: https://${URL_WEBHOOK_N8N}
 
-## Nota de Segurança
-> Senhas do PostgreSQL, SMTP e N8N_ENCRYPTION_KEY **não** são armazenadas aqui.
-> A ENCRYPTION_KEY foi gerada via \`openssl rand -hex 16\` em tempo de execução.
-> Guarde-a em cofre seguro — sem ela os workflows criptografados não podem ser restaurados."
+Host: n8n_editor
+
+Port: 5678
+
+Encryption Key: ${N8N_ENCRYPTION_KEY}
+
+Rede: ${NOME_REDE_INTERNA}"
 
     echo -e "${verde}      Metadados salvos.${reset}"
 }

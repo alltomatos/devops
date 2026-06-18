@@ -124,7 +124,21 @@ deploy_via_portainer "$STACK_NAME" "activepieces${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-activepieces" "# ActivePieces\n\n- Status: Instalado\n- URL: https://$DOMAIN_ACTIVEPIECES\n- API Key: $AP_API_KEY\n- Encryption Key: $AP_ENCRYPTION_KEY\n- JWT Secret: $AP_JWT_SECRET\n- Nota: Crie seu usuário e senha no primeiro acesso."
+    save_data "app-activepieces" "[ ACTIVEPIECES ]
+
+Dominio: https://$DOMAIN_ACTIVEPIECES
+
+Host: app
+
+Port: 80
+
+API Key: $AP_API_KEY
+
+Encryption Key: $AP_ENCRYPTION_KEY
+
+JWT Secret: $AP_JWT_SECRET
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

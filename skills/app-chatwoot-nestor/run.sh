@@ -191,12 +191,17 @@ unlock_config() {
 }
 
 persist_data() {
-    save_data "chatwoot_nestor" "# Chatwoot Nestor
+    save_data "chatwoot_nestor" "[ CHATWOOT_NESTOR ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_CHATWOOT}
-- **DB**: PostgreSQL (chatwoot_nestor)
-- **Cache**: Redis"
+Dominio: https://${URL_CHATWOOT}
+
+Host: app
+
+Port: 3000
+
+Secret Key Base: ${SECRET_KEY_BASE}
+
+Rede: ${NOME_REDE_INTERNA}"
 }
 
 validate_inputs

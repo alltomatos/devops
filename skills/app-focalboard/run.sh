@@ -101,14 +101,15 @@ deploy_stack() {
 
 persist_data() {
     echo -e "${amarelo}[4/4] Salvando metadados em /root/dados_vps/dados_focalboard...${reset}"
-    save_data "focalboard" "# Focalboard
+    save_data "focalboard" "[ FOCALBOARD ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_FOCALBOARD}
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_FOCALBOARD}
 
-> Focalboard é uma ferramenta de gerenciamento de projetos open source, alternativa ao Trello e Notion."
+Host: focalboard
+
+Port: 8000
+
+Rede: ${NOME_REDE_INTERNA}"
     echo -e "${verde}      Metadados salvos.${reset}"
 }
 

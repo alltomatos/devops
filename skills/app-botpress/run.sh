@@ -90,7 +90,15 @@ deploy_via_portainer "$STACK_NAME" "botpress${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-botpress" "# Botpress\n\n- Status: Instalado\n- URL: https://$DOMAIN_BOTPRESS"
+    save_data "app-botpress" "[ BOTPRESS ]
+
+Dominio: https://$DOMAIN_BOTPRESS
+
+Host: app
+
+Port: 3000
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

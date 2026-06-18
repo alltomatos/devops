@@ -97,7 +97,19 @@ deploy_via_portainer "$STACK_NAME" "odoo${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-odoo" "# Odoo\n\n- Status: Instalado\n- URL: https://$DOMAIN_ODOO\n- Versão: $ODOO_VERSION\n- DB Password Interno: $DB_PASSWORD\n\n*Nota: Acesse para configurar a Master Password e o primeiro banco de dados.*"
+    save_data "app-odoo" "[ ODOO ]
+
+Dominio: https://$DOMAIN_ODOO
+
+Host: db
+
+Port: 8069
+
+Usuario: odoo
+
+Senha: $DB_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

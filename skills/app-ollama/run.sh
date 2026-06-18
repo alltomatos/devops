@@ -38,7 +38,13 @@ deploy_via_portainer "$STACK_NAME" "ollama.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-ollama" "# Ollama (AI/Local LLM)\n\n- Status: Instalado\n- Host: ollama\n- Porta: 11434"
+    save_data "app-ollama" "[ OLLAMA ]
+
+Host: ollama
+
+Port: 11434
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

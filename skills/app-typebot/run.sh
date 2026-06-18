@@ -201,30 +201,23 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Persistindo metadados (sem senhas)...${reset}"
 
-    save_data "typebot" "# Typebot
+    save_data "typebot" "[ TYPEBOT ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Builder (editor)**: https://$URL_TYPEBOT
-- **Viewer (runtime)**: https://$URL_VIEWER_TYPEBOT
-- **Banco de Dados**: PostgreSQL externo (host=postgres, db=typebot, user=postgres)
-- **Rede**: $NOME_REDE_INTERNA
-- **Stack YAML**: /root/typebot.yaml
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://$URL_TYPEBOT
 
-## SMTP
-- **Host**: $HOST_SMTP_TYPEBOT
-- **Porta**: $PORTA_SMTP_TYPEBOT
-- **Remetente**: $EMAIL_SMTP_TYPEBOT
-- **Usuário**: $USER_SMTP_TYPEBOT
-> Senha SMTP e NEXTAUTH_SECRET não são persistidos por segurança.
+Viewer: https://$URL_VIEWER_TYPEBOT
 
-## Autenticação
-- NEXTAUTH_SECRET gerado automaticamente (openssl rand -hex 16) — não armazenado em texto.
-- O primeiro usuário criado no Builder torna-se administrador.
+Host: typebot_builder
 
-## Observações
-- O Builder e o Viewer compartilham o mesmo banco e o mesmo segredo de criptografia.
-- O Viewer deve estar acessível publicamente para execução dos fluxos publicados."
+Port: 3000
+
+Usuario: postgres
+
+NextAuth Secret: $NEXTAUTH_SECRET
+
+Encryption Secret: $NEXTAUTH_SECRET
+
+Rede: $NOME_REDE_INTERNA"
 
     echo -e "${verde}      Metadados salvos em /root/dados_vps/dados_typebot${reset}"
 }

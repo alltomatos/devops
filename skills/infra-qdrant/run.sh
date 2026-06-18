@@ -38,7 +38,18 @@ deploy_via_portainer "$STACK_NAME" "qdrant.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "infra-qdrant" "# Qdrant (Vector DB)\n\n- Status: Instalado\n- Host: qdrant\n- Porta: 6333 (API), 6334 (gRPC)"
+    CONTENT="[ QDRANT ]
+
+Host: qdrant
+
+Port: 6333
+
+Usuario: Não tem
+
+Senha: Não tem
+
+Rede: $NOME_REDE_INTERNA"
+    save_data "infra-qdrant" "$CONTENT"
 else
     exit 1
 fi

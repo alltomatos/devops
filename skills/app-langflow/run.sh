@@ -55,7 +55,11 @@ deploy_via_portainer "$STACK_NAME" "langflow.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-langflow" "# Langflow (AI/Flow)\n\n- Status: Instalado\n- URL: https://$DOMAIN_LANGFLOW"
+    save_data "app-langflow" "[ LANGFLOW ]
+
+Dominio: https://$DOMAIN_LANGFLOW
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

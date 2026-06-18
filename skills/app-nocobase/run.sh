@@ -88,7 +88,23 @@ deploy_via_portainer "$STACK_NAME" "nocobase${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-nocobase" "# NocoBase\n\n- Status: Instalado\n- URL: https://$DOMAIN_NOCOBASE\n- Admin: $NOCOBASE_EMAIL\n- APP_KEY: $APP_KEY\n- ENCRYPTION_KEY: $ENCRYPTION_KEY"
+    save_data "app-nocobase" "[ NOCOBASE ]
+
+Dominio: https://$DOMAIN_NOCOBASE
+
+Host: nocobase
+
+Port: 80
+
+Usuario: $NOCOBASE_EMAIL
+
+Senha: $NOCOBASE_PASSWORD
+
+App Key: $APP_KEY
+
+Encryption Key: $ENCRYPTION_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

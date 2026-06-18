@@ -16,7 +16,7 @@ NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}
 
 # Carregar credenciais do MySQL (ADR-001)
 if [ -f "/root/dados_vps/dados_mysql" ]; then
-    MYSQL_PASS=$(grep "Senha root:" /root/dados_vps/dados_mysql | awk '{print $3}')
+    MYSQL_PASS=$(grep "Senha:" /root/dados_vps/dados_mysql | awk '{print $2}')
 else
     MYSQL_PASS=$MYSQL_PASSWORD
 fi
@@ -66,7 +66,19 @@ deploy_via_portainer "$STACK_NAME" "yourls${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-yourls" "# YOURLS\n\n- Status: Instalado\n- URL: https://$DOMAIN_YOURLS/admin\n- Usuário: $YOURLS_USER\n- Senha: $YOURLS_PASSWORD"
+    save_data "app-yourls" "[ YOURLS ]
+
+Dominio: https://$DOMAIN_YOURLS
+
+Host: app
+
+Port: 80
+
+Usuario: $YOURLS_USER
+
+Senha: $YOURLS_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

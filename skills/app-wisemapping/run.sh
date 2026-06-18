@@ -43,5 +43,17 @@ networks:
     external: true
 YAML
 deploy_via_portainer "\$STACK_NAME" "wisemapping.yaml"
-[ \$? -eq 0 ] && echo -e "\${verde}OK\${reset}" && save_data "app-wisemapping" "# WiseMapping\n\n- Status: Instalado\n- URL: https://\$DOMAIN_WISEMAPPING"
+[ \$? -eq 0 ] && echo -e "\${verde}OK\${reset}" && save_data "app-wisemapping" "[ WISEMAPPING ]
+
+Dominio: https://\$DOMAIN_WISEMAPPING
+
+Host: wisemapping
+
+Port: 3000
+
+Usuario: postgres
+
+JWT Secret: $JWT_SECRET
+
+Rede: \$NOME_REDE_INTERNA"
 rm -f wisemapping.yaml; exit 0

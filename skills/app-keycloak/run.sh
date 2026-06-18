@@ -51,5 +51,17 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "keycloak.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-keycloak" "# Keycloak\n\n- Status: Instalado\n- URL: https://$DOMAIN_KEYCLOAK"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-keycloak" "[ KEYCLOAK ]
+
+Dominio: https://$DOMAIN_KEYCLOAK
+
+Host: keycloak
+
+Port: 8080
+
+Usuario: $KEYCLOAK_USER
+
+Senha: $KEYCLOAK_PASS
+
+Rede: $NOME_REDE_INTERNA"
 rm -f keycloak.yaml; exit 0

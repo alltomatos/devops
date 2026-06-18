@@ -90,7 +90,17 @@ deploy_via_portainer "$STACK_NAME" "unoapi.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-unoapi" "# UnoAPI\n\n- Status: Instalado\n- URL: https://$DOMAIN_UNOAPI\n- Token: $UNOAPI_AUTH_TOKEN"
+    save_data "app-unoapi" "[ UNOAPI ]
+
+Dominio: https://$DOMAIN_UNOAPI
+
+Host: unoapi_api
+
+Port: 9876
+
+Token: $UNOAPI_AUTH_TOKEN
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

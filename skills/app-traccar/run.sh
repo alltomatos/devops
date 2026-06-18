@@ -115,7 +115,19 @@ deploy_via_portainer "$STACK_NAME" "traccar${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-traccar" "# Traccar\n\n- Status: Instalado\n- URL: https://$DOMAIN_TRACCAR\n- MySQL Pass: $MYSQL_PASS\n- Nota: Crie sua conta de administrador no primeiro acesso."
+    save_data "app-traccar" "[ TRACCAR ]
+
+Dominio: https://$DOMAIN_TRACCAR
+
+Host: app
+
+Port: 8082
+
+Usuario: traccar
+
+MySQL Pass: $MYSQL_PASS
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

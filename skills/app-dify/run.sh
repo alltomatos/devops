@@ -65,7 +65,15 @@ deploy_via_portainer "$STACK_NAME" "dify.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-dify" "# Dify (AI/RAG)\n\n- Status: Instalado\n- URL: https://$DOMAIN_DIFY"
+    save_data "app-dify" "[ DIFY ]
+
+Dominio: https://$DOMAIN_DIFY
+
+Host: dify-web
+
+Port: 3000
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

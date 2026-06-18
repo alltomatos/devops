@@ -52,7 +52,15 @@ deploy_via_portainer "$STACK_NAME" "wppconnect.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-wppconnect" "# WPPConnect\n\n- Status: Instalado\n- URL: https://$DOMAIN_WPPCONNECT\n- Docs: https://$DOMAIN_WPPCONNECT/api-docs"
+    save_data "app-wppconnect" "[ WPPCONNECT ]
+
+Dominio: https://$DOMAIN_WPPCONNECT
+
+Host: wppconnect_api
+
+Port: 21465
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

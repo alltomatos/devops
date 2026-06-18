@@ -129,15 +129,25 @@ deploy_via_portainer "$STACK_NAME" "twenty.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-twentycrm" "# Twenty CRM
+    save_data "app-twentycrm" "[ TWENTY ]
 
-- Status: Instalado
-- URL: https://$DOMAIN_TWENTY
-- DB: Spilo (Postgres)
-- DB_PASSWORD: $DB_PASSWORD
-- SIGNING_SECRET: $SIGNING_SECRET
-- ACCESS_TOKEN_SECRET: $ACCESS_TOKEN_SECRET
-- REFRESH_TOKEN_SECRET: $REFRESH_TOKEN_SECRET"
+Dominio: https://$DOMAIN_TWENTY
+
+Host: twenty_server
+
+Port: 3000
+
+Usuario: postgres
+
+Senha: $DB_PASSWORD
+
+App Secret: $SIGNING_SECRET
+
+Access Token Secret: $ACCESS_TOKEN_SECRET
+
+Refresh Token Secret: $REFRESH_TOKEN_SECRET
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

@@ -54,7 +54,15 @@ deploy_via_portainer "$STACK_NAME" "anythingllm.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-anythingllm" "# AnythingLLM (AI/RAG)\n\n- Status: Instalado\n- URL: https://$DOMAIN_ANYTHINGLLM"
+    save_data "app-anythingllm" "[ ANYTHINGLLM ]
+
+Dominio: https://$DOMAIN_ANYTHINGLLM
+
+Host: anythingllm
+
+Port: 3001
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

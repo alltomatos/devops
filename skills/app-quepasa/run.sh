@@ -72,7 +72,19 @@ deploy_via_portainer "$STACK_NAME" "quepasa.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-quepasa" "# Quepasa\n\n- Status: Instalado\n- URL: https://$DOMAIN_QUEPASA\n- MasterKey: $MASTERKEY"
+    save_data "app-quepasa" "[ QUEPASA ]
+
+Dominio: https://$DOMAIN_QUEPASA
+
+Host: quepasa
+
+Port: 31000
+
+MasterKey: $MASTERKEY
+
+Signing Secret: $MASTERKEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

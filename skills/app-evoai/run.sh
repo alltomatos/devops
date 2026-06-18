@@ -119,7 +119,25 @@ deploy_via_portainer "$STACK_NAME" "evoai.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-evoai" "# EvoAI\n\n- Status: Instalado\n- API: https://$DOMAIN_EVOAI_API\n- Painel: https://$DOMAIN_EVOAI_FRONT\n- Admin: $ADMIN_EMAIL\n- Encryption Key: $EVO_AI_ENCRYPTION_KEY\n- JWT Secret Key: $EVO_AI_JWT_SECRET_KEY"
+    save_data "app-evoai" "[ EVOAI ]
+
+Dominio: https://$DOMAIN_EVOAI_FRONT
+
+API: https://$DOMAIN_EVOAI_API
+
+Host: evoai_api
+
+Port: 8000
+
+Usuario: $ADMIN_EMAIL
+
+Senha: $ADMIN_PASSWORD
+
+Encryption Key: $EVO_AI_ENCRYPTION_KEY
+
+JWT Secret Key: $EVO_AI_JWT_SECRET_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

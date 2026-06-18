@@ -76,7 +76,21 @@ deploy_via_portainer "$STACK_NAME" "wuzapi.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-wuzapi" "# Wuzapi\n\n- Status: Instalado\n- URL: https://$DOMAIN_WUZAPI\n- Admin Token: $WUZAPI_ADMIN_TOKEN\n- Secret Key: $SECRET_KEY"
+    save_data "app-wuzapi" "[ WUZAPI ]
+
+Dominio: https://$DOMAIN_WUZAPI
+
+Host: wuzapi
+
+Port: 8080
+
+Usuario: postgres
+
+Token: $WUZAPI_ADMIN_TOKEN
+
+Secret Key: $SECRET_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

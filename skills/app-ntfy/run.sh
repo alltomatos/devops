@@ -76,7 +76,19 @@ deploy_via_portainer "$STACK_NAME" "ntfy${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-ntfy" "# ntfy\n\n- Status: Instalado\n- URL: https://$DOMAIN_NTFY\n- Usuário: $NTFY_USER"
+    save_data "app-ntfy" "[ NTFY ]
+
+Dominio: https://$DOMAIN_NTFY
+
+Host: ntfy
+
+Port: 80
+
+Usuario: $NTFY_USER
+
+Senha: $NTFY_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

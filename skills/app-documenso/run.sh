@@ -69,5 +69,19 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "documenso.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-documenso" "# Documenso\n\n- Status: Instalado\n- URL: https://$DOMAIN_DOCUMENSO\n- NextAuth Secret: $KEY1\n- Encryption Key: $KEY2\n- Encryption Secondary Key: $KEY3"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-documenso" "[ DOCUMENSO ]
+
+Dominio: https://$DOMAIN_DOCUMENSO
+
+Host: documenso
+
+Port: 3000
+
+NextAuth Secret: $KEY1
+
+Encryption Key: $KEY2
+
+Encryption Secondary Key: $KEY3
+
+Rede: $NOME_REDE_INTERNA"
 rm -f documenso.yaml; exit 0

@@ -272,43 +272,17 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Persistindo metadados em /root/dados_vps/dados_chatwoot...${reset}"
 
-    save_data "chatwoot" "# Chatwoot
+    save_data "chatwoot" "[ CHATWOOT ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Versão**: chatwoot/chatwoot:latest
-- **URL de Acesso**: https://${URL_CHATWOOT}
-- **Empresa**: ${NOME_EMPRESA_CHATWOOT}
-- **Stack YAML**: /root/chatwoot.yaml
-- **Status**: $([ "$ERRORS" -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_CHATWOOT}
 
-## Banco de Dados (pgvector)
-- **Host**: pgvector
-- **Porta**: 5432
-- **Database**: chatwoot
-- **Usuário**: postgres
-- **Senha**: *** (consulte o cofre de senhas — não registrada aqui)
+Host: app
 
-## Redis
-- Serviço interno: redis (mesma stack, volume chatwoot_data)
+Port: 3000
 
-## SMTP
-- **Host**: ${SMTP_HOST_CHATWOOT}
-- **Porta**: ${PORTA_SMTP_CHATWOOT}
-- **SSL**: ${SMTP_SSL}
-- **Usuário**: ${USER_SMTP_CHATWOOT}
-- **Email remetente**: ${EMAIL_ADMIN_CHATWOOT}
-- **Senha SMTP**: *** (mascarada — nunca registrada)
+Secret Key Base: ${CHATWOOT_ENCRYPTION_KEY}
 
-## Rede
-- **Rede overlay**: ${NOME_REDE_INTERNA}
-
-## Volumes
-- chatwoot_data (persistência do Redis)
-- chatwoot_storage (storage de arquivos do Rails)
-
-## Primeiro Acesso
-- Acesse https://${URL_CHATWOOT} e crie a conta de superadmin no primeiro boot
-- Aguarde o sidekiq e as migrations finalizarem antes do primeiro login"
+Rede: ${NOME_REDE_INTERNA}"
 
     echo -e "${verde}      Dados salvos (senha SMTP mascarada como ***).${reset}"
 }

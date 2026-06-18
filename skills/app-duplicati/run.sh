@@ -68,7 +68,19 @@ deploy_via_portainer "$STACK_NAME" "duplicati.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-duplicati" "# Duplicati\n\n- Status: Instalado\n- URL: https://$DOMAIN_DUPLICATI\n- ENCRYPTION_KEY: $ENCRYPTION_KEY"
+    save_data "app-duplicati" "[ DUPLICATI ]
+
+Dominio: https://$DOMAIN_DUPLICATI
+
+Host: duplicati
+
+Port: 8200
+
+Senha: $PASS_DUPLICATI
+
+Encryption Key: $ENCRYPTION_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

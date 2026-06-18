@@ -53,5 +53,15 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "docuseal.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-docuseal" "# DocuSeal\n\n- Status: Instalado\n- URL: https://$DOMAIN_DOCUSEAL\n- App Key: $SECRET_KEY"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-docuseal" "[ DOCUSEAL ]
+
+Dominio: https://$DOMAIN_DOCUSEAL
+
+Host: docuseal
+
+Port: 3000
+
+App Key: $SECRET_KEY
+
+Rede: $NOME_REDE_INTERNA"
 rm -f docuseal.yaml; exit 0

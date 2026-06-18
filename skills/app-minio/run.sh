@@ -160,36 +160,23 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[4/4] Salvando metadados em /root/dados_vps/dados_minio...${reset}"
 
-    save_data "minio" "# MinIO
+    save_data "minio" "[ MINIO ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Versão**: minio/minio:latest
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Stack YAML**: /root/minio.yaml
-- **Volume de Dados**: minio_data
-- **Status**: $([ "$ERRORS" -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_MINIO}
 
-## URLs de Acesso
-- **Painel Admin (Console)**: https://${URL_MINIO}
-- **API S3 (Endpoint)**: https://${URL_S3}
+Dominio S3: https://${URL_S3}
 
-## Credenciais
-- **Usuário Root**: admin
-- **Senha Root**: (não armazenada — use o painel para gerar Access Keys)
+Host: minio
 
-## Portas Internas
-- Painel Admin: 9001
-- API S3: 9000
+Port: 9001
 
-## Pós-instalação
-1. Acesse https://${URL_MINIO} com usuário \`admin\` e a senha definida
-2. Crie um bucket (ex: \`chatwoot\`, \`attachments\`)
-3. Gere Access Key + Secret Key via Identity → Service Accounts
-4. Informe as keys ao Claude para integração com outras skills (ex: app-chatwoot)
+Port S3: 9000
 
-## Integração com outras skills
-- Skills que precisam de storage S3 (ex: Chatwoot) leem este arquivo para obter URL_S3
-- As Access Keys são geradas manualmente e informadas separadamente"
+Usuario: admin
+
+Senha: ${SENHA_MINIO}
+
+Rede: ${NOME_REDE_INTERNA}"
 
     echo -e "${verde}      Metadados salvos (sem senha).${reset}"
 }

@@ -66,17 +66,17 @@ deploy_via_portainer "$STACK_NAME" "mysql.yaml"
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
     
-    CONTENT="# MySQL (Infra)
+    CONTENT="[ MYSQL ]
 
-- **Status**: Instalado
-- **Data**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Versão**: 8.0
-- **Host**: mysql
-- **Porta**: 3306
-- **Usuário**: root
-- **Rede**: $NOME_REDE_INTERNA
-- **Senha Gerada**: $([ "$GEN_PWD" = true ] && echo "Sim" || echo "Não")
-"
+Host: mysql
+
+Port: 3306
+
+Usuario: root
+
+Senha: $MYSQL_ROOT_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
     save_data "infra-mysql" "$CONTENT"
 else
     echo -e "${vermelho}Erro ao fazer o deploy da stack MySQL.${reset}"

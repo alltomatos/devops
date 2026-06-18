@@ -57,7 +57,19 @@ deploy_via_portainer "$STACK_NAME" "langfuse.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-langfuse" "# Langfuse (AI/Observability)\n\n- Status: Instalado\n- URL: https://$DOMAIN_LANGFUSE\n- NextAuth Secret: $NEXTAUTH_SECRET\n- Salt: $SALT"
+    save_data "app-langfuse" "[ LANGFUSE ]
+
+Dominio: https://$DOMAIN_LANGFUSE
+
+Host: langfuse
+
+Port: 3000
+
+NextAuth Secret: $NEXTAUTH_SECRET
+
+Salt: $SALT
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

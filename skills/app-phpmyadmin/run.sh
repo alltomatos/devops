@@ -68,7 +68,15 @@ deploy_via_portainer "$STACK_NAME" "phpmyadmin${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-phpmyadmin" "# phpMyAdmin\n\n- Status: Instalado\n- URL: https://$DOMAIN_PHPMYADMIN\n- Host MySQL: $MYSQL_HOST"
+    save_data "app-phpmyadmin" "[ PHPMYADMIN ]
+
+Dominio: https://$DOMAIN_PHPMYADMIN
+
+Host: app
+
+Port: 80
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

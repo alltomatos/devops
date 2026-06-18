@@ -16,7 +16,7 @@ NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}
 
 # Carregar credenciais do MySQL (ADR-001)
 if [ -f "/root/dados_vps/dados_mysql" ]; then
-    MYSQL_PASS=$(grep "Senha root:" /root/dados_vps/dados_mysql | awk '{print $3}')
+    MYSQL_PASS=$(grep "Senha:" /root/dados_vps/dados_mysql | awk '{print $2}')
 else
     MYSQL_PASS=$MYSQL_PASSWORD
 fi
@@ -94,7 +94,15 @@ deploy_via_portainer "$STACK_NAME" "wordpress_${WORDPRESS_SITE_NAME}${SUFFIX}.ya
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-wordpress" "# WordPress: $WORDPRESS_SITE_NAME\n\n- Status: Instalado\n- URL: https://$DOMAIN_WORDPRESS"
+    save_data "app-wordpress" "[ WORDPRESS ]
+
+Dominio: https://$DOMAIN_WORDPRESS
+
+Host: app
+
+Port: 80
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

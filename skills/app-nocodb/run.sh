@@ -84,7 +84,17 @@ deploy_via_portainer "$STACK_NAME" "nocodb.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-nocodb" "# NocoDB\n\n- Status: Instalado\n- URL: https://$DOMAIN_NOCODB\n- NC_JWT_SECRET: $NC_JWT_SECRET"
+    save_data "app-nocodb" "[ NOCODB ]
+
+Dominio: https://$DOMAIN_NOCODB
+
+Host: nocodb_app
+
+Port: 8080
+
+Token: $NC_JWT_SECRET
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

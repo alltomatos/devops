@@ -51,7 +51,18 @@ deploy_via_portainer "$STACK_NAME" "clickhouse.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "infra-clickhouse" "# ClickHouse (Analytics)\n\n- Status: Instalado\n- Host: clickhouse\n- Porta: 8123 (HTTP), 9000 (Native)\n- Rede: $NOME_REDE_INTERNA"
+    CONTENT="[ CLICKHOUSE ]
+
+Host: clickhouse
+
+Port: 8123
+
+Usuario: default
+
+Senha: $CLICKHOUSE_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
+    save_data "infra-clickhouse" "$CONTENT"
 else
     exit 1
 fi

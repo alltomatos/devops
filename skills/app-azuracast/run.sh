@@ -126,7 +126,19 @@ deploy_via_portainer "$STACK_NAME" "azuracast${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-azuracast" "# AzuraCast\n\n- Status: Instalado\n- URL: https://$DOMAIN_AZURACAST\n- MySQL Pass: $MYSQL_PASS\n- Nota: Crie sua rádio e usuário no primeiro acesso."
+    save_data "app-azuracast" "[ AZURACAST ]
+
+Dominio: https://$DOMAIN_AZURACAST
+
+Host: web
+
+Port: 80
+
+Usuario: azuracast
+
+Senha: $MYSQL_PASS
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

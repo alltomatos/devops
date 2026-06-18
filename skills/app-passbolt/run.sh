@@ -54,5 +54,13 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "passbolt.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-passbolt" "# Passbolt\n\n- Status: Instalado\n- URL: https://$DOMAIN_PASSBOLT"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-passbolt" "[ PASSBOLT ]
+
+Dominio: https://$DOMAIN_PASSBOLT
+
+Host: passbolt
+
+Port: 80
+
+Rede: $NOME_REDE_INTERNA"
 rm -f passbolt.yaml; exit 0

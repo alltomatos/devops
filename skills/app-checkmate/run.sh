@@ -135,7 +135,15 @@ deploy_via_portainer "$STACK_NAME" "checkmate${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-checkmate" "# Checkmate\n\n- Status: Instalado\n- URL: https://$DOMAIN_CHECKMATE\n- API: https://$DOMAIN_CHECKMATE_API\n- JWT_SECRET: $JWT_SECRET"
+    save_data "app-checkmate" "[ CHECKMATE ]
+
+Dominio: https://$DOMAIN_CHECKMATE
+
+API: https://$DOMAIN_CHECKMATE_API
+
+JWT_SECRET: $JWT_SECRET
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

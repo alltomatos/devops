@@ -173,7 +173,25 @@ deploy_via_portainer "$STACK_NAME" "netbox${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-netbox" "# NetBox\n\n- Status: Instalado\n- URL: https://$DOMAIN_NETBOX\n- Usuário: admin\n- Senha: admin\n- DB_PASSWORD: $DB_PASSWORD\n- SECRET_KEY: $SECRET_KEY\n- TOKEN_PEPPER: $TOKEN_PEPPER"
+    save_data "app-netbox" "[ NETBOX ]
+
+Dominio: https://$DOMAIN_NETBOX
+
+Host: app
+
+Port: 8080
+
+Usuario: admin
+
+Senha: admin
+
+DB Password: $DB_PASSWORD
+
+Secret Key: $SECRET_KEY
+
+Token Pepper: $TOKEN_PEPPER
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

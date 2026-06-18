@@ -74,5 +74,13 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "stirlingpdf.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-stirlingpdf" "# Stirling PDF\n\n- Status: Instalado\n- URL: https://$DOMAIN_STIRLINGPDF"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-stirlingpdf" "[ STIRLINGPDF ]
+
+Dominio: https://$DOMAIN_STIRLINGPDF
+
+Host: stirlingpdf_frontend
+
+Port: 8080
+
+Rede: $NOME_REDE_INTERNA"
 rm -f stirlingpdf.yaml; exit 0

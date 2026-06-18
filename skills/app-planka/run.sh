@@ -120,7 +120,21 @@ deploy_via_portainer "$STACK_NAME" "planka${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-planka" "# Planka\n\n- Status: Instalado\n- URL: https://$DOMAIN_PLANKA\n- Admin: $PLANKA_ADMIN_USER\n- Secret Key: $SECRET_KEY"
+    save_data "app-planka" "[ PLANKA ]
+
+Dominio: https://$DOMAIN_PLANKA
+
+Host: app
+
+Port: 1337
+
+Usuario: $PLANKA_ADMIN_USER
+
+Senha: $PLANKA_ADMIN_PASSWORD
+
+Secret Key: $SECRET_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

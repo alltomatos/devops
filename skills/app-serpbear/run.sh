@@ -135,18 +135,23 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_serpbear...${reset}"
 
-    save_data "serpbear" "# SerpBear
+    save_data "serpbear" "[ SERPBEAR ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_SERPBEAR}
-- **Usuário**: ${USER_SERPBEAR}
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Stack YAML**: /root/serpbear.yaml
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_SERPBEAR}
 
-## Nota de Segurança
-> A senha de acesso não é armazenada aqui.
-> SECRET e APIKEY foram gerados automaticamente."
+Host: serpbear
+
+Port: 3000
+
+Usuario: ${USER_SERPBEAR}
+
+Senha: ${PASS_SERPBEAR}
+
+Secret: ${SECRET_SERPBEAR}
+
+API Key: ${APIKEY_SERPBEAR}
+
+Rede: ${NOME_REDE_INTERNA}"
 
     echo -e "${verde}      Metadados salvos.${reset}"
 }

@@ -75,18 +75,17 @@ deploy_via_portainer "$STACK_NAME" "pgvector.yaml"
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
     
-    CONTENT="# PostgreSQL + pgvector (Infra/AI)
+    CONTENT="[ PGVECTOR ]
 
-- **Status**: Instalado
-- **Data**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Imagem**: ankane/pgvector:v0.4.1
-- **Host**: pgvector
-- **Porta**: 5432
-- **Rede**: $NOME_REDE_INTERNA
-- **Senha Gerada**: $([ "$GEN_PWD" = true ] && echo "Sim" || echo "Não")
+Host: pgvector
 
-> Nota: Essencial para Apps da Epic E6 (Flowise, Dify, etc).
-"
+Port: 5432
+
+Usuario: postgres
+
+Senha: $PGVECTOR_PASSWORD
+
+Rede: $NOME_REDE_INTERNA"
     save_data "infra-pgvector" "$CONTENT"
 else
     echo -e "${vermelho}Erro ao fazer o deploy da stack pgvector.${reset}"

@@ -81,5 +81,17 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "opensign.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-opensign" "# OpenSign\n\n- Status: Instalado\n- URL: https://$DOMAIN_OPENSIGN\n- Master Key: $MASTER_KEY\n- JWT Secret: $JWT_SECRET"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-opensign" "[ OPENSIGN ]
+
+Dominio: https://$DOMAIN_OPENSIGN
+
+Host: opensign_server
+
+Port: 8080
+
+Master Key: $MASTER_KEY
+
+JWT Secret: $JWT_SECRET
+
+Rede: $NOME_REDE_INTERNA"
 rm -f opensign.yaml; exit 0

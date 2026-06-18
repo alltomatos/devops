@@ -128,7 +128,27 @@ deploy_via_portainer "$STACK_NAME" "lowcoder.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-lowcoder" "# Lowcoder\n\n- Status: Instalado\n- URL: https://$DOMAIN_LOWCODER\n- LOWCODER_API_AUTH_SECRET: $LOWCODER_API_AUTH_SECRET\n- LOWCODER_NODE_AUTH_SECRET: $LOWCODER_NODE_AUTH_SECRET\n- LOWCODER_ENCRYPTION_PASSWORD: $LOWCODER_ENCRYPTION_PASSWORD\n- LOWCODER_ENCRYPTION_SALT: $LOWCODER_ENCRYPTION_SALT"
+    save_data "app-lowcoder" "[ LOWCODER ]
+
+Dominio: https://$DOMAIN_LOWCODER
+
+Host: lowcoder_frontend
+
+Port: 3000
+
+Usuario: $ADMIN_EMAIL
+
+Senha: $ADMIN_PASSWORD
+
+API Auth Secret: $LOWCODER_API_AUTH_SECRET
+
+Node Auth Secret: $LOWCODER_NODE_AUTH_SECRET
+
+Encryption Password: $LOWCODER_ENCRYPTION_PASSWORD
+
+Encryption Salt: $LOWCODER_ENCRYPTION_SALT
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

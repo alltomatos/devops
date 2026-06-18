@@ -89,7 +89,15 @@ deploy_via_portainer "$STACK_NAME" "affine.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-affine" "# AFFiNE\n\n- Status: Instalado\n- URL: https://$DOMAIN_AFFINE"
+    save_data "app-affine" "[ AFFINE ]
+
+Dominio: https://$DOMAIN_AFFINE
+
+Host: affine_app
+
+Port: 3010
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

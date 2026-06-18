@@ -86,7 +86,19 @@ deploy_via_portainer "$STACK_NAME" "calcom${SUFFIX}.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-calcom" "# Cal.com\n\n- Status: Instalado\n- URL: https://$DOMAIN_CALCOM\n- NEXTAUTH_SECRET: $NEXTAUTH_SECRET\n- CALENDSO_ENCRYPTION_KEY: $CALENDSO_ENCRYPTION_KEY"
+    save_data "app-calcom" "[ CALCOM ]
+
+Dominio: https://$DOMAIN_CALCOM
+
+Host: app
+
+Port: 3000
+
+NextAuth Secret: $NEXTAUTH_SECRET
+
+Encryption Key: $CALENDSO_ENCRYPTION_KEY
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

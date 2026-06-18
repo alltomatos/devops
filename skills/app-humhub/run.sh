@@ -47,5 +47,19 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "humhub.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-humhub" "# HumHub\n\n- Status: Instalado\n- URL: https://$DOMAIN_HUMHUB"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-humhub" "[ HUMHUB ]
+
+Dominio: https://$DOMAIN_HUMHUB
+
+Host: humhub
+
+Port: 80
+
+Usuario: $HUMHUB_ADMIN_USER
+
+Senha: $HUMHUB_ADMIN_PASS
+
+Email Admin: $HUMHUB_ADMIN_EMAIL
+
+Rede: $NOME_REDE_INTERNA"
 rm -f humhub.yaml; exit 0

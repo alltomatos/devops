@@ -62,15 +62,19 @@ deploy_via_portainer "$STACK_NAME" "redis.yaml"
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
     
-    CONTENT="# Redis (Infra/Cache)
+    CONTENT="[ REDIS ]
 
-- **Status**: Instalado
-- **Data**: $(date '+%d/%m/%Y %H:%M:%S')
-- **Host**: redis
-- **Porta**: 6379
-- **Rede**: $NOME_REDE_INTERNA
-- **Persistência (AOF)**: Ativado
-"
+Dominio: redis://redis:6379
+
+Host: redis
+
+Port: 6379
+
+Usuario: default
+
+Senha: Não tem
+
+Rede: $NOME_REDE_INTERNA"
     save_data "infra-redis" "$CONTENT"
 else
     echo -e "${vermelho}Erro ao fazer o deploy da stack Redis.${reset}"

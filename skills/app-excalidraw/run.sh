@@ -36,5 +36,13 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "excalidraw.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-excalidraw" "# Excalidraw\n\n- Status: Instalado\n- URL: https://$DOMAIN_EXCALIDRAW"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-excalidraw" "[ EXCALIDRAW ]
+
+Dominio: https://$DOMAIN_EXCALIDRAW
+
+Host: excalidraw
+
+Port: 80
+
+Rede: $NOME_REDE_INTERNA"
 rm -f excalidraw.yaml; exit 0

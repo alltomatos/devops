@@ -74,7 +74,25 @@ deploy_via_portainer "$STACK_NAME" "strapi.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-strapi" "# Strapi\n\n- Status: Instalado\n- URL: https://$DOMAIN_STRAPI\n- DB: PostgreSQL (global)\n- APP_KEYS: $APP_KEYS\n- API_TOKEN_SALT: $API_TOKEN_SALT\n- ADMIN_JWT_SECRET: $ADMIN_JWT_SECRET\n- TRANSFER_TOKEN_SALT: $TRANSFER_TOKEN_SALT\n- JWT_SECRET: $JWT_SECRET"
+    save_data "app-strapi" "[ STRAPI ]
+
+Dominio: https://$DOMAIN_STRAPI
+
+Host: strapi
+
+Port: 1337
+
+JWT Secret: $JWT_SECRET
+
+Admin JWT Secret: $ADMIN_JWT_SECRET
+
+App Keys: $APP_KEYS
+
+API Token Salt: $API_TOKEN_SALT
+
+Transfer Token Salt: $TRANSFER_TOKEN_SALT
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

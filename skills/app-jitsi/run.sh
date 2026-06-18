@@ -194,7 +194,25 @@ if [ $? -eq 0 ]; then
     sleep 30
     docker exec -t "$(docker ps --filter "name=jitsi_prosody" -q)" \
         prosodyctl --config /config/prosody.cfg.lua register $JITSI_USER meet.jitsi $JITSI_PASS 2>/dev/null || true
-    save_data "app-jitsi" "# Jitsi Meet\n\n- Status: Instalado\n- URL: https://$DOMAIN_JITSI\n- Admin: $JITSI_USER\n- Jicofo Secret: $JICOFO_SECRET\n- Jicofo Component: $JICOFO_COMPONENT\n- JVB Auth: $JVB_AUTH"
+    save_data "app-jitsi" "[ JITSI ]
+
+Dominio: https://$DOMAIN_JITSI
+
+Host: jitsi_web
+
+Port: 80
+
+Usuario: $JITSI_USER
+
+Senha: $JITSI_PASS
+
+Jicofo Secret: $JICOFO_SECRET
+
+Jicofo Component: $JICOFO_COMPONENT
+
+JVB Auth: $JVB_AUTH
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

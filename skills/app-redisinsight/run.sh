@@ -146,18 +146,21 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_redisinsight...${reset}"
 
-    save_data "redisinsight" "# RedisInsight
+    save_data "redisinsight" "[ REDISINSIGHT ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_REDISINSIGHT}
-- **Usuário**: ${USER_REDISINSIGHT}
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Stack YAML**: /root/redisinsight.yaml
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_REDISINSIGHT}
 
-## Nota de Segurança
-> A senha de acesso não é armazenada aqui.
-> A RI_ENCRYPTION_KEY foi gerada automaticamente."
+Host: redisinsight
+
+Port: 5540
+
+Usuario: ${USER_REDISINSIGHT}
+
+Senha: ${PASS_REDISINSIGHT}
+
+Encryption Key: ${RI_ENCRYPTION_KEY}
+
+Rede: ${NOME_REDE_INTERNA}"
 
     echo -e "${verde}      Metadados salvos.${reset}"
 }

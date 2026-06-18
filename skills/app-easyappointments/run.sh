@@ -141,18 +141,15 @@ deploy_stack() {
 persist_data() {
     echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_easyappointments...${reset}"
 
-    save_data "easyappointments" "# Easy!Appointments
+    save_data "easyappointments" "[ EASYAPPOINTMENTS ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_EASYAPPOINTMENTS}
-- **Banco de Dados**: MySQL (host: mysql, db: easyappointments)
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Stack YAML**: /root/easyappointments.yaml
-- **Configuração Apache**: /root/easyappointments/apache-custom.conf
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_EASYAPPOINTMENTS}
 
-## Nota de Segurança
-> A senha do MySQL não é armazenada aqui."
+Host: easyappointments
+
+Port: 80
+
+Rede: ${NOME_REDE_INTERNA}"
 
     echo -e "${verde}      Metadados salvos.${reset}"
 }

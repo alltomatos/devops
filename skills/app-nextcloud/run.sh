@@ -104,7 +104,19 @@ deploy_via_portainer "$STACK_NAME" "nextcloud.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-nextcloud" "# Nextcloud\n\n- Status: Instalado\n- URL: https://$DOMAIN_NEXTCLOUD\n- Admin: $NEXTCLOUD_USER"
+    save_data "app-nextcloud" "[ NEXTCLOUD ]
+
+Dominio: https://$DOMAIN_NEXTCLOUD
+
+Host: nextcloud_app
+
+Port: 80
+
+Usuario: $NEXTCLOUD_USER
+
+Senha: $NEXTCLOUD_PASS
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi

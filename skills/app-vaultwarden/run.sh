@@ -58,5 +58,15 @@ networks:
     external: true
 YAML
 deploy_via_portainer "$STACK_NAME" "vaultwarden.yaml"
-[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-vaultwarden" "# Vaultwarden\n\n- Status: Instalado\n- URL: https://$DOMAIN_VAULTWARDEN\n- Admin: /admin\n- Admin Token: $ADMIN_TOKEN"
+[ $? -eq 0 ] && echo -e "${verde}OK${reset}" && save_data "app-vaultwarden" "[ VAULTWARDEN ]
+
+Dominio: https://$DOMAIN_VAULTWARDEN
+
+Host: vaultwarden
+
+Port: 80
+
+Admin Token: $ADMIN_TOKEN
+
+Rede: $NOME_REDE_INTERNA"
 rm -f vaultwarden.yaml; exit 0

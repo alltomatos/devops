@@ -15,7 +15,7 @@ STACK_NAME="zerobyte"
 NOME_REDE_INTERNA=$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep "orion" || echo "orion_network")
 
 # Ler ou gerar segredo (idempotência)
-APP_SECRET=$(read_data "app-zerobyte" | grep -oP '(?<=- APP_SECRET: ).*' || openssl rand -hex 32)
+APP_SECRET=$(read_data "app-zerobyte" | grep -oP '(?<=APP_SECRET: ).*' || openssl rand -hex 32)
 
 echo -e "${amarelo}Instalando ZeroByte no dominio $DOMAIN_ZEROBYTE...${reset}"
 
@@ -59,7 +59,14 @@ deploy_via_portainer "$STACK_NAME" "zerobyte.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-zerobyte" "# ZeroByte\n\n- Status: Instalado\n- URL: https://$DOMAIN_ZEROBYTE\n- APP_SECRET: $APP_SECRET"
+    CONTENT="[ ZEROBYTE ]
+
+Dominio: https://$DOMAIN_ZEROBYTE
+
+APP_SECRET: $APP_SECRET
+
+Rede: $NOME_REDE_INTERNA"
+    save_data "app-zerobyte" "$CONTENT"
 else
     exit 1
 fi

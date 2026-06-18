@@ -124,14 +124,17 @@ deploy_stack() {
 
 persist_data() {
     echo -e "${amarelo}[5/5] Salvando metadados em /root/dados_vps/dados_papra...${reset}"
-    save_data "papra" "# Papra
+    save_data "papra" "[ PAPRA ]
 
-- **Data do Deploy**: $(date '+%d/%m/%Y %H:%M:%S')
-- **URL**: https://${URL_PAPRA}
-- **Rede**: ${NOME_REDE_INTERNA}
-- **Status**: $([ $ERRORS -eq 0 ] && echo 'OK' || echo 'ERRO')
+Dominio: https://${URL_PAPRA}
 
-> Papra é uma plataforma self-hosted para gerenciamento e assinatura de documentos."
+Host: papra
+
+Port: 1221
+
+Auth Secret: ${AUTH_SECRET}
+
+Rede: ${NOME_REDE_INTERNA}"
     echo -e "${verde}      Metadados salvos.${reset}"
 }
 

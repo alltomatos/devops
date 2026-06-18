@@ -122,7 +122,15 @@ deploy_via_portainer "$STACK_NAME" "mautic.yaml"
 
 if [ $? -eq 0 ]; then
     echo -e "${verde}Stack $STACK_NAME enviada com sucesso!${reset}"
-    save_data "app-mautic" "# Mautic 5\n\n- Status: Instalado\n- URL: https://$DOMAIN_MAUTIC\n- DB: MySQL (global)"
+    save_data "app-mautic" "[ MAUTIC ]
+
+Dominio: https://$DOMAIN_MAUTIC
+
+Host: mautic_web
+
+Port: 80
+
+Rede: $NOME_REDE_INTERNA"
 else
     exit 1
 fi
