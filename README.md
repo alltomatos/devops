@@ -25,16 +25,38 @@ No Windows? Sem problema: a CLI roda local e faz o deploy **remoto** na sua VPS 
 
 O repositório funciona com **qualquer agente compatível**, porque as skills são scripts bash + `metadata.json`. As diretivas do projeto ficam em [`CLAUDE.md`](./CLAUDE.md) (o Claude lê automaticamente; para Gemini/Codex, basta apontá-los para esse arquivo).
 
-### 0. Node.js 22 LTS (pré-requisito comum às 3 CLIs)
+### 0. Node.js 22 LTS + Git (pré-requisitos comuns às 3 CLIs)
+
+#### 🐧 Linux / macOS
 
 ```bash
-# Via nvm (recomendado)
+# Node 22 via nvm (recomendado)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.bashrc
 nvm install 22 && nvm use 22 && nvm alias default 22
 node -v   # v22.x.x
+
+# Git (geralmente já presente)
+sudo apt-get install -y git    # Debian/Ubuntu   |   brew install git (macOS)
 ```
-> Alternativa Debian/Ubuntu: `curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs`
+> Alternativa Debian/Ubuntu p/ Node: `curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs`
+
+#### 🪟 Windows
+
+No Windows a CLI roda **localmente** e faz o deploy **remoto** na VPS via SSH. Instale **Node 22** e **Git for Windows** (este traz `git`, **Git Bash**, `ssh`, `ssh-keygen` e `scp` — necessários para a orquestração remota).
+
+```powershell
+# Via winget (PowerShell) — recomendado
+winget install OpenJS.NodeJS.LTS      # Node.js 22 LTS
+winget install Git.Git                # Git for Windows (inclui Git Bash + ssh)
+
+# feche e reabra o terminal, depois verifique:
+node -v   # v22.x.x
+git --version
+ssh -V    # OpenSSH (vem com o Git for Windows / Windows 10+)
+```
+> Alternativas: instaladores oficiais [nodejs.org](https://nodejs.org/en/download) e [git-scm.com](https://git-scm.com/download/win), ou `choco install nodejs-lts git` (Chocolatey).
+> Dica: use o **Git Bash** (ou PowerShell) para rodar a CLI; o `ssh`/`ssh-keygen` do Git for Windows é usado pelo `/devops` para configurar o acesso por chave à VPS.
 
 ### 1. Claude Code CLI (Anthropic)
 
