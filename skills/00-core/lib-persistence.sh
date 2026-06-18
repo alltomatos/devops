@@ -84,7 +84,7 @@ MD
 
     # Adiciona entrada somente se ainda não existir
     local entry="- [$service]($service.md)"
-    if ! grep -qF "$entry" "$index"; then
+    if ! grep -qF -- "$entry" "$index"; then
         echo "$entry" >> "$index"
     fi
 }

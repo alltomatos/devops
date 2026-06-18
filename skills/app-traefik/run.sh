@@ -244,7 +244,7 @@ deploy_stacks() {
     echo -e "${amarelo}[6/6] Executando deploy das stacks...${reset}"
 
     # Traefik
-    deploy_via_portainer ""/root/traefik.yaml"" ""traefik""
+    deploy_via_portainer "traefik" "/root/traefik.yaml"
     if [ $? -eq 0 ]; then
         echo -e "${verde}      [OK] Stack traefik deployada.${reset}"
     else
@@ -257,7 +257,7 @@ deploy_stacks() {
     sleep 30
 
     # Portainer
-    deploy_via_portainer ""/root/portainer.yaml"" ""portainer""
+    deploy_via_portainer "portainer" "/root/portainer.yaml"
     if [ $? -eq 0 ]; then
         echo -e "${verde}      [OK] Stack portainer deployada.${reset}"
     else
