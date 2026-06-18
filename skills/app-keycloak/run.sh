@@ -4,9 +4,10 @@ SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="keycloak"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
 echo -e "${amarelo}Instalando Keycloak...${reset}"
-cat > keycloak.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+cat > keycloak.yaml <<YAML
 version: "3.7"
 services:
   keycloak:
@@ -34,7 +35,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.keycloak.rule=Host(`$DOMAIN_KEYCLOAK`)
+        - traefik.http.routers.keycloak.rule=Host(\`$DOMAIN_KEYCLOAK\`)
         - traefik.http.routers.keycloak.entrypoints=websecure
         - traefik.http.routers.keycloak.tls.certresolver=letsencryptresolver
         - traefik.http.routers.keycloak.tls=true

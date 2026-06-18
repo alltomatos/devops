@@ -15,13 +15,13 @@ STACK_NAME="lowcoder"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 
 # Verificar mongodb
-if ! docker service ls --format "{{.Name}}" | grep -q "^mongodb$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)mongodb"; then
     echo -e "\e[31mErro: infra-mongodb nao instalado.\e[0m"
     exit 1
 fi
 
 # Verificar redis
-if ! docker service ls --format "{{.Name}}" | grep -q "^redis$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)redis"; then
     echo -e "\e[31mErro: infra-redis nao instalado.\e[0m"
     exit 1
 fi
@@ -42,7 +42,7 @@ echo -e "${amarelo}Instalando Lowcoder no dominio $DOMAIN_LOWCODER...${reset}"
 
 docker volume create lowcoder_assets > /dev/null 2>&1
 
-cat > lowcoder.yaml <<'YAML'
+cat > lowcoder.yaml <<YAML
 version: "3.7"
 services:
   lowcoder_api:
@@ -71,7 +71,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.lowcoder_api.rule=Host(`$DOMAIN_LOWCODER`) && PathPrefix(`/api`)
+        - traefik.http.routers.lowcoder_api.rule=Host(\`$DOMAIN_LOWCODER\`) && PathPrefix(\`/api\`)
         - traefik.http.routers.lowcoder_api.entrypoints=websecure
         - traefik.http.routers.lowcoder_api.tls.certresolver=letsencryptresolver
         - traefik.http.services.lowcoder_api.loadbalancer.server.port=8080
@@ -106,7 +106,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.lowcoder_frontend.rule=Host(`$DOMAIN_LOWCODER`)
+        - traefik.http.routers.lowcoder_frontend.rule=Host(\`$DOMAIN_LOWCODER\`)
         - traefik.http.routers.lowcoder_frontend.entrypoints=websecure
         - traefik.http.routers.lowcoder_frontend.tls.certresolver=letsencryptresolver
         - traefik.http.services.lowcoder_frontend.loadbalancer.server.port=3000

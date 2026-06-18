@@ -6,7 +6,7 @@ amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="excalidraw"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 echo -e "${amarelo}Instalando Excalidraw...${reset}"
 docker volume create excalidraw_data > /dev/null 2>&1
-cat > excalidraw.yaml <<'YAML'
+cat > excalidraw.yaml <<YAML
 version: "3.7"
 services:
   excalidraw:
@@ -20,7 +20,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.excalidraw.rule=Host(`$DOMAIN_EXCALIDRAW`)
+        - traefik.http.routers.excalidraw.rule=Host(\`$DOMAIN_EXCALIDRAW\`)
         - traefik.http.routers.excalidraw.entrypoints=websecure
         - traefik.http.routers.excalidraw.tls.certresolver=letsencryptresolver
         - traefik.http.services.excalidraw.loadbalancer.server.port=80

@@ -4,7 +4,7 @@ SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="opensign"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
-if ! docker service ls --format "{{.Name}}" | grep -q "^mongodb$"; then echo -e "\e[31mErro: infra-mongodb nao instalado.\e[0m"; exit 1; fi
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)mongodb"; then echo -e "\e[31mErro: infra-mongodb nao instalado.\e[0m"; exit 1; fi
 
 # Persistencia de Segredos (ADR-001)
 if service_exists "app-opensign"; then
@@ -18,7 +18,7 @@ fi
 
 echo -e "${amarelo}Instalando OpenSign...${reset}"
 docker volume create opensign_files > /dev/null 2>&1
-cat > opensign.yaml <<'YAML'
+cat > opensign.yaml <<YAML
 version: "3.7"
 services:
   opensign_server:
@@ -43,7 +43,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.opensign_server.rule=Host(`$DOMAIN_OPENSIGN`) && PathPrefix(`/app`)
+        - traefik.http.routers.opensign_server.rule=Host(\`$DOMAIN_OPENSIGN\`) && PathPrefix(\`/app\`)
         - traefik.http.routers.opensign_server.entrypoints=websecure
         - traefik.http.routers.opensign_server.tls.certresolver=letsencryptresolver
         - traefik.http.services.opensign_server.loadbalancer.server.port=8080
@@ -64,7 +64,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.opensign_client.rule=Host(`$DOMAIN_OPENSIGN`) && !PathPrefix(`/app`)
+        - traefik.http.routers.opensign_client.rule=Host(\`$DOMAIN_OPENSIGN\`) && !PathPrefix(\`/app\`)
         - traefik.http.routers.opensign_client.entrypoints=websecure
         - traefik.http.routers.opensign_client.tls.certresolver=letsencryptresolver
         - traefik.http.services.opensign_client.loadbalancer.server.port=3000

@@ -4,11 +4,12 @@ SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="humhub"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
-if ! docker service ls --format "{{.Name}}" | grep -q "^mysql$"; then echo -e "\e[31mErro: infra-mysql nao instalado.\e[0m"; exit 1; fi
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)mysql"; then echo -e "\e[31mErro: infra-mysql nao instalado.\e[0m"; exit 1; fi
 SMTP_SECURE="false"; [ "$SMTP_PORT" -eq 465 ] && SMTP_SECURE="true"
 echo -e "${amarelo}Instalando HumHub...${reset}"
 docker volume create humhub_data > /dev/null 2>&1
-cat > humhub.yaml <<'YAML'
+MYSQL_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_mysql | awk -F"Senha:" '{print $2}' | xargs)
+cat > humhub.yaml <<YAML
 version: "3.7"
 services:
   humhub:
@@ -35,7 +36,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.humhub.rule=Host(`$DOMAIN_HUMHUB`)
+        - traefik.http.routers.humhub.rule=Host(\`$DOMAIN_HUMHUB\`)
         - traefik.http.routers.humhub.entrypoints=websecure
         - traefik.http.routers.humhub.tls.certresolver=letsencryptresolver
         - traefik.http.services.humhub.loadbalancer.server.port=80

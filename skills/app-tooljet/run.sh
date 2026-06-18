@@ -14,14 +14,14 @@ reset="\e[0m"
 STACK_NAME="tooljet"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 
-# Verificar postgres
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then
+# Verificar postgres (serviço no Swarm é postgres_postgres)
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then
     echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"
     exit 1
 fi
 
-# Verificar redis
-if ! docker service ls --format "{{.Name}}" | grep -q "^redis$"; then
+# Verificar redis (serviço no Swarm é redis_redis)
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)redis"; then
     echo -e "\e[31mErro: infra-redis nao instalado.\e[0m"
     exit 1
 fi
@@ -34,7 +34,9 @@ echo -e "${amarelo}Instalando ToolJet no dominio $DOMAIN_TOOLJET...${reset}"
 docker volume create tooljet_data > /dev/null 2>&1
 docker volume create tooljet_chroma > /dev/null 2>&1
 
-cat > tooljet.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+
+cat > tooljet.yaml <<YAML
 version: "3.7"
 services:
   tooljet_app:
@@ -52,8 +54,6 @@ services:
       - SECRET_KEY_BASE=$SECRET_KEY_BASE
       - DATABASE_URL=postgres://postgres:$POSTGRES_PASSWORD@postgres:5432/tooljet?sslmode=disable
       - REDIS_HOST=redis
-    deploy:
-
       - REDIS_PORT=6379
       - DEFAULT_FROM_EMAIL=$SMTP_FROM_EMAIL
       - SMTP_USERNAME=$SMTP_USER
@@ -65,7 +65,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.tooljet.rule=Host(`$DOMAIN_TOOLJET`)
+        - traefik.http.routers.tooljet.rule=Host(\`$DOMAIN_TOOLJET\`)
         - traefik.http.routers.tooljet.entrypoints=websecure
         - traefik.http.routers.tooljet.tls.certresolver=letsencryptresolver
         - traefik.http.services.tooljet.loadbalancer.server.port=80

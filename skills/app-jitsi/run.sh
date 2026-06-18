@@ -34,7 +34,7 @@ for vol in web_config web_crontabs transcripts prosody_config prosody_plugins ji
     docker volume create jitsi_${vol} > /dev/null 2>&1
 done
 
-cat > jitsi.yaml <<'YAML'
+cat > jitsi.yaml <<YAML
 version: "3.7"
 services:
   jitsi_web:
@@ -69,7 +69,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.jitsi_web.rule=Host(`$DOMAIN_JITSI`)
+        - traefik.http.routers.jitsi_web.rule=Host(\`$DOMAIN_JITSI\`)
         - traefik.http.routers.jitsi_web.entrypoints=websecure
         - traefik.http.routers.jitsi_web.tls.certresolver=letsencryptresolver
         - traefik.http.services.jitsi_web.loadbalancer.server.port=80

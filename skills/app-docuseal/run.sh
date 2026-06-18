@@ -4,7 +4,7 @@ SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="docuseal"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
 
 # Persistencia de Segredos (ADR-001)
 if service_exists "app-docuseal"; then
@@ -14,7 +14,8 @@ fi
 
 echo -e "${amarelo}Instalando DocuSeal...${reset}"
 docker volume create docuseal_data > /dev/null 2>&1
-cat > docuseal.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+cat > docuseal.yaml <<YAML
 version: "3.7"
 services:
   docuseal:
@@ -37,7 +38,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.docuseal.rule=Host(`$DOMAIN_DOCUSEAL`)
+        - traefik.http.routers.docuseal.rule=Host(\`$DOMAIN_DOCUSEAL\`)
         - traefik.http.routers.docuseal.entrypoints=websecure
         - traefik.http.routers.docuseal.tls.certresolver=letsencryptresolver
         - traefik.http.services.docuseal.loadbalancer.server.port=3000

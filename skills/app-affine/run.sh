@@ -15,7 +15,7 @@ STACK_NAME="affine"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 
 # Verificar pgvector
-if ! docker service ls --format "{{.Name}}" | grep -q "^pgvector$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)pgvector"; then
     echo -e "\e[31mErro: infra-pgvector nao instalado.\e[0m"
     exit 1
 fi
@@ -25,7 +25,8 @@ echo -e "${amarelo}Instalando AFFiNE no dominio $DOMAIN_AFFINE...${reset}"
 docker volume create affine_storage > /dev/null 2>&1
 docker volume create affine_config > /dev/null 2>&1
 
-cat > affine.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_pgvector | awk -F"Senha:" '{print $2}' | xargs)
+cat > affine.yaml <<YAML
 version: "3.7"
 services:
   affine_app:
@@ -52,7 +53,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.affine.rule=Host(`$DOMAIN_AFFINE`)
+        - traefik.http.routers.affine.rule=Host(\`$DOMAIN_AFFINE\`)
         - traefik.http.routers.affine.entrypoints=websecure
         - traefik.http.routers.affine.tls.certresolver=letsencryptresolver
         - traefik.http.services.affine.loadbalancer.server.port=3010

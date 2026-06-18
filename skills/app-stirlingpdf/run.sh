@@ -8,7 +8,7 @@ echo -e "${amarelo}Instalando Stirling PDF...${reset}"
 for vol in backend_data backend_config backend_logs frontend_data; do
     docker volume create stirlingpdf_${vol} > /dev/null 2>&1
 done
-cat > stirlingpdf.yaml <<'YAML'
+cat > stirlingpdf.yaml <<YAML
 version: "3.7"
 services:
   stirlingpdf_backend:
@@ -51,7 +51,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.stirlingpdf.rule=Host(`$DOMAIN_STIRLINGPDF`)
+        - traefik.http.routers.stirlingpdf.rule=Host(\`$DOMAIN_STIRLINGPDF\`)
         - traefik.http.routers.stirlingpdf.entrypoints=websecure
         - traefik.http.routers.stirlingpdf.tls.certresolver=letsencryptresolver
         - traefik.http.services.stirlingpdf.loadbalancer.server.port=8080

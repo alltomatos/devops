@@ -20,7 +20,7 @@ ENCRYPTION_KEY=$(read_data "app-nocobase" | grep -oP '(?<=- ENCRYPTION_KEY: ).*'
 
 # Resolver banco — usa infra-postgres se já existir, caso contrário falha
 # O orquestrador (devops) garante que depends_on está satisfeito antes de chamar
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then
     echo -e "\e[31mErro: infra-postgres não está instalado. Execute /devops e instale postgres primeiro.\e[0m"
     exit 1
 fi
@@ -32,7 +32,8 @@ docker volume create nocobase_data > /dev/null 2>&1
 # Determinar sufixo de ambiente se fornecido via $1
 SUFFIX="${1:+_$1}"
 
-cat > nocobase${SUFFIX}.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+cat > nocobase${SUFFIX}.yaml <<YAML
 version: "3.7"
 services:
   nocobase:
@@ -68,7 +69,7 @@ services:
           memory: 1024M
       labels:
         - traefik.enable=true
-        - traefik.http.routers.nocobase.rule=Host(`$DOMAIN_NOCOBASE`)
+        - traefik.http.routers.nocobase.rule=Host(\`$DOMAIN_NOCOBASE\`)
         - traefik.http.services.nocobase.loadbalancer.server.port=80
         - traefik.http.routers.nocobase.service=nocobase
         - traefik.http.routers.nocobase.tls.certresolver=letsencryptresolver

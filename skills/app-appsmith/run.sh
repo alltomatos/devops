@@ -21,7 +21,7 @@ echo -e "${amarelo}Instalando Appsmith no dominio $DOMAIN_APPSMITH...${reset}"
 
 docker volume create appsmith_data > /dev/null 2>&1
 
-cat > appsmith.yaml <<'YAML'
+cat > appsmith.yaml <<YAML
 version: "3.7"
 services:
   appsmith:
@@ -38,7 +38,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.appsmith.rule=Host(`$DOMAIN_APPSMITH`)
+        - traefik.http.routers.appsmith.rule=Host(\`$DOMAIN_APPSMITH\`)
         - traefik.http.routers.appsmith.entrypoints=websecure
         - traefik.http.routers.appsmith.tls.certresolver=letsencryptresolver
         - traefik.http.services.appsmith.loadbalancer.server.port=80

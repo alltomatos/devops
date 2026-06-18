@@ -6,7 +6,7 @@ amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="gotenberg"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 echo -e "${amarelo}Instalando Gotenberg...${reset}"
 docker volume create gotenberg_data > /dev/null 2>&1
-cat > gotenberg.yaml <<'YAML'
+cat > gotenberg.yaml <<YAML
 version: "3.7"
 services:
   gotenberg:
@@ -25,7 +25,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.gotenberg.rule=Host(`$DOMAIN_GOTENBERG`)
+        - traefik.http.routers.gotenberg.rule=Host(\`$DOMAIN_GOTENBERG\`)
         - traefik.http.routers.gotenberg.entrypoints=websecure
         - traefik.http.routers.gotenberg.tls.certresolver=letsencryptresolver
         - traefik.http.services.gotenberg.loadbalancer.server.port=3000

@@ -15,7 +15,7 @@ STACK_NAME="outline"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 
 # Verificar postgres
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then
     echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"
     exit 1
 fi
@@ -42,7 +42,9 @@ echo -e "${amarelo}Instalando Outline no dominio $DOMAIN_OUTLINE...${reset}"
 docker volume create outline_uploads > /dev/null 2>&1
 docker volume create outline_redis > /dev/null 2>&1
 
-cat > outline.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+
+cat > outline.yaml <<YAML
 version: "3.7"
 services:
   outline_app:
@@ -80,7 +82,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.outline.rule=Host(`$DOMAIN_OUTLINE`)
+        - traefik.http.routers.outline.rule=Host(\`$DOMAIN_OUTLINE\`)
         - traefik.http.routers.outline.entrypoints=websecure
         - traefik.http.routers.outline.tls.certresolver=letsencryptresolver
         - traefik.http.services.outline.loadbalancer.server.port=3000

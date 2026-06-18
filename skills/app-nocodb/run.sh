@@ -15,7 +15,7 @@ STACK_NAME="nocodb"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 
 # Verificar postgres
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then
     echo -e "\e[31mErro: infra-postgres nao instalado. Execute /devops primeiro.\e[0m"
     exit 1
 fi
@@ -28,7 +28,8 @@ echo -e "${amarelo}Instalando NocoDB no dominio $DOMAIN_NOCODB...${reset}"
 docker volume create nocodb_data > /dev/null 2>&1
 docker volume create nocodb_redis > /dev/null 2>&1
 
-cat > nocodb.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+cat > nocodb.yaml <<YAML
 version: "3.7"
 services:
   nocodb_app:
@@ -46,7 +47,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.nocodb_app.rule=Host(`$DOMAIN_NOCODB`)
+        - traefik.http.routers.nocodb_app.rule=Host(\`$DOMAIN_NOCODB\`)
         - traefik.http.routers.nocodb_app.entrypoints=websecure
         - traefik.http.routers.nocodb_app.tls.certresolver=letsencryptresolver
         - traefik.http.services.nocodb_app.loadbalancer.server.port=8080

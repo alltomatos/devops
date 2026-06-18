@@ -15,13 +15,13 @@ STACK_NAME="nextcloud"
 NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
 
 # Verificar postgres
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then
     echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"
     exit 1
 fi
 
 # Verificar redis
-if ! docker service ls --format "{{.Name}}" | grep -q "^redis$"; then
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)redis"; then
     echo -e "\e[31mErro: infra-redis nao instalado.\e[0m"
     exit 1
 fi
@@ -31,7 +31,8 @@ echo -e "${amarelo}Instalando Nextcloud no dominio $DOMAIN_NEXTCLOUD...${reset}"
 docker volume create nextcloud_data > /dev/null 2>&1
 docker volume create nextcloud_redis > /dev/null 2>&1
 
-cat > nextcloud.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+cat > nextcloud.yaml <<YAML
 version: "3.7"
 services:
   nextcloud_app:
@@ -53,13 +54,13 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.nextcloud.rule=Host(`$DOMAIN_NEXTCLOUD`)
+        - traefik.http.routers.nextcloud.rule=Host(\`$DOMAIN_NEXTCLOUD\`)
         - traefik.http.routers.nextcloud.entrypoints=web,websecure
         - traefik.http.routers.nextcloud.tls.certresolver=letsencryptresolver
         - traefik.http.services.nextcloud.loadbalancer.server.port=80
         - traefik.http.routers.nextcloud.middlewares=nextcloud_redirect
         - traefik.http.middlewares.nextcloud_redirect.redirectregex.regex=https://(.*)/.well-known/(?:card|cal)dav
-        - traefik.http.middlewares.nextcloud_redirect.redirectregex.replacement=https://$1/remote.php/dav
+        - traefik.http.middlewares.nextcloud_redirect.redirectregex.replacement=https://\$1/remote.php/dav
         - traefik.http.middlewares.nextcloud_redirect.redirectregex.permanent=true
       resources:
         limits:

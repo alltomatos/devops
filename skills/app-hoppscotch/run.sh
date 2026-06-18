@@ -4,7 +4,7 @@ SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="hoppscotch"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
 
 # Persistencia de Segredos (ADR-001)
 if service_exists "app-hoppscotch"; then
@@ -19,7 +19,8 @@ fi
 [ -z "$SESSION_KEY" ] && SESSION_KEY=$(openssl rand -hex 16)
 
 echo -e "${amarelo}Instalando Hoppscotch...${reset}"
-cat > hoppscotch.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+cat > hoppscotch.yaml <<YAML
 version: "3.8"
 services:
   hoppscotch_frontend:
@@ -37,7 +38,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.hoppscotch_frontend.rule=Host(`$DOMAIN_HOPPSCOTCH`)
+        - traefik.http.routers.hoppscotch_frontend.rule=Host(\`$DOMAIN_HOPPSCOTCH\`)
         - traefik.http.routers.hoppscotch_frontend.entrypoints=websecure
         - traefik.http.routers.hoppscotch_frontend.tls.certresolver=letsencryptresolver
         - traefik.http.services.hoppscotch_frontend.loadbalancer.server.port=3000
@@ -68,7 +69,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.hoppscotch_backend.rule=Host(`$DOMAIN_HOPPSCOTCH_BACKEND`)
+        - traefik.http.routers.hoppscotch_backend.rule=Host(\`$DOMAIN_HOPPSCOTCH_BACKEND\`)
         - traefik.http.routers.hoppscotch_backend.entrypoints=websecure
         - traefik.http.routers.hoppscotch_backend.tls.certresolver=letsencryptresolver
         - traefik.http.services.hoppscotch_backend.loadbalancer.server.port=3000

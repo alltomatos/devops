@@ -4,7 +4,7 @@ SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="vaultwarden"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
-if ! docker service ls --format "{{.Name}}" | grep -q "^postgres$"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)postgres"; then echo -e "\e[31mErro: infra-postgres nao instalado.\e[0m"; exit 1; fi
 
 # Persistencia de Segredos (ADR-001)
 if service_exists "app-vaultwarden"; then
@@ -15,7 +15,8 @@ fi
 SSL_MODE="starttls"; [ "$SMTP_PORT" -eq 465 ] && SSL_MODE="force_tls"
 echo -e "${amarelo}Instalando Vaultwarden...${reset}"
 docker volume create vaultwarden_data > /dev/null 2>&1
-cat > vaultwarden.yaml <<'YAML'
+POSTGRES_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_postgres | awk -F"Senha:" '{print $2}' | xargs)
+cat > vaultwarden.yaml <<YAML
 version: "3.7"
 services:
   vaultwarden:
@@ -41,7 +42,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.vaultwarden.rule=Host(`$DOMAIN_VAULTWARDEN`)
+        - traefik.http.routers.vaultwarden.rule=Host(\`$DOMAIN_VAULTWARDEN\`)
         - traefik.http.routers.vaultwarden.entrypoints=websecure
         - traefik.http.routers.vaultwarden.tls.certresolver=letsencryptresolver
         - traefik.http.services.vaultwarden.loadbalancer.server.port=80

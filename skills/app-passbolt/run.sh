@@ -4,11 +4,12 @@ SKILL_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SKILL_DIR/../00-core/lib-persistence.sh"
 amarelo="\e[33m"; verde="\e[32m"; reset="\e[0m"
 STACK_NAME="passbolt"; NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=overlay --format "{{.Name}}" | grep -vw ingress | head -n1)}"
-if ! docker service ls --format "{{.Name}}" | grep -q "^mysql$"; then echo -e "\e[31mErro: infra-mysql nao instalado.\e[0m"; exit 1; fi
+if ! docker service ls --format "{{.Name}}" | grep -qE "(^|_)mysql"; then echo -e "\e[31mErro: infra-mysql nao instalado.\e[0m"; exit 1; fi
 echo -e "${amarelo}Instalando Passbolt...${reset}"
 docker volume create passbolt_data > /dev/null 2>&1
 docker volume create passbolt_config > /dev/null 2>&1
-cat > passbolt.yaml <<'YAML'
+MYSQL_ROOT_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_mysql | awk -F"Senha:" '{print $2}' | xargs)
+cat > passbolt.yaml <<YAML
 version: "3.7"
 services:
   passbolt:
@@ -36,7 +37,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.passbolt.rule=Host(`$DOMAIN_PASSBOLT`)
+        - traefik.http.routers.passbolt.rule=Host(\`$DOMAIN_PASSBOLT\`)
         - traefik.http.routers.passbolt.entrypoints=websecure
         - traefik.http.routers.passbolt.tls.certresolver=letsencryptresolver
         - traefik.http.services.passbolt.loadbalancer.server.port=80
