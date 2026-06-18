@@ -32,6 +32,16 @@ services:
         limits:
           cpus: "4" # LLMs locais exigem mais CPU/GPU
           memory: 4096M
+
+volumes:
+  ollama_data:
+    external: true
+    name: ollama_data
+
+networks:
+  $NOME_REDE_INTERNA:
+    external: true
+    name: $NOME_REDE_INTERNA
 EOL
 
 deploy_via_portainer "$STACK_NAME" "ollama.yaml"
