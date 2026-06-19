@@ -54,7 +54,8 @@ services:
       - NEXT_PUBLIC_CONSOLE_URL=https://$DOMAIN_CALCOM
       - NEXT_PUBLIC_WEBSITE_URL=https://$DOMAIN_CALCOM
       - DATABASE_HOST=postgres
-      - DATABASE_URL=postgresql://postgres:$POSTGRES_PASS@postgres:5432/calcom
+      - DATABASE_URL=postgresql://postgres:$POSTGRES_PASS@postgres:5432/calcom?sslmode=disable
+      - DATABASE_DIRECT_URL=postgresql://postgres:$POSTGRES_PASS@postgres:5432/calcom?sslmode=disable
       - NEXTAUTH_SECRET=$NEXTAUTH_SECRET
       - CALENDSO_ENCRYPTION_KEY=$CALENDSO_ENCRYPTION_KEY
       - NEXT_PUBLIC_SUPPORT_MAIL_ADDRESS=$SMTP_EMAIL
