@@ -27,7 +27,7 @@ services:
       - KC_PROXY_HEADERS=xforwarded
       - KC_HTTP_RELATIVE_PATH=/
       - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/keycloak?sslmode=disable
+      - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak?sslmode=disable
       - KC_DB_USERNAME=postgres
       - KC_DB_PASSWORD=$POSTGRES_PASSWORD
       - KC_HEALTH_ENABLED=true

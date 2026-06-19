@@ -16,6 +16,14 @@ fi
 [ -z "$MASTER_KEY" ] && MASTER_KEY=$(openssl rand -hex 16)
 [ -z "$JWT_SECRET" ] && JWT_SECRET=$(openssl rand -hex 16)
 
+# Auth do MongoDB: o Mongo exige usuario/senha (senao code 13 Unauthorized).
+# Senha root e efemera (ADR-002), nao persistida — recupera do env do servico mongodb.
+MONGO_USER="${MONGO_USER:-root}"
+if [ -z "$MONGO_PASS" ]; then
+    MONGO_SVC=$(docker service ls --format '{{.Name}}' | grep -E '(^|_)mongodb' | head -1)
+    MONGO_PASS=$(docker service inspect "$MONGO_SVC" --format '{{range .Spec.TaskTemplate.ContainerSpec.Env}}{{println .}}{{end}}' 2>/dev/null | grep MONGO_INITDB_ROOT_PASSWORD | cut -d= -f2)
+fi
+
 echo -e "${amarelo}Instalando OpenSign...${reset}"
 docker volume create opensign_files > /dev/null 2>&1
 cat > opensign.yaml <<YAML
@@ -33,8 +41,8 @@ services:
       - SERVER_URL=https://$DOMAIN_OPENSIGN/app
       - PUBLIC_URL=https://$DOMAIN_OPENSIGN
       - PORT=8080
-      - MONGODB_URI=mongodb://mongodb:27017/OpenSignDB?authSource=admin
-      - DATABASE_URI=mongodb://mongodb:27017/OpenSignDB?authSource=admin
+      - MONGODB_URI=mongodb://$MONGO_USER:$MONGO_PASS@mongodb:27017/OpenSignDB?authSource=admin
+      - DATABASE_URI=mongodb://$MONGO_USER:$MONGO_PASS@mongodb:27017/OpenSignDB?authSource=admin
       - MASTER_KEY=$MASTER_KEY
       - JWT_SECRET=$JWT_SECRET
       - USE_LOCAL=true
