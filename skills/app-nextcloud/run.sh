@@ -49,8 +49,11 @@ services:
       - POSTGRES_DB=nextcloud
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - REDIS_HOST=nextcloud_redis
+      - NEXTCLOUD_TRUSTED_DOMAINS=$DOMAIN_NEXTCLOUD
+      - OVERWRITEHOST=$DOMAIN_NEXTCLOUD
+      - OVERWRITECLIURL=https://$DOMAIN_NEXTCLOUD
       - OVERWRITEPROTOCOL=https
-      - TRUSTED_PROXIES=127.0.0.1
+      - TRUSTED_PROXIES=10.0.0.0/8
     deploy:
       labels:
         - traefik.enable=true

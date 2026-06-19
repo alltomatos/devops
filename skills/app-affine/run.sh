@@ -31,6 +31,7 @@ version: "3.7"
 services:
   affine_app:
     image: ghcr.io/toeverything/affine:stable
+    command: sh -c "node ./scripts/self-host-predeploy.js && node ./dist/main.js"
     volumes:
       - affine_storage:/root/.affine/storage
       - affine_config:/root/.affine/config
@@ -47,7 +48,7 @@ services:
       - AFFINE_SERVER_PORT=3010
       - NODE_ENV=production
       - STORAGE_PROVIDER=fs
-      - AFFINE_INDEXER_ENABLED=true
+      - AFFINE_INDEXER_ENABLED=false
       - AFFINE_ENABLE_OAUTH=false
       - COPILOT_ENABLED=false
     deploy:

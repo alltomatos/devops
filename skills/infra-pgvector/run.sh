@@ -35,7 +35,7 @@ cat > pgvector.yaml <<EOL
 version: "3.7"
 services:
   pgvector:
-    image: ankane/pgvector:v0.4.1 # Imagem otimizada com pgvector
+    image: pgvector/pgvector:pg15 # Sucessor oficial de ankane/pgvector; pgvector 0.8.x (HNSW); PG15 = data dir compativel
     command: >
       postgres
       -c max_connections=500
