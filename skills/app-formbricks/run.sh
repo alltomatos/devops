@@ -21,11 +21,12 @@ else
     PG_PASS=$POSTGRES_PASSWORD
 fi
 
-# Carregar credenciais do MinIO (ADR-001)
+# Carregar credenciais do MinIO (ADR-001) — dados_minio usa Usuario:/Senha:, nao Access/Secret Key
 if [ -f "/root/dados_vps/dados_minio" ]; then
-    S3_ACCESS_KEY=$(grep "Access Key:" /root/dados_vps/dados_minio | awk '{print $3}')
-    S3_SECRET_KEY=$(grep "Secret Key:" /root/dados_vps/dados_minio | awk '{print $3}')
-    S3_URL=$(grep "URL API:" /root/dados_vps/dados_minio | awk '{print $3}' | sed 's/https:\/\///')
+    S3_ACCESS_KEY=$(grep "Usuario:" /root/dados_vps/dados_minio | awk -F"Usuario:" '{print $2}' | xargs)
+    S3_SECRET_KEY=$(grep "Senha:" /root/dados_vps/dados_minio | awk -F"Senha:" '{print $2}' | xargs)
+    # endpoint interno (mesma overlay) — evita passar por Traefik/publico
+    S3_ENDPOINT="http://minio:9000"
 else
     echo -e "\e[31mErro: app-minio não encontrado em /root/dados_vps/\e[0m"
     exit 1
@@ -43,9 +44,11 @@ if service_exists "app-formbricks"; then
     CRON_SECRET=$(echo "$DATA" | grep "\- Cron Secret:" | cut -d ':' -f 2 | xargs)
 fi
 
-[ -z "$ENCRYPTION_KEY" ] && ENCRYPTION_KEY=$(openssl rand -hex 32)
-[ -z "$NEXTAUTH_SECRET" ] && NEXTAUTH_SECRET=$(openssl rand -hex 32)
-[ -z "$CRON_SECRET" ] && CRON_SECRET=$(openssl rand -hex 32)
+# Formbricks valida que esses 3 segredos NAO excedam 32 bytes (hex 16 = 32 chars).
+# hex 32 (64 chars) -> "Invalid environment variables" no boot.
+[ -z "$ENCRYPTION_KEY" ] && ENCRYPTION_KEY=$(openssl rand -hex 16)
+[ -z "$NEXTAUTH_SECRET" ] && NEXTAUTH_SECRET=$(openssl rand -hex 16)
+[ -z "$CRON_SECRET" ] && CRON_SECRET=$(openssl rand -hex 16)
 
 # SSL para SMTP
 if [ "$SMTP_PORT" -eq 465 ] || [ "$SMTP_PORT" -eq 25 ]; then
@@ -91,7 +94,7 @@ services:
       - S3_SECRET_KEY=$S3_SECRET_KEY
       - S3_REGION=us-east-1
       - S3_BUCKET_NAME=formbricks
-      - S3_ENDPOINT_URL=https://$S3_URL
+      - S3_ENDPOINT_URL=$S3_ENDPOINT
       - S3_FORCE_PATH_STYLE=1
       - REDIS_URL=redis://redis:6379
     deploy:
