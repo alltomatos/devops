@@ -49,30 +49,42 @@ services:
 
   hoppscotch_backend:
     image: hoppscotch/hoppscotch-backend:latest
+    command: sh -c "pnpm exec prisma migrate deploy && node prod_run.mjs"
     networks:
       - $NOME_REDE_INTERNA
     environment:
       - URL=https://$DOMAIN_HOPPSCOTCH
       - ADMIN_URL=https://$DOMAIN_HOPPSCOTCH_ADMIN
+      - WHITELISTED_ORIGINS=https://$DOMAIN_HOPPSCOTCH,https://$DOMAIN_HOPPSCOTCH_ADMIN,https://$DOMAIN_HOPPSCOTCH_BACKEND,wss://$DOMAIN_HOPPSCOTCH_BACKEND
+      - VITE_ALLOWED_AUTH_PROVIDERS=EMAIL
+      - VITE_BASE_URL=https://$DOMAIN_HOPPSCOTCH
+      - VITE_SHORTCODE_BASE_URL=https://$DOMAIN_HOPPSCOTCH
+      - VITE_ADMIN_URL=https://$DOMAIN_HOPPSCOTCH_ADMIN
+      - VITE_BACKEND_GQL_URL=https://$DOMAIN_HOPPSCOTCH_BACKEND/graphql
+      - VITE_BACKEND_WS_URL=wss://$DOMAIN_HOPPSCOTCH_BACKEND/graphql
+      - VITE_BACKEND_API_URL=https://$DOMAIN_HOPPSCOTCH_BACKEND/v1
       - TOKEN_EXPIRY_TIME=2592000
       - SHORTCODE_URL=https://$DOMAIN_HOPPSCOTCH
       - ENCRYPTION_KEY=$ENC_KEY
+      - DATA_ENCRYPTION_KEY=$ENC_KEY
       - JWT_SECRET=$JWT_KEY
       - SESSION_SECRET=$SESSION_KEY
       - DATABASE_URL=postgresql://postgres:$POSTGRES_PASSWORD@postgres:5432/hoppscotch?sslmode=disable
-      - SMTP_HOST=$SMTP_HOST
-      - SMTP_PORT=$SMTP_PORT
-      - SMTP_USER=$SMTP_USER
-      - SMTP_PASSWORD=$SMTP_PASS
-      - SMTP_FROM=$SMTP_FROM_EMAIL
-      - SMTP_SECURE=false
+      - MAILER_USE_CUSTOM_CONFIGS=true
+      - MAILER_SMTP_HOST=$SMTP_HOST
+      - MAILER_SMTP_PORT=$SMTP_PORT
+      - MAILER_SMTP_SECURE=false
+      - MAILER_SMTP_USER=$SMTP_USER
+      - MAILER_SMTP_PASSWORD=$SMTP_PASS
+      - MAILER_ADDRESS_FROM=$SMTP_FROM_EMAIL
+      - MAILER_TLS_REJECT_UNAUTHORIZED=false
     deploy:
       labels:
         - traefik.enable=true
         - traefik.http.routers.hoppscotch_backend.rule=Host(\`$DOMAIN_HOPPSCOTCH_BACKEND\`)
         - traefik.http.routers.hoppscotch_backend.entrypoints=websecure
         - traefik.http.routers.hoppscotch_backend.tls.certresolver=letsencryptresolver
-        - traefik.http.services.hoppscotch_backend.loadbalancer.server.port=3000
+        - traefik.http.services.hoppscotch_backend.loadbalancer.server.port=80
       resources:
         limits:
           cpus: "1"

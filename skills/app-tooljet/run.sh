@@ -28,6 +28,7 @@ fi
 # Ler ou gerar segredos (idempotência)
 LOCKBOX_MASTER_KEY=$(read_data "app-tooljet" | grep -oP '(?<=- LOCKBOX_MASTER_KEY: ).*' || openssl rand -hex 16)
 SECRET_KEY_BASE=$(read_data "app-tooljet" | grep -oP '(?<=- SECRET_KEY_BASE: ).*' || openssl rand -hex 16)
+PGRST_JWT_SECRET=$(read_data "app-tooljet" | grep -oP '(?<=PGRST JWT Secret: ).*' || openssl rand -hex 32)
 
 echo -e "${amarelo}Instalando ToolJet no dominio $DOMAIN_TOOLJET...${reset}"
 
@@ -53,6 +54,14 @@ services:
       - LOCKBOX_MASTER_KEY=$LOCKBOX_MASTER_KEY
       - SECRET_KEY_BASE=$SECRET_KEY_BASE
       - DATABASE_URL=postgres://postgres:$POSTGRES_PASSWORD@postgres:5432/tooljet?sslmode=disable
+      - TOOLJET_DB=tooljet_db
+      - TOOLJET_DB_HOST=postgres
+      - TOOLJET_DB_PORT=5432
+      - TOOLJET_DB_USER=postgres
+      - TOOLJET_DB_PASS=$POSTGRES_PASSWORD
+      - PGRST_HOST=tooljet_pgrst
+      - PGRST_PORT=3000
+      - PGRST_JWT_SECRET=$PGRST_JWT_SECRET
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - DEFAULT_FROM_EMAIL=$SMTP_FROM_EMAIL
@@ -68,11 +77,26 @@ services:
         - traefik.http.routers.tooljet.rule=Host(\`$DOMAIN_TOOLJET\`)
         - traefik.http.routers.tooljet.entrypoints=websecure
         - traefik.http.routers.tooljet.tls.certresolver=letsencryptresolver
-        - traefik.http.services.tooljet.loadbalancer.server.port=80
+        - traefik.http.services.tooljet.loadbalancer.server.port=3000
       resources:
         limits:
           cpus: "2"
           memory: 4096M
+
+  tooljet_pgrst:
+    image: postgrest/postgrest:v12.2.0
+    networks:
+      - $NOME_REDE_INTERNA
+    environment:
+      - PGRST_DB_URI=postgres://postgres:$POSTGRES_PASSWORD@postgres:5432/tooljet_db
+      - PGRST_DB_ANON_ROLE=postgres
+      - PGRST_JWT_SECRET=$PGRST_JWT_SECRET
+      - PGRST_SERVER_PORT=3000
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
 
   tooljet_chroma:
     image: chromadb/chroma:latest
@@ -98,6 +122,7 @@ networks:
 YAML
 
 ensure_db "postgres" "tooljet" || { echo "Erro ao preparar o banco no postgres"; exit 1; }
+ensure_db "postgres" "tooljet_db" || { echo "Erro ao preparar o banco visual tooljet_db"; exit 1; }
 deploy_via_portainer "$STACK_NAME" "tooljet.yaml"
 
 if [ $? -eq 0 ]; then
@@ -113,6 +138,8 @@ Port: 80
 Lockbox Master Key: $LOCKBOX_MASTER_KEY
 
 Secret Key Base: $SECRET_KEY_BASE
+
+PGRST JWT Secret: $PGRST_JWT_SECRET
 
 Rede: $NOME_REDE_INTERNA"
 else

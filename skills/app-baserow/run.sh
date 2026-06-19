@@ -17,14 +17,14 @@ NOME_REDE_INTERNA="${NOME_REDE_INTERNA:-$(docker network ls --filter driver=over
 SECRET_KEY=$(read_data "app-baserow" | grep -oP '(?<=Secret Key: ).*' || openssl rand -hex 16)
 BASEROW_JWT_SECRET_KEY=$(read_data "app-baserow" | grep -oP '(?<=JWT Secret: ).*' || openssl rand -hex 16)
 
-# TLS SMTP
-SMTP_SECURE="false"
-if [ "$SMTP_PORT" -eq 465 ]; then
-    SMTP_SECURE="true"
-fi
-SMTP_TLS="false"
-if [ "$SMTP_PORT" = "587" ]; then
-    SMTP_TLS="true"
+# SMTP: no Baserow EMAIL_SMTP_USE_SSL e EMAIL_SMTP_USE_TLS sao mutuamente exclusivos
+# e a simples PRESENCA de ambas as vars ja gera ImproperlyConfigured (mesmo uma sendo false).
+# Definir SOMENTE uma, conforme a porta: 465=SSL, 587=STARTTLS, demais=nenhuma.
+SMTP_SECURITY_ENV=""
+if [ "$SMTP_PORT" = "465" ]; then
+    SMTP_SECURITY_ENV="      - EMAIL_SMTP_USE_SSL=true"
+elif [ "$SMTP_PORT" = "587" ]; then
+    SMTP_SECURITY_ENV="      - EMAIL_SMTP_USE_TLS=true"
 fi
 
 echo -e "${amarelo}Instalando Baserow no dominio $DOMAIN_BASEROW...${reset}"
@@ -43,6 +43,7 @@ services:
       - $NOME_REDE_INTERNA
     environment:
       - BASEROW_PUBLIC_URL=https://$DOMAIN_BASEROW
+      - BASEROW_CADDY_ADDRESSES=:80
       - SECRET_KEY=$SECRET_KEY
       - BASEROW_JWT_SIGNING_KEY=$BASEROW_JWT_SECRET_KEY
       - EMAIL_SMTP=true
@@ -51,12 +52,13 @@ services:
       - EMAIL_SMTP_PASSWORD=$SMTP_PASS
       - EMAIL_SMTP_HOST=$SMTP_HOST
       - EMAIL_SMTP_PORT=$SMTP_PORT
-      - EMAIL_SMTP_USE_SSL=$SMTP_SECURE
-      - EMAIL_SMTP_USE_TLS=$SMTP_TLS
+$SMTP_SECURITY_ENV
       - MIGRATE_ON_STARTUP=true
       - REDIS_HOST=baserow_redis
       - REDIS_PORT=6379
       - REDIS_URL=redis://baserow_redis:6379/1
+    healthcheck:
+      disable: true
     deploy:
       labels:
         - traefik.enable=true

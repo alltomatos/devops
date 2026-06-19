@@ -23,6 +23,9 @@ docker volume create mautic_media > /dev/null 2>&1
 docker volume create mautic_logs > /dev/null 2>&1
 docker volume create mautic_cron > /dev/null 2>&1
 
+# Senha real do MySQL (dependencia) — sem escape no YAML (armadilha #3)
+MYSQL_ROOT_PASSWORD=$(grep "Senha:" /root/dados_vps/dados_mysql | awk -F"Senha:" '{print $2}' | xargs)
+
 cat > mautic.yaml <<EOL
 version: "3.7"
 services:
@@ -42,7 +45,7 @@ services:
       - MAUTIC_DB_HOST=mysql
       - MAUTIC_DB_PORT=3306
       - MAUTIC_DB_USER=root
-      - MAUTIC_DB_PASSWORD=\$MYSQL_ROOT_PASSWORD
+      - MAUTIC_DB_PASSWORD=$MYSQL_ROOT_PASSWORD
       - MAUTIC_TRUSTED_PROXIES=["0.0.0.0/0"]
       - DOCKER_MAUTIC_ROLE=mautic_web
     deploy:
@@ -71,7 +74,9 @@ services:
       - MAUTIC_URL=https://$DOMAIN_MAUTIC
       - MAUTIC_DB_NAME=mautic
       - MAUTIC_DB_HOST=mysql
-      - MAUTIC_DB_PASSWORD=\$MYSQL_ROOT_PASSWORD
+      - MAUTIC_DB_PORT=3306
+      - MAUTIC_DB_USER=root
+      - MAUTIC_DB_PASSWORD=$MYSQL_ROOT_PASSWORD
       - DOCKER_MAUTIC_ROLE=mautic_worker
     deploy:
       resources:
@@ -93,7 +98,9 @@ services:
       - MAUTIC_URL=https://$DOMAIN_MAUTIC
       - MAUTIC_DB_NAME=mautic
       - MAUTIC_DB_HOST=mysql
-      - MAUTIC_DB_PASSWORD=\$MYSQL_ROOT_PASSWORD
+      - MAUTIC_DB_PORT=3306
+      - MAUTIC_DB_USER=root
+      - MAUTIC_DB_PASSWORD=$MYSQL_ROOT_PASSWORD
       - DOCKER_MAUTIC_ROLE=mautic_cron
     deploy:
       resources:
